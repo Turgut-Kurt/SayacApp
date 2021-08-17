@@ -1,0 +1,16 @@
+<svg id="Icons_Group" data-name="Icons/Group" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 26 26">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M19.5,20A1.5,1.5,0,0,0,21,18.5V16.834C21,14.1,18.483,12,15.5,12h4c2.983,0,5.5,2.1,5.5,4.834V18.5A1.5,1.5,0,0,1,23.5,20Zm-18,0A1.5,1.5,0,0,1,0,18.5V16.834C0,14.1,2.516,12,5.5,12h8c2.983,0,5.5,2.1,5.5,4.834V18.5A1.5,1.5,0,0,1,17.5,20Zm12-9.374a5.5,5.5,0,0,0,0-10.25,5.5,5.5,0,1,1,0,10.25ZM4,5.5A5.5,5.5,0,1,1,9.5,11,5.5,5.5,0,0,1,4,5.5Z" transform="translate(0.5 3)" fill="#ee8777"/>
+    </clipPath>
+  </defs>
+  <rect id="Icons_Group_background" data-name="Icons/Group background" width="26" height="26" fill="#fff"/>
+  <g id="Group_34" data-name="Group 34">
+    <path id="Shape-2" data-name="Shape" d="M19.5,20A1.5,1.5,0,0,0,21,18.5V16.834C21,14.1,18.483,12,15.5,12h4c2.983,0,5.5,2.1,5.5,4.834V18.5A1.5,1.5,0,0,1,23.5,20Zm-18,0A1.5,1.5,0,0,1,0,18.5V16.834C0,14.1,2.516,12,5.5,12h8c2.983,0,5.5,2.1,5.5,4.834V18.5A1.5,1.5,0,0,1,17.5,20Zm12-9.374a5.5,5.5,0,0,0,0-10.25,5.5,5.5,0,1,1,0,10.25ZM4,5.5A5.5,5.5,0,1,1,9.5,11,5.5,5.5,0,0,1,4,5.5Z" transform="translate(0.5 3)" fill="#ee8777"/>
+    <g id="Mask_Group_34" data-name="Mask Group 34" clip-path="url(#clip-path)">
+      <g id="_Color" data-name="↳ 🎨Color">
+        <path id="Color" d="M0,0H26V26H0Z" fill="#ee8777"/>
+      </g>
+    </g>
+  </g>
+</svg>

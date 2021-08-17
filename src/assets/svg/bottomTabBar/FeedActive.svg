@@ -1,0 +1,16 @@
+<svg id="Icons_Flame" data-name="Icons/Flame" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 26 26">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M4.941,0c.228.021,4.941,1.451,4.941,5.222,0,4.661-2.626,5.666-1.853,7.131s3.088,1.235,4.149-1.235-.328-6.371,0-5.9c2.91,4.207,3.88,4.892,3.88,7.314A8.255,8.255,0,0,1,8.029,21,8.255,8.255,0,0,1,0,12.536C0,9.677,2.882,7.452,4.456,5.222S4.86-.008,4.941,0Z" transform="translate(4.5 2.5)" fill="#ee8777"/>
+    </clipPath>
+  </defs>
+  <rect id="Icons_Flame_background" data-name="Icons/Flame background" width="26" height="26" fill="#fff"/>
+  <g id="Group_3" data-name="Group 3">
+    <path id="Shape-2" data-name="Shape" d="M4.941,0c.228.021,4.941,1.451,4.941,5.222,0,4.661-2.626,5.666-1.853,7.131s3.088,1.235,4.149-1.235-.328-6.371,0-5.9c2.91,4.207,3.88,4.892,3.88,7.314A8.255,8.255,0,0,1,8.029,21,8.255,8.255,0,0,1,0,12.536C0,9.677,2.882,7.452,4.456,5.222S4.86-.008,4.941,0Z" transform="translate(4.5 2.5)" fill="#ee8777"/>
+    <g id="Mask_Group_3" data-name="Mask Group 3" clip-path="url(#clip-path)">
+      <g id="_Color" data-name="↳ 🎨Color">
+        <path id="Color" d="M0,0H26V26H0Z" fill="#ee8777"/>
+      </g>
+    </g>
+  </g>
+</svg>

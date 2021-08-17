@@ -1,0 +1,16 @@
+<svg id="Icons_Dots" data-name="Icons/Dots" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 26 26">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M16,2.5A2.5,2.5,0,1,1,18.5,5,2.5,2.5,0,0,1,16,2.5Zm-8,0A2.5,2.5,0,1,1,10.5,5,2.5,2.5,0,0,1,8,2.5Zm-8,0A2.5,2.5,0,1,1,2.5,5,2.5,2.5,0,0,1,0,2.5Z" transform="translate(2.5 10.5)" fill="#ee8777"/>
+    </clipPath>
+  </defs>
+  <rect id="Icons_Dots_background" data-name="Icons/Dots background" width="26" height="26" fill="#fff"/>
+  <g id="Group_6" data-name="Group 6">
+    <path id="Shape-2" data-name="Shape" d="M16,2.5A2.5,2.5,0,1,1,18.5,5,2.5,2.5,0,0,1,16,2.5Zm-8,0A2.5,2.5,0,1,1,10.5,5,2.5,2.5,0,0,1,8,2.5Zm-8,0A2.5,2.5,0,1,1,2.5,5,2.5,2.5,0,0,1,0,2.5Z" transform="translate(2.5 10.5)" fill="#ee8777"/>
+    <g id="Mask_Group_6" data-name="Mask Group 6" clip-path="url(#clip-path)">
+      <g id="_Color" data-name="↳ 🎨Color">
+        <path id="Color" d="M0,0H26V26H0Z" fill="#ee8777"/>
+      </g>
+    </g>
+  </g>
+</svg>
