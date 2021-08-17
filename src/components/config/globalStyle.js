@@ -87,15 +87,5 @@ const globalStyle = StyleSheet.create({
   },
   inputContainerStyle: {width: calcWidth(88), height: calculate(52)},
   textInputStyle: {width: calcWidth(88), height: calculate(46)},
-  trqtShadow1: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 5,
-  },
 });
 export {globalStyle};

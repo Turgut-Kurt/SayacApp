@@ -1,14 +1,15 @@
 // Color system
 const colors = {
-  MainWhite: '#ffffff',
-  MainRed: '#ff0101',
-  MainPink: '#FF6363',
-  MainGray: '#707070',
-  Black: '#000000',
-  Yellow: '#FFCC00',
-  Pink: '#EE8777',
-  Gray: '#8A8A8F',
-  NewGray: '#ABA9A7',
-  BackColor: '#ffffff',
+  MainBlack: '#292929',
+  MainDarkGray: '#8D8D8D',
+  MainGray: '#C4C4C4',
+  MainBlue: '#2A70FA',
+  MainLightBlue: '#6D96E4',
+  Water: '#D0DCF4',
+  MainBeige: '#F2DCDC',
+  MainBrown: '#993E3E',
+  MainGreen: '#468A44',
+  MainLightGreen: '#D3EED2',
+  MainLightWhite: '#ECEFF5',
 };
 export {colors};
