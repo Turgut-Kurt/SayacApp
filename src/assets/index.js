@@ -1,59 +1,30 @@
-import Dots from './svg/header/Dots.svg';
-import DotsGray from './svg/post/DotsGray.svg';
-import EyesGray from './svg/post/EyesGray.svg';
-import Feed from './svg/bottomTabBar/Feed.svg';
-import FeedActive from './svg/bottomTabBar/FeedActive.svg';
-import Friends from './svg/bottomTabBar/Friends.svg';
-import FriendsActive from './svg/bottomTabBar/FriendsActive.svg';
-import Heart from './svg/post/Heart.svg';
-import HeartClicked from './svg/post/HeartClicked.svg';
-import Message from './svg/post/Message.svg';
-import Messages from './svg/bottomTabBar/Messages.svg';
-import MessagesActive from './svg/bottomTabBar/MessagesActive.svg';
-import Photo from './svg/header/Photo.svg';
-import Plus from './svg/header/Plus.svg';
-import Profile from './svg/bottomTabBar/Profile.svg';
-import ProfileActive from './svg/bottomTabBar/ProfileActive.svg';
-import Settings from './svg/bottomTabBar/Settings.svg';
-import SettingsActive from './svg/bottomTabBar/SettingsActive.svg';
+import Bills from './svg/bottomTabBar/bills.svg';
+import BillsSelected from './svg/bottomTabBar/bills_selected.svg';
+import Houses from './svg/bottomTabBar/houses.svg';
+import HousesSelected from './svg/bottomTabBar/houses_selected.svg';
+import Settings from './svg/bottomTabBar/settings.svg';
+import SettingsSelected from './svg/bottomTabBar/settings_selected.svg';
+import Status from './svg/bottomTabBar/status.svg';
+import StatusSelected from './svg/bottomTabBar/status_selected.svg';
 import background from './images/background.png';
 import home from './svg/home.svg';
 import home_add from './svg/home_add.svg';
 import home_filter from './svg/home_filter.svg';
 import home_logo from './svg/home_logo.svg';
 import human from './images/human.png';
-import loadingAnimation from './lottie/44123-customer-support-women.json';
 import loginlogo from './images/loginlogo.png';
 import post1 from './images/Posts/1.jpg';
 import post2 from './images/Posts/2.jpg';
-import socialMediaAnimation from './lottie/social-media.json';
 
 export {
-  loadingAnimation,
-  Feed,
-  FeedActive,
-  Friends,
-  FriendsActive,
-  Messages,
-  MessagesActive,
-  Profile,
-  ProfileActive,
+  Houses,
+  HousesSelected,
+  Bills,
+  BillsSelected,
+  Status,
+  StatusSelected,
   Settings,
-  SettingsActive,
-  Dots,
-  Photo,
-  Plus,
-  human,
-  post1,
-  post2,
-  DotsGray,
-  EyesGray,
-  Heart,
-  HeartClicked,
-  Message,
-  loginlogo,
-  socialMediaAnimation,
-  background,
+  SettingsSelected,
   home_add,
   home_filter,
   home_logo,
