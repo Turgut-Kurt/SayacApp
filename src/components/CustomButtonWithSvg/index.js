@@ -1,11 +1,9 @@
 import {PropTypes, ViewPropTypes} from '~/components/config';
 import {Text, TouchableOpacity, View} from 'react-native';
-
 import React from 'react';
 import VectorImage from 'react-native-vector-image';
 import {home_add} from '~assets';
 import styles from './styles';
-
 const CustomButtonWithSvg = props => {
   const {onPress, containerStyle, svgStyle, svg, textStyle, text} = props;
   return (
@@ -17,7 +15,6 @@ const CustomButtonWithSvg = props => {
     </TouchableOpacity>
   );
 };
-
 CustomButtonWithSvg.propTypes = {
   onPress: PropTypes.func,
   ContainerStyle: ViewPropTypes.style,
