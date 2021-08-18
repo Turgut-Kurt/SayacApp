@@ -18,10 +18,10 @@ import {StyleSheet, Text} from 'react-native';
 
 import React from 'react';
 import VectorImage from 'react-native-vector-image';
-import {colors} from '~/components/config';
+import {colors} from '~components';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {fontSize} from '~utils';
-import {homeTabs} from '~/config/navigators';
+import {homeTabs} from '~config';
 
 const Tab = createMaterialBottomTabNavigator();
 
