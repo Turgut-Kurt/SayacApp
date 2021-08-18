@@ -1,6 +1,7 @@
 // Color system
 const colors = {
   MainBlack: '#292929',
+  MainWhite: '#FFFFFF',
   MainDarkGray: '#8D8D8D',
   MainGray: '#C4C4C4',
   MainBlue: '#2A70FA',

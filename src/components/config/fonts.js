@@ -1,3 +1,5 @@
+import {fontSize} from '~utils';
+
 // Font family
 const Black = 'Gilroy-Black';
 const BlackItalic = 'Gilroy-BlackItalic';
@@ -24,7 +26,7 @@ const sizes = {
   base: 14,
   h1: 30,
   h2: 24,
-  h3: 18,
+  h3: fontSize(18),
   h4: 16,
   h5: 14,
   h6: 12,
@@ -41,7 +43,7 @@ const lineHeights = {
   h2: 33,
   h3: 28,
   h4: 23,
-  h5: 20,
+  h5: fontSize(20),
   h6: 17,
   h7: 14,
 };
