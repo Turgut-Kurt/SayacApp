@@ -1,15 +1,13 @@
 import {calcWidth, calculate} from '~utils';
 import {colors, fonts, globalStyle, lineHeights, sizes} from '../config';
-
 import {StyleSheet} from 'react-native';
-
 const styles = StyleSheet.create({
   Button: {
     ...globalStyle.asc,
     ...globalStyle.jccaic,
-    width: calcWidth(88),
+    width: calcWidth(92),
     height: calculate(48),
-    borderRadius: calculate(12),
+    borderRadius: calculate(100),
   },
   TrueButton: {
     borderWidth: 2.5,
