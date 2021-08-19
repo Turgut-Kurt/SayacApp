@@ -1,3 +1,5 @@
+import {fontSize} from '~utils';
+
 // Font family
 const Black = 'Gilroy-Black';
 const BlackItalic = 'Gilroy-BlackItalic';
@@ -21,17 +23,17 @@ const UltraLight = 'Gilroy-UltraLight';
 const UltraLightItalic = 'Gilroy-UltraLightItalic';
 // Export font size
 const sizes = {
-  base: 14,
-  h1: 30,
-  h2: 24,
-  h3: 18,
-  h4: 16,
-  h5: 14,
-  h6: 12,
-  h7: 10,
-  t17: 17,
-  t20: 20,
-  t31: 31,
+  base: fontSize(14),
+  h1: fontSize(30),
+  h2: fontSize(24),
+  h3: fontSize(18),
+  h4: fontSize(16),
+  h5: fontSize(14),
+  h6: fontSize(12),
+  h7: fontSize(10),
+  t17: fontSize(17),
+  t20: fontSize(20),
+  t31: fontSize(31),
 };
 
 // Export lineheights
@@ -41,7 +43,7 @@ const lineHeights = {
   h2: 33,
   h3: 28,
   h4: 23,
-  h5: 20,
+  h5: fontSize(20),
   h6: 17,
   h7: 14,
 };
