@@ -1,11 +1,14 @@
-import {Text, View} from 'react-native';
-
+import { Text, View } from 'react-native';
+import { StatusHeader } from '~components';
 import React from 'react';
+
+
 
 const BillsScreen = () => {
   return (
     <View>
-      <Text>BillsScreen</Text>
+      <StatusHeader />
+      
     </View>
   );
 };
