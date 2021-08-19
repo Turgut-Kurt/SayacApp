@@ -53,6 +53,7 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+<<<<<<< HEAD
 		<string>Gilroy-Black.otf</string>
 		<string>Gilroy-BlackItalic.otf</string>
 		<string>Gilroy-Bold.otf</string>
@@ -73,6 +74,8 @@
 		<string>Gilroy-ThinItalic.otf</string>
 		<string>Gilroy-UltraLight.otf</string>
 		<string>Gilroy-UltraLightItalic.otf</string>
+=======
+>>>>>>> main
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
