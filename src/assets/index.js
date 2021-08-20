@@ -27,7 +27,11 @@ import loginlogo from './images/loginlogo.png';
 import post1 from './images/Posts/1.jpg';
 import post2 from './images/Posts/2.jpg';
 import socialMediaAnimation from './lottie/social-media.json';
-
+import centerfocus from './svg/centerfocus.svg';
+import toberead from './svg/toberead.svg';
+import checkcircle from './svg/checkcircle.svg';
+import arrow from './svg/arrow.svg';
+import checkGray from './svg/checkGray.svg';
 export {
   loadingAnimation,
   Feed,
@@ -58,4 +62,9 @@ export {
   home_filter,
   home_logo,
   home,
+  centerfocus,
+  toberead,
+  checkcircle,
+  arrow,
+  checkGray,
 };
