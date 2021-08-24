@@ -1,27 +1,27 @@
 import {
+  Bills,
+  BillsSelected,
+  Houses,
+  HousesSelected,
+  Settings,
+  SettingsSelected,
+  Status,
+  StatusSelected,
+} from '~assets';
+import {
   BillsScreen,
   HousesScreen,
   SettingsScreen,
   StatusScreen,
 } from '~screens';
-import {
-  Feed,
-  FeedActive,
-  Friends,
-  FriendsActive,
-  Messages,
-  MessagesActive,
-  Settings,
-  SettingsActive,
-} from '~assets';
 import {StyleSheet, Text} from 'react-native';
 
 import React from 'react';
 import VectorImage from 'react-native-vector-image';
-import {colors} from '~/components/config';
+import {colors} from '~components';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {fontSize} from '~utils';
-import {homeTabs} from '~/config/navigators';
+import {homeTabs} from '~config';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -29,8 +29,8 @@ const HomeTabs = () => {
   return (
     <Tab.Navigator
       shifting={false}
-      activeColor={colors.Pink}
-      inactiveColor={colors.Gray}
+      activeColor={colors.MainBlue}
+      inactiveColor={colors.Water}
       barStyle={styles.barStyle}>
       <Tab.Screen
         name={homeTabs.houses}
@@ -40,7 +40,7 @@ const HomeTabs = () => {
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={styles.svgStyle}
-              source={focused ? FeedActive : Feed}
+              source={!focused ? Houses : HousesSelected}
             />
           ),
         }}
@@ -53,7 +53,7 @@ const HomeTabs = () => {
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={styles.svgStyle}
-              source={focused ? FriendsActive : Friends}
+              source={!focused ? Bills : BillsSelected}
             />
           ),
         }}
@@ -65,8 +65,8 @@ const HomeTabs = () => {
           tabBarLabel: <Text>Durum</Text>,
           tabBarIcon: ({focused}) => (
             <VectorImage
-              style={[styles.svgStyle, {backgroundColor: 'red'}]}
-              source={focused ? MessagesActive : Messages}
+              style={[styles.svgStyle]}
+              source={!focused ? Status : StatusSelected}
             />
           ),
         }}
@@ -79,7 +79,7 @@ const HomeTabs = () => {
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={styles.svgStyle}
-              source={focused ? SettingsActive : Settings}
+              source={!focused ? Settings : SettingsSelected}
             />
           ),
         }}
