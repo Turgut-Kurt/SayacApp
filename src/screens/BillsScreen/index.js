@@ -1,10 +1,9 @@
-import { Text, View, FlatList, ScrollView } from 'react-native';
+import { Text, View, FlatList, ScrollView, Modal, Button, StyleSheet } from 'react-native';
 import { BillsCard, BillsDetailCard,BillsHeader} from '~components';
-//import { SearchInput } from '~components';
-import React from 'react';
+import React,{useState} from 'react';
 
 const BillsScreen = () => {
-
+  
   const data = {
   cards: [{
     status: "Tamamlandı",
@@ -31,15 +30,19 @@ const BillsScreen = () => {
   
   return (
     <View style={{ backgroundColor: 'white', flex: 1 }}>
-        <BillsHeader />
-        <FlatList
-          //ListHeaderComponent={() => (<SearchInput/>)}
-          renderItem={({item}) => <BillsCard {...item} />}
-          data={data.cards}
-          keyExtractor={(item, index) => index.toString()}
-        />
-         <BillsDetailCard />
+      
+      {/* <BillsHeader />
+      <FlatList
+        //ListHeaderComponent={() => (<SearchInput/>)}
+        renderItem={({item}) => <BillsCard {...item} />}
+        data={data.cards}
+        keyExtractor={(item, index) => index.toString()}
+      /> */}
+      <BillsDetailCard />
+      
     </View>
   );
 };
+
+
 export {BillsScreen};

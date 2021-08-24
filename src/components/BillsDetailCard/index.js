@@ -1,15 +1,17 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import React,{useState} from 'react';
+import { View, Text, Image, TouchableOpacity, Pressable, Modal, Button, TextInput } from 'react-native';
 import VectorImage from 'react-native-vector-image';
 import { PropTypes, ViewPropTypes } from '~/components/config';
 import styles from './styles';
-import { centerfocus, home, checkGray, arrow } from '~assets';
+import { centerfocus, home, checkGray, arrow,meterRead } from '~assets';
 import {StatusCard} from './../StatusCard'
 
 const BillsDetailCard = (props) => {
     const {  an, name, sn, adress, date, onPress, status, meter,time, onPressArrow} = props;
+    const [modal, setModal] = useState(false);
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const modalBackgroundStyle = {  backgroundColor: 'rgba(0, 0, 0, 0.5)'   };
 
-    
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={onPressArrow} style={styles.arrow}>
@@ -40,6 +42,49 @@ const BillsDetailCard = (props) => {
                 <Text style={styles.info}>Sayaç okuma zamanı geldi</Text>
                 <Text style={styles.time}>{time}</Text>
             </View>
+            
+            <Pressable style={styles.pressable} onPress={() => setModal(true)}>
+                <Text>Sayaç Oku</Text>
+            </Pressable>
+           
+
+            <View  style={styles.modal} >
+                <Modal visible={modal} transparent={true} animationType='slide'>
+                    <View style={[styles.modal, modalBackgroundStyle]}>
+                        <View style={styles.modalinside}>
+                            <Text style={styles.modalText}>Sayaçta Okuduğunuz Değeri Giriniz</Text>
+                            <TextInput style={styles.modalInput}/>
+                            <View style={styles.modalButtons}>
+                                <Pressable style={styles.save} onPress={() => {
+                                    setModalSuccess(true);
+                                    setModal(false)
+                                }}>
+                                    <Text>Kaydet</Text>
+                                </Pressable>
+                                <Pressable style={styles.cancel} onPress={() => setModal(false)}>
+                                    <Text>İptal</Text>
+                                </Pressable>
+                            </View>
+                            
+                        </View>
+                    </View>
+                </Modal>
+            </View>
+            <View  style={styles.modal} >
+                <Modal visible={modalSuccess} transparent={true} animationType='slide'>
+                    <View style={[styles.modal, modalBackgroundStyle]}>
+                        <View style={styles.modalinside}>
+                            <VectorImage style={styles.modalSvg} source={meterRead} />
+                            <Text style={styles.modalText}>Sayaç Başarıyla Okundu</Text>
+                            <Pressable style={styles.saved} onPress={() => setModalSuccess(false)}>
+                                <Text>Tamam</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
+
+                       
         </View>
     );
 };
@@ -73,7 +118,6 @@ BillsDetailCard.defaultProps = {
 
 
 export  {BillsDetailCard};
-
 
 
 

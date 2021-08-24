@@ -32,6 +32,11 @@ import toberead from './svg/toberead.svg';
 import checkcircle from './svg/checkcircle.svg';
 import arrow from './svg/arrow.svg';
 import checkGray from './svg/checkGray.svg';
+import meterRead from './svg/meterRead.svg';
+import wallet from './svg/wallet.svg';
+import printed from './svg/printed.svg';
+import notPrinted from './svg/notPrinted.svg';
+import warning from './svg/warning.svg';
 export {
   loadingAnimation,
   Feed,
@@ -67,4 +72,9 @@ export {
   checkcircle,
   arrow,
   checkGray,
+  meterRead,
+  wallet,
+  notPrinted,
+  printed,
+  warning,
 };
