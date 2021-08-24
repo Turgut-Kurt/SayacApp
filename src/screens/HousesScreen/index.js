@@ -5,7 +5,7 @@ import {CustomButtonWithSvg} from '~components';
 import React from 'react';
 import {colors} from '../../components/config/colors';
 import {home_filter} from '~assets';
-import {sizes} from '../../components/config/fonts';
+//import {sizes} from '../../components/config/fonts';
 
 const data = {
   cards: [
@@ -31,6 +31,10 @@ const HousesScreen = () => {
 
   return (
     <View style={{backgroundColor: '#ffffff'}}>
+      <Text>HousesScreen</Text>
+      <CustomButtonWithSvg />
+      <CustomButtonWithSvg />
+      <CustomButtonWithSvg svg={home_filter} text={'Filtrele'} />
       <View style={{marginHorizontal: 16}}>
         <SearchInput onChange={val => onSearch(val)} />
       </View>

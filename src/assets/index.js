@@ -14,6 +14,12 @@ import human from './images/human.png';
 import loginlogo from './images/loginlogo.png';
 import post1 from './images/Posts/1.jpg';
 import post2 from './images/Posts/2.jpg';
+import socialMediaAnimation from './lottie/social-media.json';
+import centerfocus from './svg/centerfocus.svg';
+import toberead from './svg/toberead.svg';
+import checkcircle from './svg/checkcircle.svg';
+import arrow from './svg/arrow.svg';
+import checkGray from './svg/checkGray.svg';
 import bill_detail_icon from './svg/detail/center_focus_strong_black_24dp1.svg';
 import calculator from './svg/settings/Frame2.svg';
 import locked from './svg/settings/lock_black_24dp1.svg';
@@ -35,6 +41,11 @@ export {
   home_filter,
   home_logo,
   home,
+  centerfocus,
+  toberead,
+  checkcircle,
+  arrow,
+  checkGray,
   bill_detail_icon,
   calculator,
   locked,
