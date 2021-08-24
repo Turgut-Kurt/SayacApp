@@ -11,5 +11,6 @@ const colors = {
   MainGreen: '#468A44',
   MainLightGreen: '#D3EED2',
   MainLightWhite: '#ECEFF5',
+  MainRed : '#CC3636',
 };
 export {colors};
