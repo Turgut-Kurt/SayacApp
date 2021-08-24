@@ -6,7 +6,6 @@ import Settings from './svg/bottomTabBar/settings.svg';
 import SettingsSelected from './svg/bottomTabBar/settings_selected.svg';
 import Status from './svg/bottomTabBar/status.svg';
 import StatusSelected from './svg/bottomTabBar/status_selected.svg';
-import background from './images/background.png';
 import home from './svg/home.svg';
 import home_add from './svg/home_add.svg';
 import home_filter from './svg/home_filter.svg';

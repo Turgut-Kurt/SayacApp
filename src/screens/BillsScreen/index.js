@@ -1,9 +1,10 @@
-import {Text, View} from 'react-native';
-
+import { Text, View } from 'react-native';
+import { StatusHeader } from '~components';
 import React from 'react';
 
 import { HouseDetail, HouseBillDetail } from '~components';
 import { arrow_right } from '~/assets';
+
 
 const BillsScreen = () => {
   return (
@@ -45,6 +46,8 @@ const BillsScreen = () => {
         status="Tamamlandı"
         value='12'
       />
+      <StatusHeader />
+      
     </View>
   );
 };

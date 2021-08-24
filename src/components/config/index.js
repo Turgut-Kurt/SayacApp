@@ -3,7 +3,7 @@ import {fonts, lineHeights, sizes} from './fonts';
 import PropTypes from 'prop-types';
 import ViewPropTypes from './ViewPropTypes';
 import {colors} from './colors';
-import {globalStyle} from './globalStyle';
+import { globalStyle } from './globalStyle';
 
 export {
   colors,
@@ -11,6 +11,6 @@ export {
   PropTypes,
   ViewPropTypes,
   fonts,
-  lineHeights,
   sizes,
+  lineHeights,
 };
