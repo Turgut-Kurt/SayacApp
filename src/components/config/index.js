@@ -5,6 +5,7 @@ import ViewPropTypes from './ViewPropTypes';
 import {colors} from './colors';
 import { globalStyle } from './globalStyle';
 
+export {colors, globalStyle, PropTypes, ViewPropTypes, fonts,sizes,lineHeights};
 export {
   colors,
   globalStyle,
