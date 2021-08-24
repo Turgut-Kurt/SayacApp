@@ -76,7 +76,7 @@ HouseBillDetail.propTypes = {
     month: PropTypes.string,
     year: PropTypes.string,
     status: PropTypes.string,
-    value: PropTypes.number,
+    value: PropTypes.string,
     svg2: PropTypes.number,
     svg3: PropTypes.number,
     valueText: ViewPropTypes.style,
