@@ -77,7 +77,7 @@ const MontlyStatusCard = (props) => {
         
     };
     
-    console.log(monthlyStatusData)
+    
 
 
     const TotalBills = Object.keys(bills).length;
