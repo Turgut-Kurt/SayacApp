@@ -8,20 +8,17 @@ import {
   Status,
   StatusSelected,
 } from '~assets';
-import {
-  BillsScreen,
-  HousesScreen,
-  SettingsScreen,
-  StatusScreen,
-} from '~screens';
+import {StatusScreen} from '~screens';
 import {StyleSheet, Text} from 'react-native';
-
 import React from 'react';
 import VectorImage from 'react-native-vector-image';
 import {colors} from '~components';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {fontSize} from '~utils';
 import {homeTabs} from '~config';
+import HomeStack from './HomeStack';
+import SettingStack from './SettingStack';
+import BillStack from './BillStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -33,8 +30,8 @@ const HomeTabs = () => {
       inactiveColor={colors.Water}
       barStyle={styles.barStyle}>
       <Tab.Screen
-        name={homeTabs.houses}
-        component={HousesScreen}
+        name={homeTabs.home_stack}
+        component={HomeStack}
         options={{
           tabBarLabel: <Text>Haneler</Text>,
           tabBarIcon: ({focused}) => (
@@ -46,8 +43,8 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name={homeTabs.bills}
-        component={BillsScreen}
+        name={homeTabs.bill_stack}
+        component={BillStack}
         options={{
           tabBarLabel: <Text>Faturalar</Text>,
           tabBarIcon: ({focused}) => (
@@ -72,8 +69,8 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name={homeTabs.settings}
-        component={SettingsScreen}
+        name={homeTabs.settings_stack}
+        component={SettingStack}
         options={{
           tabBarLabel: <Text>Ayarlar</Text>,
           tabBarIcon: ({focused}) => (

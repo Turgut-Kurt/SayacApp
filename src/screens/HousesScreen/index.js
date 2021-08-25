@@ -1,12 +1,11 @@
 import {FlatList, Text, View} from 'react-native';
-import {HouseCard, SearchInput, StatusBadge} from '~components';
+import {HouseCard, SearchInput} from '~components';
 
 import {CustomButtonWithSvg} from '~components';
 import React from 'react';
-import {colors} from '../../components/config/colors';
 import {home_filter} from '~assets';
-//import {sizes} from '../../components/config/fonts';
-
+import {navigate} from '~utils';
+import {homeStack} from '~config';
 const data = {
   cards: [
     {
@@ -32,9 +31,13 @@ const HousesScreen = () => {
   return (
     <View style={{backgroundColor: '#ffffff'}}>
       <Text>HousesScreen</Text>
+      <CustomButtonWithSvg onPress={() => navigate(homeStack.add_house)} />
       <CustomButtonWithSvg />
-      <CustomButtonWithSvg />
-      <CustomButtonWithSvg svg={home_filter} text={'Filtrele'} />
+      <CustomButtonWithSvg
+        onPress={() => navigate(homeStack.house_detail)}
+        svg={home_filter}
+        text={'Filtrele'}
+      />
       <View style={{marginHorizontal: 16}}>
         <SearchInput onChange={val => onSearch(val)} />
       </View>

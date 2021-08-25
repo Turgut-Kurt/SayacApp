@@ -1,7 +1,7 @@
 import HomeTabs from './HomeTabs';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {mainStack} from '~/config/navigators';
+import {mainStack} from '~config';
 
 //import {Loading, LoginScreen, RegisterScreen, WelcomeScreen} from '~/screens';
 const Stack = createStackNavigator();

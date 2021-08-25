@@ -6,12 +6,12 @@ import {SafeAreaView} from 'react-native';
 import Toast from 'react-native-toast-message';
 //import store from './store';
 
-//import {navigationRef} from '~utils';
+import {navigationRef} from '~utils';
 
 const App = () => {
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <SafeAreaView style={{flex: 1}}>
           <MainStack />
         </SafeAreaView>

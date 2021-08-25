@@ -20,7 +20,10 @@ function navigate12(routeName, params) {
     }),
   );
 }
+function goBack() {
+  navigationRef.current?.dispatch(CommonActions.goBack());
+}
 function push(...args) {
   navigationRef.current?.dispatch(StackActions.push(...args));
 }
-export {navigate12, navigate, replace, push, navigationRef};
+export {navigate12, navigate, replace, push, navigationRef, goBack};
