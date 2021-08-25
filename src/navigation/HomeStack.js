@@ -1,4 +1,3 @@
-import HomeTabs from './HomeTabs';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {homeStack} from '~config';

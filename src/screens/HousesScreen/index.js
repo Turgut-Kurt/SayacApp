@@ -5,8 +5,9 @@ import {CustomButtonWithSvg} from '~components';
 import React from 'react';
 import {colors} from '../../components/config/colors';
 import {home_filter} from '~assets';
+import {navigate} from '~utils';
+import {homeStack} from '~config';
 //import {sizes} from '../../components/config/fonts';
-
 const data = {
   cards: [
     {
@@ -32,7 +33,7 @@ const HousesScreen = () => {
   return (
     <View style={{backgroundColor: '#ffffff'}}>
       <Text>HousesScreen</Text>
-      <CustomButtonWithSvg />
+      <CustomButtonWithSvg onPress={() => navigate(homeStack.add_house)} />
       <CustomButtonWithSvg />
       <CustomButtonWithSvg svg={home_filter} text={'Filtrele'} />
       <View style={{marginHorizontal: 16}}>
