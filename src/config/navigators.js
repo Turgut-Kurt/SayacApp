@@ -14,4 +14,6 @@ export const homeTabs = {
 export const homeStack = {
   houses: 'HousesScreen',
   add_house: 'AddHouseScreen',
+  house_detail: 'HouseDetailScreen',
+  update_house: 'UpdateHouseScreen',
 };

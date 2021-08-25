@@ -35,7 +35,11 @@ const HousesScreen = () => {
       <Text>HousesScreen</Text>
       <CustomButtonWithSvg onPress={() => navigate(homeStack.add_house)} />
       <CustomButtonWithSvg />
-      <CustomButtonWithSvg svg={home_filter} text={'Filtrele'} />
+      <CustomButtonWithSvg
+        onPress={() => navigate(homeStack.house_detail)}
+        svg={home_filter}
+        text={'Filtrele'}
+      />
       <View style={{marginHorizontal: 16}}>
         <SearchInput onChange={val => onSearch(val)} />
       </View>
