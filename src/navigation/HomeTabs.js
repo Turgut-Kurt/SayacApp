@@ -8,20 +8,15 @@ import {
   Status,
   StatusSelected,
 } from '~assets';
-import {
-  BillsScreen,
-  HousesScreen,
-  SettingsScreen,
-  StatusScreen,
-} from '~screens';
+import {BillsScreen, SettingsScreen, StatusScreen} from '~screens';
 import {StyleSheet, Text} from 'react-native';
-
 import React from 'react';
 import VectorImage from 'react-native-vector-image';
 import {colors} from '~components';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {fontSize} from '~utils';
 import {homeTabs} from '~config';
+import HomeStack from './HomeStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -33,8 +28,8 @@ const HomeTabs = () => {
       inactiveColor={colors.Water}
       barStyle={styles.barStyle}>
       <Tab.Screen
-        name={homeTabs.houses}
-        component={HousesScreen}
+        name={homeTabs.home_stack}
+        component={HomeStack}
         options={{
           tabBarLabel: <Text>Haneler</Text>,
           tabBarIcon: ({focused}) => (

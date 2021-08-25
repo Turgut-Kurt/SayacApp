@@ -6,8 +6,12 @@ export const mainStack = {
   home_tab: 'HomeTab',
 };
 export const homeTabs = {
-  houses: 'HousesScreen',
+  home_stack: 'HomeStack',
   bills: 'BillsScreen',
   status: 'StatusScreen',
   settings: 'SettingsScreen',
+};
+export const homeStack = {
+  houses: 'HousesScreen',
+  add_house: 'AddHouseScreen',
 };
