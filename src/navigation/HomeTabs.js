@@ -8,7 +8,7 @@ import {
   Status,
   StatusSelected,
 } from '~assets';
-import {BillsScreen, SettingsScreen, StatusScreen} from '~screens';
+import {StatusScreen} from '~screens';
 import {StyleSheet, Text} from 'react-native';
 import React from 'react';
 import VectorImage from 'react-native-vector-image';
@@ -18,6 +18,8 @@ import {fontSize} from '~utils';
 import {homeTabs} from '~config';
 import HomeStack from './HomeStack';
 import SettingStack from './SettingStack';
+import BillStack from './BillStack';
+
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeTabs = () => {
@@ -41,8 +43,8 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name={homeTabs.bills}
-        component={BillsScreen}
+        name={homeTabs.bill_stack}
+        component={BillStack}
         options={{
           tabBarLabel: <Text>Faturalar</Text>,
           tabBarIcon: ({focused}) => (

@@ -7,7 +7,7 @@ export const mainStack = {
 };
 export const homeTabs = {
   home_stack: 'HomeStack',
-  bills: 'BillsScreen',
+  bill_stack: 'BillStack',
   status: 'StatusScreen',
   settings_stack: 'SettingsStack',
 };
@@ -20,4 +20,8 @@ export const homeStack = {
 export const settingStack = {
   settings: 'SettingsScreen',
   bills_settings: 'BillSettings',
+};
+export const billStack = {
+  bills: 'BillsScreen',
+  bill_detail: 'BillDetailScreen',
 };

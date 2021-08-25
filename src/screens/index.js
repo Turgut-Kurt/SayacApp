@@ -8,4 +8,5 @@ export * from './HousesScreen/HouseDetailScreen';
 export * from './SettingsScreen';
 export * from './SettingsScreen/BillSettings';
 export * from './BillsScreen';
+export * from './BillsScreen/BillDetailScreen';
 export * from './StatusScreen';

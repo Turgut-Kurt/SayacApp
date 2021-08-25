@@ -1,13 +1,11 @@
 import {FlatList, Text, View} from 'react-native';
-import {HouseCard, SearchInput, StatusBadge} from '~components';
+import {HouseCard, SearchInput} from '~components';
 
 import {CustomButtonWithSvg} from '~components';
 import React from 'react';
-import {colors} from '../../components/config/colors';
 import {home_filter} from '~assets';
 import {navigate} from '~utils';
 import {homeStack} from '~config';
-//import {sizes} from '../../components/config/fonts';
 const data = {
   cards: [
     {
