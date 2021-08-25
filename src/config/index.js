@@ -1,1 +1,1 @@
-export {mainStack, homeTabs, homeStack} from './navigators';
+export {mainStack, homeTabs, homeStack, settingStack} from './navigators';

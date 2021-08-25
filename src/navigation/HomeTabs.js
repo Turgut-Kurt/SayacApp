@@ -17,7 +17,7 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import {fontSize} from '~utils';
 import {homeTabs} from '~config';
 import HomeStack from './HomeStack';
-
+import SettingStack from './SettingStack';
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeTabs = () => {
@@ -67,8 +67,8 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name={homeTabs.settings}
-        component={SettingsScreen}
+        name={homeTabs.settings_stack}
+        component={SettingStack}
         options={{
           tabBarLabel: <Text>Ayarlar</Text>,
           tabBarIcon: ({focused}) => (

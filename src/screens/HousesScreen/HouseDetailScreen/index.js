@@ -4,7 +4,6 @@ import React from 'react';
 import {CustomButton} from '~components';
 import {navigate, goBack} from '~utils';
 import {homeStack} from '~config';
-homeStack;
 const HouseDetailScreen = () => {
   return (
     <View>

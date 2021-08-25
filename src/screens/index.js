@@ -6,5 +6,6 @@ export * from './HousesScreen/AddHouseScreen';
 export * from './HousesScreen/UpdateHouseScreen';
 export * from './HousesScreen/HouseDetailScreen';
 export * from './SettingsScreen';
+export * from './SettingsScreen/BillSettings';
 export * from './BillsScreen';
 export * from './StatusScreen';
