@@ -1,12 +1,15 @@
-import { Text, View, FlatList, ScrollView } from 'react-native';
-import { BillsCard, BillsDetailCard,BillsHeader} from '~components';
-//import { SearchInput } from '~components';
-import { Text, View } from 'react-native';
-import { StatusHeader } from '~components';
-import React from 'react';
+import { BillsCard, BillsDetailCard, BillsHeader } from '~components';
+import { FlatList, ScrollView, Text, View } from 'react-native';
+import { HouseBillDetail, HouseDetail } from '~components';
 
-import { HouseDetail, HouseBillDetail } from '~components';
-import { arrow_right } from '~/assets';
+import React from 'react';
+import { StatusHeader } from '~components';
+
+//import { SearchInput } from '~components';
+
+
+
+
 
 
 const BillsScreen = () => {
@@ -85,6 +88,7 @@ const BillsScreen = () => {
       />
       <StatusHeader />
       
+    </View>
     </View>
   );
 };
