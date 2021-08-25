@@ -2,7 +2,7 @@ import {Input} from 'react-native-elements';
 import {colors, PropTypes, ViewPropTypes} from '~/components/config';
 import React from 'react';
 import {Text} from 'react-native';
-import {styles} from './styles';
+import styles from './styles';
 import {useField} from 'formik';
 const CustomInputLabel = props => {
   const {
@@ -32,7 +32,7 @@ const CustomInputLabel = props => {
         styles.InputContainer,
         inputContainerStyle,
         value === ''
-          ? styles.InputContainer
+          ? inputContainerStyle
           : error
           ? {borderColor: errorColor}
           : {borderColor: succesColor},

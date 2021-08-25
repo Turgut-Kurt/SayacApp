@@ -1,7 +1,7 @@
 import {colors, fonts, globalStyle, sizes} from '../config';
 import {StyleSheet} from 'react-native';
 import {calcWidth} from '~utils';
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   Container: {
     paddingHorizontal: 0,
     paddingVertical: 0,
@@ -12,15 +12,16 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 0,
     marginHorizontal: 0,
-    marginVertical: 10,
+    marginVertical: 3,
     borderRadius: 100,
     ...globalStyle.asc,
     ...globalStyle.inputContainerStyle,
     backgroundColor: colors.MainWhite,
     borderWidth: 2,
     borderBottomWidth: 2,
-    borderColor: colors.MainDarkGray,
+    borderColor: colors.Water,
     width: calcWidth(92),
+    ...globalStyle.shadow1,
   },
   Input: {
     paddingLeft: 15,
@@ -29,24 +30,26 @@ export const styles = StyleSheet.create({
     ...globalStyle.textInputStyle,
     borderRadius: 100,
     backgroundColor: colors.MainWhite,
-    color: colors.Black,
+    color: colors.MainBlack,
     fontSize: sizes.h6,
   },
   Label: {
-    width: calcWidth(84),
+    width: calcWidth(100),
     ...globalStyle.asc,
     fontWeight: 'normal',
-    color: colors.Black,
+    color: colors.MainBlack,
     ...fonts.Semibold,
     fontSize: sizes.base,
+    paddingLeft: calcWidth(8),
   },
   Error: {
-    width: calcWidth(84),
+    width: calcWidth(100),
     ...globalStyle.asc,
     fontSize: sizes.h7,
     ...fonts.Semibold,
     color: colors.MainRed,
     marginBottom: 15,
-    marginTop: -5,
+    paddingLeft: calcWidth(8),
   },
 });
+export default styles;

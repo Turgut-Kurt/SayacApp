@@ -12,7 +12,7 @@ import {StatusScreen} from '~screens';
 import {StyleSheet, Text} from 'react-native';
 import React from 'react';
 import VectorImage from 'react-native-vector-image';
-import {colors} from '~components';
+import {colors, fonts, sizes} from '~components';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {fontSize} from '~utils';
 import {homeTabs} from '~config';
@@ -33,7 +33,7 @@ const HomeTabs = () => {
         name={homeTabs.home_stack}
         component={HomeStack}
         options={{
-          tabBarLabel: <Text>Haneler</Text>,
+          tabBarLabel: <Text style={styles.tabBarLabelStyle}>Haneler</Text>,
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={styles.svgStyle}
@@ -46,7 +46,7 @@ const HomeTabs = () => {
         name={homeTabs.bill_stack}
         component={BillStack}
         options={{
-          tabBarLabel: <Text>Faturalar</Text>,
+          tabBarLabel: <Text style={styles.tabBarLabelStyle}>Faturalar</Text>,
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={styles.svgStyle}
@@ -59,7 +59,7 @@ const HomeTabs = () => {
         name={homeTabs.status}
         component={StatusScreen}
         options={{
-          tabBarLabel: <Text>Durum</Text>,
+          tabBarLabel: <Text style={styles.tabBarLabelStyle}>Durum</Text>,
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={[styles.svgStyle]}
@@ -72,7 +72,7 @@ const HomeTabs = () => {
         name={homeTabs.settings_stack}
         component={SettingStack}
         options={{
-          tabBarLabel: <Text>Ayarlar</Text>,
+          tabBarLabel: <Text style={styles.tabBarLabelStyle}>Ayarlar</Text>,
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={styles.svgStyle}
@@ -85,7 +85,12 @@ const HomeTabs = () => {
   );
 };
 const styles = StyleSheet.create({
-  barStyle: {backgroundColor: '#fff'},
+  barStyle: {
+    backgroundColor: colors.MainWhite,
+    borderWidth: 1,
+    borderColor: colors.Water,
+  },
+  tabBarLabelStyle: {fontSize: sizes.h6, ...fonts.Semibold, fontWeight: '600'},
   svgStyle: {width: fontSize(24), height: fontSize(24)},
 });
 export default HomeTabs;
