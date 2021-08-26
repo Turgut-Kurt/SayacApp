@@ -8,7 +8,7 @@ import React from 'react';
 import { HouseDetail, HouseBillDetail } from '~components';
 import { arrow_right } from '~/assets';
 
-import React from 'react';
+
 import {navigate} from '~utils';
 import {billStack} from '~config';
 
