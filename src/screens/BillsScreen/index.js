@@ -30,15 +30,7 @@ const BillsScreen = () => {
   
   return (
     <View style={{ backgroundColor: 'white', flex: 1 }}>
-      
-      {/* <BillsHeader />
-      <FlatList
-        //ListHeaderComponent={() => (<SearchInput/>)}
-        renderItem={({item}) => <BillsCard {...item} />}
-        data={data.cards}
-        keyExtractor={(item, index) => index.toString()}
-      /> */}
-      <BillsDetailCard />
+    
       
     </View>
   );

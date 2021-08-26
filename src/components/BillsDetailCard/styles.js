@@ -89,19 +89,20 @@ export default StyleSheet.create({
     info: {
         fontSize: fontSize(14),
     },
-    time: {
+    meterTime: {
         marginLeft: 'auto',
         color: colors.MainBlue,
         fontSize: fontSize(14),
         marginHorizontal: 5
     },
-    pressable: {
+    readMeterButton: {
         backgroundColor: '#2A70FA',
         padding: 10,
         borderRadius: 25,
-        margin: 30,
+        marginTop: 200,
+        marginHorizontal:30,
         width: "85%",
-        height: "12%",
+        height: 40,
         justifyContent: "center",
         alignItems: "center"
     },
@@ -172,5 +173,21 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginVertical:20,
-    }
+    },
+    afterReadButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    printerButton: {
+        backgroundColor: '#2A70FA',
+        padding: 10,
+        borderRadius: 25,
+        marginTop: 75,
+        marginHorizontal: 30,
+        marginVertical:10,
+        width: "85%",
+        height: 40,
+        justifyContent: "center",
+        alignItems: "center"
+    },
 });
