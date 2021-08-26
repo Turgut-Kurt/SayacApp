@@ -67,19 +67,19 @@ const HouseBillDetail = props => {
 };
 
 HouseBillDetail.propTypes = {
-  containerStyle: ViewPropTypes.style,
-  background: ViewPropTypes.style,
-  textcolor: ViewPropTypes.style,
-  svg: PropTypes.number,
-  month: PropTypes.string,
-  year: PropTypes.string,
-  status: PropTypes.string,
-  value: PropTypes.string,
-  svg2: PropTypes.number,
-  svg3: PropTypes.number,
-  valueText: ViewPropTypes.style,
-  read_icon: ViewPropTypes.style,
-  done_icon: ViewPropTypes.style,
+    containerStyle: ViewPropTypes.style,
+    background: ViewPropTypes.style,
+    textcolor: ViewPropTypes.style,
+    svg: PropTypes.number,
+    month: PropTypes.string,
+    year: PropTypes.string,
+    status: PropTypes.string,
+    value: PropTypes.string,
+    svg2: PropTypes.number,
+    svg3: PropTypes.number,
+    valueText: ViewPropTypes.style,
+    read_icon: ViewPropTypes.style,
+    done_icon: ViewPropTypes.style,
 };
 
 HouseBillDetail.defaultProps = {

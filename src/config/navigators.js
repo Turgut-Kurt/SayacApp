@@ -1,8 +1,9 @@
 export const mainStack = {
-  /*loading: 'Loading',
-  welcome: 'WelcomeScreen',
+  // loading: 'Loading',
+  // welcome: 'WelcomeScreen',
+  splash: 'SplashScreen',
   login: 'LoginScreen',
-  register: 'RegisterScreen',*/
+  register: 'RegisterScreen',
   home_tab: 'HomeTab',
 };
 export const homeTabs = {

@@ -4,12 +4,12 @@ const LoginValidationSchema = yup.object().shape({
     .string()
     .email('Lütfen geçerli bir e-posta girin.')
     .required('Email zorunlu'),
-  /*password: yup
+  password: yup
     .string()
-    .min(6, ({min}) => `must be a minimum of ${min} characters.`)
-    .max(25, ({max}) => `must be a maximum of ${max} characters.`)
+    .min(6, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .max(25, ({max}) => `En fazla ${max} karakter olmalıdır.`)
     .required('Password required'),
-    */
+    
 });
 
 export {LoginValidationSchema};
