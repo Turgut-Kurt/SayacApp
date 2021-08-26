@@ -19,6 +19,7 @@ const CustomInputLabel = props => {
     placeholder,
     placeholderTextColor,
     containerProps,
+    secureTextEntry,
   } = props;
   const [field, meta] = useField({
     name: name,
@@ -51,6 +52,7 @@ const CustomInputLabel = props => {
       placeholder={placeholder}
       label={label}
       placeholderTextColor={placeholderTextColor}
+      secureTextEntry={secureTextEntry}
       {...containerProps}
     />
   );
@@ -68,6 +70,7 @@ CustomInputLabel.propTypes = {
   label: PropTypes.string,
   placeholderTextColor: PropTypes.string,
   containerProps: PropTypes.object.isRequired,
+
 };
 CustomInputLabel.defaultProps = {
   placeholder: 'placeholder',
@@ -75,5 +78,6 @@ CustomInputLabel.defaultProps = {
   errorColor: colors.MainRed,
   succesColor: colors.MainGreen,
   placeholderTextColor: colors.MainDarkGray,
+  secureTextEntry: false,
 };
 export {CustomInputLabel};
