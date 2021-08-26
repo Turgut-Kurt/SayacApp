@@ -4,12 +4,11 @@ import VectorImage from 'react-native-vector-image';
 import { PropTypes, ViewPropTypes } from '~/components/config';
 import styles from './styles';
 import { centerfocus, home, checkGray, arrow,meterRead } from '~assets';
-import { StatusCard } from './../StatusCard';
-import { MeterReadInfoCard } from './../MeterReadInfoCard';
-import { CustomButtonWithSvg } from '../CustomButtonWithSvg';
+import {MeterReadInfoCard, CustomButtonWithSvg,StatusCard,CustomModal, CustomButton } from '~components';
 
 const BillsDetailCard = (props) => {
     const {  an, name, sn, adress, date, onPress, status,meter, meterTime, onPressArrow } = props;
+    const [modalVisible, setModalVisible] = useState(false);
     const [modal, setModal] = useState(false);
     const [modalSuccess, setModalSuccess] = useState(false);
     const [meterReadSuccess, setMeterReadSuccess] = useState(false);
@@ -35,11 +34,14 @@ const BillsDetailCard = (props) => {
         setStatusCardState('Okunacak')
         
     }, []);
+    
+
+    
+    const changeModalVisible = () => {
+        setModalVisible(!modalVisible)
+    }
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={onPressArrow} style={styles.arrow}>
-                <VectorImage style={styles.svgArrow} source={arrow} />
-            </TouchableOpacity>
             
             <View style={styles.topDate}>
                 <VectorImage style={styles.svg} source={centerfocus} />
@@ -65,7 +67,7 @@ const BillsDetailCard = (props) => {
                 <Text style={styles.info}>Sayaç okuma zamanı geldi</Text>
                 <Text style={styles.meterTime}>{meterTime}</Text>
             </View>
-            
+{/*             
             {meterReadSuccess == true ? (<MeterReadInfoCard meterReadTime={currentTime} meterValue={ meterValue}/>):(null)}
             {meterReadSuccess == true ? (
                 <View>
@@ -84,13 +86,13 @@ const BillsDetailCard = (props) => {
             ) : (<Pressable style={styles.readMeterButton} onPress={() => setModal(true)}>
                     <Text>Sayaç Oku</Text>
                 </Pressable>)
-            }
+            } */}
             
-            <CustomButtonWithSvg onPress={() => setModal(true)}/>
-            
+            <Button onPress={() => changeModalVisible()} title='modal aç'/>
+            <CustomModal visibleValue={modalVisible} closeFunc={changeModalVisible} />
            
 
-            <View  style={styles.modal} >
+            {/* <View  style={styles.modal} >
                 <Modal visible={modal} transparent={true} animationType='slide'>
                     <View style={[styles.modal, modalBackgroundStyle]}>
                         <View style={styles.modalinside}>
@@ -128,7 +130,7 @@ const BillsDetailCard = (props) => {
                         </View>
                     </View>
                 </Modal>
-            </View>
+            </View> */}
 
                        
         </View>

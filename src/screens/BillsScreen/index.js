@@ -43,11 +43,11 @@ const BillsScreen = () => {
       <BillsHeader onPress={() => navigate(billStack.bill_detail)} />
       <FlatList
         //ListHeaderComponent={() => (<SearchInput/>)}
-        renderItem={({item}) => <BillsCard {...item} />}
+        renderItem={({item}) => <BillsCard {...item} onPress={() => navigate(billStack.bill_detail)} />}
         data={data.cards}
         keyExtractor={(item, index) => index.toString()}
       />
-      <BillsDetailCard />
+      {/* <BillsDetailCard />
       <View>
         <HouseDetail />
         <HouseBillDetail
@@ -87,7 +87,7 @@ const BillsScreen = () => {
           value="12"
         />
         <StatusHeader />
-      </View>
+      </View> */}
     </View>
   );
 };
