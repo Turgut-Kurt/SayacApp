@@ -1,27 +1,24 @@
 import {
-  BillsScreen,
-  HousesScreen,
-  SettingsScreen,
-  StatusScreen,
-} from '~screens';
-import {
-  Feed,
-  FeedActive,
-  Friends,
-  FriendsActive,
-  Messages,
-  MessagesActive,
+  Bills,
+  BillsSelected,
+  Houses,
+  HousesSelected,
   Settings,
-  SettingsActive,
+  SettingsSelected,
+  Status,
+  StatusSelected,
 } from '~assets';
+import {StatusScreen} from '~screens';
 import {StyleSheet, Text} from 'react-native';
-
 import React from 'react';
 import VectorImage from 'react-native-vector-image';
-import {colors} from '~/components/config';
+import {colors, fonts, sizes} from '~components';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {fontSize} from '~utils';
-import {homeTabs} from '~/config/navigators';
+import {homeTabs} from '~config';
+import HomeStack from './HomeStack';
+import SettingStack from './SettingStack';
+import BillStack from './BillStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -29,31 +26,31 @@ const HomeTabs = () => {
   return (
     <Tab.Navigator
       shifting={false}
-      activeColor={colors.Pink}
-      inactiveColor={colors.Gray}
+      activeColor={colors.MainBlue}
+      inactiveColor={colors.Water}
       barStyle={styles.barStyle}>
       <Tab.Screen
-        name={homeTabs.houses}
-        component={HousesScreen}
+        name={homeTabs.home_stack}
+        component={HomeStack}
         options={{
-          tabBarLabel: <Text>Haneler</Text>,
+          tabBarLabel: <Text style={styles.tabBarLabelStyle}>Haneler</Text>,
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={styles.svgStyle}
-              source={focused ? FeedActive : Feed}
+              source={!focused ? Houses : HousesSelected}
             />
           ),
         }}
       />
       <Tab.Screen
-        name={homeTabs.bills}
-        component={BillsScreen}
+        name={homeTabs.bill_stack}
+        component={BillStack}
         options={{
-          tabBarLabel: <Text>Faturalar</Text>,
+          tabBarLabel: <Text style={styles.tabBarLabelStyle}>Faturalar</Text>,
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={styles.svgStyle}
-              source={focused ? FriendsActive : Friends}
+              source={!focused ? Bills : BillsSelected}
             />
           ),
         }}
@@ -62,24 +59,24 @@ const HomeTabs = () => {
         name={homeTabs.status}
         component={StatusScreen}
         options={{
-          tabBarLabel: <Text>Durum</Text>,
+          tabBarLabel: <Text style={styles.tabBarLabelStyle}>Durum</Text>,
           tabBarIcon: ({focused}) => (
             <VectorImage
-              style={[styles.svgStyle, {backgroundColor: 'red'}]}
-              source={focused ? MessagesActive : Messages}
+              style={[styles.svgStyle]}
+              source={!focused ? Status : StatusSelected}
             />
           ),
         }}
       />
       <Tab.Screen
-        name={homeTabs.settings}
-        component={SettingsScreen}
+        name={homeTabs.settings_stack}
+        component={SettingStack}
         options={{
-          tabBarLabel: <Text>Ayarlar</Text>,
+          tabBarLabel: <Text style={styles.tabBarLabelStyle}>Ayarlar</Text>,
           tabBarIcon: ({focused}) => (
             <VectorImage
               style={styles.svgStyle}
-              source={focused ? SettingsActive : Settings}
+              source={!focused ? Settings : SettingsSelected}
             />
           ),
         }}
@@ -88,7 +85,12 @@ const HomeTabs = () => {
   );
 };
 const styles = StyleSheet.create({
-  barStyle: {backgroundColor: '#fff'},
+  barStyle: {
+    backgroundColor: colors.MainWhite,
+    borderWidth: 1,
+    borderColor: colors.Water,
+  },
+  tabBarLabelStyle: {fontSize: sizes.h6, ...fonts.Semibold, fontWeight: '600'},
   svgStyle: {width: fontSize(24), height: fontSize(24)},
 });
 export default HomeTabs;

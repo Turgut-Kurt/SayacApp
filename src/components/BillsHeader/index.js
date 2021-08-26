@@ -7,19 +7,23 @@ import { home_logo,home_filter} from '~assets';
 import {StatusCard} from './../StatusCard'
 import {CustomButtonWithSvg} from './../CustomButtonWithSvg';
 const BillsHeader = (props) => {
-    const { date } = props; 
+    const {date, onPress} = props;
     return (
-        <View style={styles.container}>
-            <View style={styles.top}>
-                <VectorImage style={styles.svg} source={home_logo} />
-                <CustomButtonWithSvg svg={home_filter} text={date} />
-            </View>
-            <View style={styles.bottom}>
-                <StatusCard status="Okunacak" number={1} />
-                <StatusCard status="Ödenecek" number={2} />
-                <StatusCard status="Tamamlandı" number={7}/>
-            </View>
+      <View style={styles.container}>
+        <View style={styles.top}>
+          <VectorImage style={styles.svg} source={home_logo} />
+          <CustomButtonWithSvg
+            onPress={onPress}
+            svg={home_filter}
+            text={date}
+          />
         </View>
+        <View style={styles.bottom}>
+          <StatusCard status="Okunacak" number={1} />
+          <StatusCard status="Ödenecek" number={2} />
+          <StatusCard status="Tamamlandı" number={7} />
+        </View>
+      </View>
     );
 };
 
