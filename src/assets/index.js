@@ -22,7 +22,6 @@ import locked from './svg/settings/lock_black_24dp1.svg';
 import printer from './svg/settings/print_black_24dp1.svg';
 import read_icon from './svg/detail/radar_black_24dp1.svg';
 import toberead from './svg/toberead.svg';
-
 export {
   Houses,
   HousesSelected,
