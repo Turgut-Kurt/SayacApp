@@ -8,19 +8,19 @@ import {toberead,checkcircle} from '~assets';
 import styles from './styles';
 
 const StatusCard = props => {
-  const { onPress, status, number } = props;
+  const { onPress, status, price } = props;
   const vectorimage = () => {
     return (
       status === "Okunacak" ? (<VectorImage style={styles.svg} source={toberead} />) : status === "Tamamlandı" ? (<VectorImage style={styles.svg} source={checkcircle} />) : status === "Ödenecek" ? (<Text style={{ color: colors.MainBrown, fontSize: fontSize(20) }} >{price} ₺</Text>):(null) 
     )
   }
-  const shownumber = () => { return (<Text>{number}</Text>) }
+  const showprice = () => { return (<Text>{price}</Text>) }
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[styles.container, { backgroundColor: status === "Okunacak" ? colors.MainLightWhite : status === "Tamamlandı" ? colors.MainLightGreen : status === "Ödenecek" ? colors.MainBeige : null }]}>
       <Text style={[styles.text,{color: status === "Okunacak" ? colors.MainLightBlue : status === "Tamamlandı" ? colors.MainGreen : status === "Ödenecek" ? colors.MainBrown : null}]}>{status}</Text>
-      {number === null ? vectorimage() : shownumber() }
+      {price === null ? vectorimage() : showprice() }
       
     </TouchableOpacity>
   );
@@ -36,7 +36,6 @@ StatusCard.propTypes = {
 };
 StatusCard.defaultProps = {
   onPress: () => console.log('StatusCard basıldı.'),
-  //status: 'Tamamlandı',
-  number: null,
+  price: null,
 };
 export {StatusCard};
