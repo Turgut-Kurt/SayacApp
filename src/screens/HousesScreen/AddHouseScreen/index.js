@@ -1,10 +1,14 @@
 import {View} from 'react-native';
 import React, {useState} from 'react';
-import {colors, CustomButton, CustomInputLabel, Header} from '~components';
+import {
+  colors,
+  CustomButton,
+  CustomInputLabel,
+  CustomCommonHeader,
+} from '~components';
 import {Formik} from 'formik';
 import {AddHouseValidationSchema} from '~schema';
 import styles from './styles';
-styles;
 const AddHouseScreen = () => {
   const [formikInitialValues, setFormikinitialValues] = useState({
     name: '',
@@ -24,7 +28,7 @@ const AddHouseScreen = () => {
       onSubmit={() => console.log('hello')}>
       {({handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
         <View style={styles.Container}>
-          <Header />
+          <CustomCommonHeader />
           <CustomInputLabel
             name={'name'}
             containerProps={{

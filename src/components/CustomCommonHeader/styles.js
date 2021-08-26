@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
-import {fontSize} from '~utils';
+import {fontSize, calcWidth} from '~utils';
 const styles = StyleSheet.create({
-  headerWrapper: {
+  Container: {
     height: 45,
     backgroundColor: '#FFFFFF',
     shadowColor: '#000',
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 5,
     justifyContent: 'space-around',
-    paddingHorizontal: 24,
+    paddingHorizontal: calcWidth(4),
     marginBottom: fontSize(20),
   },
 });

@@ -2,11 +2,11 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import styles from './styles';
 
-const Header = () => {
+const CustomCommonHeader = () => {
   return (
-    <View style={styles.headerWrapper}>
+    <View style={styles.Container}>
       <Text>Header</Text>
     </View>
   );
 };
-export {Header};
+export {CustomCommonHeader};
