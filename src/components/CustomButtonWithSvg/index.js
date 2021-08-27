@@ -17,7 +17,7 @@ const CustomButtonWithSvg = props => {
 };
 CustomButtonWithSvg.propTypes = {
   onPress: PropTypes.func,
-  ContainerStyle: ViewPropTypes.style,
+  containerStyle: ViewPropTypes.style,
   svgStyle: Text.propTypes.style,
   svg: PropTypes.number,
   textStyle: Text.propTypes.style,

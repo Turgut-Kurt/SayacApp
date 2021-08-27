@@ -1,8 +1,8 @@
 import {StyleSheet} from 'react-native';
 import {fontSize, calcWidth} from '~utils';
+import {globalStyle, fonts, sizes} from '../config';
 const styles = StyleSheet.create({
   Container: {
-    height: 45,
     backgroundColor: '#FFFFFF',
     shadowColor: '#000',
     shadowOffset: {
@@ -12,9 +12,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 5,
-    justifyContent: 'space-around',
+    ...globalStyle.jcsa,
     paddingHorizontal: calcWidth(4),
     marginBottom: fontSize(20),
+  },
+  TopView: {
+    ...globalStyle.jcsb,
+    ...globalStyle.fdr,
+    marginVertical: fontSize(5),
+  },
+  LeftView: {
+    width: calcWidth(29),
+    ...globalStyle.fdr,
+    alignItems: 'center',
+  },
+  Svg: {width: fontSize(40), height: fontSize(43)},
+  RightView: {
+    ...globalStyle.fdr,
+    width: calcWidth(63),
+    ...globalStyle.jcfe,
+  },
+  BottomView: {
+    ...globalStyle.jcsb,
+    ...globalStyle.fdr,
+    marginVertical: fontSize(15),
   },
 });
 

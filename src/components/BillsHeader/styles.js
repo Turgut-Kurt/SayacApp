@@ -34,7 +34,7 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
   },
   svg: {
-    width: fontSize(39),
+    width: fontSize(40),
     height: fontSize(43),
     marginHorizontal: 5,
   },

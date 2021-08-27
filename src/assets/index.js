@@ -24,7 +24,7 @@ import read_icon from './svg/detail/radar_black_24dp1.svg';
 import toberead from './svg/toberead.svg';
 import splash_logo from './svg/splash_logo.svg'
 import show_password from './svg/show_password.svg';
-
+import delete_house from './svg/delete_house.svg';
 
 export {
   Houses,
@@ -53,4 +53,5 @@ export {
   done_icon,
   splash_logo,
   show_password,
+  delete_house,
 };

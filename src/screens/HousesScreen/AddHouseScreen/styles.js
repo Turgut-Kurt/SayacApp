@@ -7,6 +7,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.MainWhite,
   },
+  BackButton: {backgroundColor: colors.MainWhite},
+  BackButtonSvg: {
+    width: fontSize(22),
+    height: fontSize(22),
+  },
+  RightButtonSvg: {
+    width: fontSize(22),
+    height: fontSize(22),
+  },
+  LeftButtonSvg: {
+    width: fontSize(12),
+    height: fontSize(15),
+  },
   BinaryInput: {
     ...globalStyle.fdr,
     ...globalStyle.asc,

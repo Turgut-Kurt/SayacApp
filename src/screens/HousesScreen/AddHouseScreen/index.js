@@ -5,10 +5,32 @@ import {
   CustomButton,
   CustomInputLabel,
   CustomCommonHeader,
+  CustomButtonWithSvg,
 } from '~components';
 import {Formik} from 'formik';
 import {AddHouseValidationSchema} from '~schema';
 import styles from './styles';
+import {home_filter, delete_house, arrow} from '~assets';
+import {fontSize} from '~utils';
+const data = [
+  {
+    id: 1,
+    status: 'Okunacak',
+    quantity: 1,
+  },
+  ,
+  {
+    id: 2,
+    status: 'Ödenecek',
+    quantity: 2,
+  },
+  ,
+  {
+    id: 3,
+    status: 'Tamamlandı',
+    quantity: 7,
+  },
+];
 const AddHouseScreen = () => {
   const [formikInitialValues, setFormikinitialValues] = useState({
     name: '',
@@ -28,7 +50,33 @@ const AddHouseScreen = () => {
       onSubmit={() => console.log('hello')}>
       {({handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
         <View style={styles.Container}>
-          <CustomCommonHeader />
+          <CustomCommonHeader
+            data={data}
+            activeBottom={false}
+            backButton={
+              <CustomButtonWithSvg
+                containerStyle={styles.BackButton}
+                svg={arrow}
+                svgStyle={styles.BackButtonSvg}
+                text={'geri dön'}
+              />
+            }
+            leftButton={
+              <CustomButtonWithSvg
+                svg={delete_house}
+                svgStyle={styles.LeftButtonSvg}
+                text={'Haneyi sil'}
+              />
+            }
+            rightButton={
+              <CustomButtonWithSvg
+                containerStyle={{marginLeft: fontSize(7)}}
+                svg={home_filter}
+                svgStyle={styles.RightButtonSvg}
+                text={'Nisan 2021'}
+              />
+            }
+          />
           <CustomInputLabel
             name={'name'}
             containerProps={{
