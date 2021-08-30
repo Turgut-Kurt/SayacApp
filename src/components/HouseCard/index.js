@@ -14,6 +14,12 @@ const data = {
   quantity:5,
 }
 
+const data1 = {
+
+  status: "Okunacak",
+  quantity:2,
+}
+
 const backgroundColor = {
   backgroundColor: data.status === "Okunacak" ? colors.MainLightWhite : data.status === "Tamamlandı"  ?  colors.MainLightGreen : data.status === "Ödenecek" ? colors.MainBeige : null ,
 }
@@ -58,7 +64,7 @@ const HouseCard = props => {
                 </View>
                 <View>
                     <StatusBadge
-                    {...data}
+                    {...data1}
                     background={backgroundColor}
                     textStyle={textStyle}
                 />

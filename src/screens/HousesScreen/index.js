@@ -2,7 +2,7 @@ import {FlatList, Text, View} from 'react-native';
 import {HouseCard, SearchInput} from '~components';
 
 import {CustomButtonWithSvg} from '~components';
-import React from 'react';
+import React , {useState} from 'react';
 import {home_filter} from '~assets';
 import {navigate} from '~utils';
 import {homeStack} from '~config';
@@ -24,9 +24,20 @@ const data = {
 };
 
 const HousesScreen = () => {
-  const onSearch = val => {
+
+   const [cardData, setCardData] = useState(data.cards);
+
+   const onSearch = val => {
+    const filteredData = data.cards.filter(
+      x => x.name.toLowerCase().includes(val.toLowerCase()) ||  x.an.toString().startsWith(val));
+      setCardData(filteredData);
+    
     console.log(val);
+  
+  
   };
+
+
 
   return (
     <View style={{backgroundColor: '#ffffff'}}>
@@ -44,7 +55,7 @@ const HousesScreen = () => {
 
       <FlatList
         renderItem={({item}) => <HouseCard {...item} />}
-        data={data.cards}
+        data={cardData}
         keyExtractor={(item, index) => index.toString()}
       />
     </View>
