@@ -1,5 +1,5 @@
 import React from 'react';
-import { View , Text } from 'react-native';
+import { View , Text, TouchableOpacity } from 'react-native';
 import { PropTypes, ViewPropTypes } from '~/components/config';
 import {StatusBadge} from "~/components"
 import { home } from '~assets'
@@ -33,11 +33,13 @@ const textStyle = {
 
 const HouseCard = props => {
     
-  const { containerStyle, svgStyle, an, name, meter, address, svg, } = props;
+  const { containerStyle, svgStyle, an, name, meter, address, svg,onPress } = props;
 
 
     return (
-       
+           <TouchableOpacity
+            onPress={onPress}
+            >
             <View style={[styles.Container, containerStyle, ]} >
               <View style={styles.NameContainer}>
                 <View style={{flexDirection:"row",}}>
@@ -70,7 +72,8 @@ const HouseCard = props => {
                 />
                 </View>
             </View>
-        </View> 
+        </View>
+    </TouchableOpacity>
     );
 };
 
@@ -81,7 +84,8 @@ const HouseCard = props => {
      name: PropTypes.string,
      meter: PropTypes.number,
      address: PropTypes.string,
-     svg: PropTypes.number,
+   svg: PropTypes.number,
+     onPress: PropTypes.func,
  };
  HouseCard.defaultProps = {
      svg: home,
@@ -90,6 +94,7 @@ const HouseCard = props => {
      meter: 123456789,
      address: "Aşağı Mah. Ata Cd. Kavuncu Sk. No: 12",
      svg: home,
+     onPress: () => console.log('Hanedetay basıldı.'),
  };
 
 export { HouseCard };

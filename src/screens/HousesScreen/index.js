@@ -54,7 +54,10 @@ const HousesScreen = () => {
       </View>
 
       <FlatList
-        renderItem={({item}) => <HouseCard {...item} />}
+        renderItem={({ item }) => <HouseCard
+          {...item}
+          onPress={() => navigate(homeStack.house_detail)}
+        />}
         data={cardData}
         keyExtractor={(item, index) => index.toString()}
       />
