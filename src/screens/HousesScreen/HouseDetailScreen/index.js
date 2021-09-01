@@ -1,38 +1,52 @@
+import {
+  CustomButton,
+  CustomButtonWithSvg,
+  CustomCommonHeader,
+  HouseDetail,
+  SearchInput,
+} from '~components';
 import {Text, TouchableOpacity, View} from 'react-native';
+import {arrow, delete_house, edit} from '~/assets';
+import {fontSize, goBack, navigate} from '~utils';
 
 import React from 'react';
-import {CustomButton, HouseDetail, CustomButtonWithSvg, SearchInput} from '~components';
-import {navigate, goBack, fontSize} from '~utils';
-import {homeStack} from '~config';
 import VectorImage from 'react-native-vector-image';
-import { arrow, delete1,edit } from '~/assets';
+import {homeStack} from '~config';
 import styles from './styles';
-
 
 const HouseDetailScreen = () => {
   return (
     <View style={styles.Container}>
-      <View style={styles.header}>
-        <View>
+      <CustomCommonHeader
+        backButton={
           <TouchableOpacity onPress={() => goBack()}>
-             <VectorImage style={{marginLeft:fontSize(10)}} source={arrow} />
+            <VectorImage source={arrow} />
           </TouchableOpacity>
-        </View>
-          
-        <View style={{alignSelf:"flex-end",flexDirection:"row",paddingHorizontal:fontSize(10),}}>
-          <View style={{paddingRight:fontSize(10),}}>
-            <CustomButtonWithSvg svg={delete1} text={"Haneyi Sil"} /> 
-          </View>
-          <CustomButtonWithSvg onPress={() => navigate(homeStack.update_house)} svg={edit} text={"Düzenle"} />
-        </View>
-      </View>
+        }
+        activeBottom={false}
+        leftButton={
+          <CustomButtonWithSvg
+            containerStyle={{
+              marginRight: fontSize(10),
+            }}
+            onPress={() => navigate(homeStack.add_house)}
+            svg={delete_house}
+            text={'Filtrele'}
+          />
+        }
+        rightButton={
+          <CustomButtonWithSvg
+            onPress={() => navigate(homeStack.add_house)}
+            svg={edit}
+            text={'Hane Ekle'}
+          />
+        }
+      />
       <HouseDetail />
       <SearchInput
-      containerStyle={{width: "90%"}}
-      placeholder={"Fatura Arayın"}
+        containerStyle={{width: '90%'}}
+        placeholder={'Fatura Arayın'}
       />
-      
-      
     </View>
   );
 };

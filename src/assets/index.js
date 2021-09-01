@@ -14,6 +14,7 @@ import centerfocus from './svg/centerfocus.svg';
 import checkGray from './svg/checkGray.svg';
 import checkcircle from './svg/checkcircle.svg';
 import delete1 from './svg/delete1.svg';
+import delete_house from './svg/delete_house.svg';
 import done_icon from './svg/detail/check_circle_black_24dp1.svg';
 import edit from './svg/edit.svg';
 import home from './svg/home.svg';
@@ -56,4 +57,5 @@ export {
   show_password,
   delete1,
   edit,
+  delete_house,
 };
