@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     ...globalStyle.jccaic,
     backgroundColor: colors.MainLightWhite,
     paddingHorizontal: fontSize(11),
-    paddingVertical: fontSize(8),
+    height: fontSize(33),
     borderRadius: fontSize(20),
   },
   Svg: {width: fontSize(23), height: fontSize(23)},

@@ -1,10 +1,40 @@
-import {View} from 'react-native';
+import {
+  CustomButton,
+  CustomButtonWithSvg,
+  CustomCommonHeader,
+  CustomInputLabel,
+  colors,
+  fonts,
+} from '~components';
 import React, {useState} from 'react';
-import {colors, CustomButton, CustomInputLabel, Header} from '~components';
-import {Formik} from 'formik';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {add_house, arrow, delete_house, home_filter, home_logo} from '~assets';
+import {fontSize, goBack} from '~utils';
+
 import {AddHouseValidationSchema} from '~schema';
+import {Formik} from 'formik';
+import VectorImage from 'react-native-vector-image';
 import styles from './styles';
-styles;
+
+const data = [
+  {
+    id: 1,
+    status: 'Okunacak',
+    quantity: 1,
+  },
+  ,
+  {
+    id: 2,
+    status: 'Ödenecek',
+    quantity: 2,
+  },
+  ,
+  {
+    id: 3,
+    status: 'Tamamlandı',
+    quantity: 7,
+  },
+];
 const AddHouseScreen = () => {
   const [formikInitialValues, setFormikinitialValues] = useState({
     name: '',
@@ -24,7 +54,19 @@ const AddHouseScreen = () => {
       onSubmit={() => console.log('hello')}>
       {({handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
         <View style={styles.Container}>
-          <Header />
+          <CustomCommonHeader
+            data={data}
+            activeBottom={false}
+            backButton={
+              <TouchableOpacity
+                onPress={() => goBack()}
+                style={styles.CustomBack}>
+                <VectorImage source={arrow} />
+                <Text style={styles.CustomBackText}>Hane Ekle</Text>
+              </TouchableOpacity>
+            }
+            svg={home_logo}
+          />
           <CustomInputLabel
             name={'name'}
             containerProps={{
