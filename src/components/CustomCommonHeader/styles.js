@@ -1,6 +1,8 @@
+import {calcWidth, fontSize} from '~utils';
+import {fonts, globalStyle, sizes} from '../config';
+
 import {StyleSheet} from 'react-native';
-import {fontSize, calcWidth} from '~utils';
-import {globalStyle, fonts, sizes} from '../config';
+
 const styles = StyleSheet.create({
   Container: {
     backgroundColor: '#FFFFFF',
@@ -19,12 +21,12 @@ const styles = StyleSheet.create({
   TopView: {
     ...globalStyle.jcsb,
     ...globalStyle.fdr,
-    marginVertical: fontSize(5),
+    marginVertical: fontSize(10),
   },
   LeftView: {
     width: calcWidth(29),
     ...globalStyle.fdr,
-    alignItems: 'center',
+    ...globalStyle.aic,
   },
   Svg: {width: fontSize(40), height: fontSize(43)},
   RightView: {

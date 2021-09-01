@@ -1,10 +1,11 @@
+import {PropTypes, ViewPropTypes, colors} from '../config';
+import {Text, View} from 'react-native';
+
 import React from 'react';
-import {View, Text} from 'react-native';
-import {colors, ViewPropTypes, PropTypes} from '../config';
 import {StatusBadge} from '../StatusBadge';
-import styles from './styles';
-import {home_logo} from '~assets';
 import VectorImage from 'react-native-vector-image';
+import {home_logo} from '~assets';
+import styles from './styles';
 
 const CustomCommonHeader = props => {
   const {

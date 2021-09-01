@@ -1,17 +1,21 @@
-import {View} from 'react-native';
-import React, {useState} from 'react';
 import {
-  colors,
   CustomButton,
-  CustomInputLabel,
-  CustomCommonHeader,
   CustomButtonWithSvg,
+  CustomCommonHeader,
+  CustomInputLabel,
+  colors,
+  fonts,
 } from '~components';
-import {Formik} from 'formik';
+import React, {useState} from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {add_house, arrow, delete_house, home_filter, home_logo} from '~assets';
+import {fontSize, goBack} from '~utils';
+
 import {AddHouseValidationSchema} from '~schema';
+import {Formik} from 'formik';
+import VectorImage from 'react-native-vector-image';
 import styles from './styles';
-import {home_filter, delete_house, arrow} from '~assets';
-import {fontSize} from '~utils';
+
 const data = [
   {
     id: 1,
@@ -54,28 +58,14 @@ const AddHouseScreen = () => {
             data={data}
             activeBottom={false}
             backButton={
-              <CustomButtonWithSvg
-                containerStyle={styles.BackButton}
-                svg={arrow}
-                svgStyle={styles.BackButtonSvg}
-                text={'geri dön'}
-              />
+              <TouchableOpacity
+                onPress={() => goBack()}
+                style={styles.CustomBack}>
+                <VectorImage source={arrow} />
+                <Text style={styles.CustomBackText}>Hane Ekle</Text>
+              </TouchableOpacity>
             }
-            leftButton={
-              <CustomButtonWithSvg
-                svg={delete_house}
-                svgStyle={styles.LeftButtonSvg}
-                text={'Haneyi sil'}
-              />
-            }
-            rightButton={
-              <CustomButtonWithSvg
-                containerStyle={{marginLeft: fontSize(7)}}
-                svg={home_filter}
-                svgStyle={styles.RightButtonSvg}
-                text={'Nisan 2021'}
-              />
-            }
+            svg={home_logo}
           />
           <CustomInputLabel
             name={'name'}

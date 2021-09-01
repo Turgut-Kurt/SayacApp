@@ -1,11 +1,12 @@
+import {CustomButtonWithSvg, CustomCommonHeader} from '~components';
 import {FlatList, Text, View} from 'react-native';
 import {HouseCard, SearchInput} from '~components';
+import {fontSize, navigate} from '~utils';
+import {home_add, home_filter, home_logo} from '~assets';
 
-import {CustomButtonWithSvg} from '~components';
 import React from 'react';
-import {home_filter} from '~assets';
-import {navigate} from '~utils';
 import {homeStack} from '~config';
+
 const data = {
   cards: [
     {
@@ -30,13 +31,26 @@ const HousesScreen = () => {
 
   return (
     <View style={{backgroundColor: '#ffffff'}}>
-      <Text>HousesScreen</Text>
-      <CustomButtonWithSvg onPress={() => navigate(homeStack.add_house)} />
-      <CustomButtonWithSvg />
-      <CustomButtonWithSvg
-        onPress={() => navigate(homeStack.house_detail)}
-        svg={home_filter}
-        text={'Filtrele'}
+      <CustomCommonHeader
+        svg={home_logo}
+        activeBottom={false}
+        leftButton={
+          <CustomButtonWithSvg
+            containerStyle={{
+              marginRight: fontSize(10),
+            }}
+            onPress={() => navigate(homeStack.add_house)}
+            svg={home_filter}
+            text={'Filtrele'}
+          />
+        }
+        rightButton={
+          <CustomButtonWithSvg
+            onPress={() => navigate(homeStack.add_house)}
+            svg={home_add}
+            text={'Hane Ekle'}
+          />
+        }
       />
       <View style={{marginHorizontal: 16}}>
         <SearchInput onChange={val => onSearch(val)} />

@@ -1,5 +1,6 @@
-import {colors, globalStyle} from '~components';
 import {calcWidth, calculate, fontSize} from '~utils';
+import {colors, fonts, globalStyle} from '~components';
+
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -29,5 +30,14 @@ const styles = StyleSheet.create({
   inputContainer: {width: calcWidth(43)},
   labelAndError: {width: calcWidth(50)},
   Button: {width: calcWidth(59), marginTop: fontSize(20)},
+  CustomBack: {
+    ...globalStyle.fdr,
+    ...globalStyle.aic,
+  },
+  CustomBackText: {
+    paddingLeft: fontSize(16),
+    ...fonts.Semibold,
+    fontSize: fontSize(14),
+  },
 });
 export default styles;
