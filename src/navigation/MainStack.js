@@ -3,8 +3,10 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import HomeTabs from './HomeTabs';
+import SQLite from 'react-native-sqlite-storage';
 import {UserAuth} from '~/store/Actions';
 import {createStackNavigator} from '@react-navigation/stack';
+import {db} from '~request';
 import {mainStack} from '~/config/navigators';
 
 //import {Loading, LoginScreen, RegisterScreen, WelcomeScreen} from '~/screens';
@@ -13,12 +15,13 @@ const MainStack = () => {
   const dispatch = useDispatch();
   const {isLogged} = useSelector(state => state.user);
 
-  useEffect(() => {
-    dispatch(UserAuth());
-  }, []);
-
   const [showSplashScreen, setShowSplashScreen] = useState(true);
   useEffect(() => {
+    SQLite.enablePromise(true);
+    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+      .then(db => console.log('Database opened:', db))
+      .catch(e => console.log(e));
+    dispatch(UserAuth());
     setTimeout(() => {
       setShowSplashScreen(false);
     }, 2000);
