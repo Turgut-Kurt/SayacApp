@@ -7,11 +7,20 @@ import { Formik } from 'formik';
 import { RegisterValidationSchema } from '~schema';
 import styles from './styles';
 import { fontSize } from "~/utils";
+import { connect } from "react-redux";
+import { SignUp } from '~/store/Actions/Auth/SignUp'
 
 
 
+const mapStateToProps = ({ user }) => ({ user });
+const mapDispatchToProps = dispatch => ({
+    SignUp: (values) => dispatch(SignUp(values)),
+});
 
-const RegisterScreen = () => {
+const RegisterScreen = connect(mapStateToProps, mapDispatchToProps)((props) => {
+    
+    const { user } = props;
+
     const [isSecure , setIsSecure] = useState(true)
     const [formikInitialValues, setFormikinitialValues] = useState({
         name: '',
@@ -24,7 +33,7 @@ const RegisterScreen = () => {
         <Formik
             validationSchema={RegisterValidationSchema}
             initialValues={formikInitialValues}
-            onSubmit={() => console.log('hello')}>
+            onSubmit={(values) =>  {props.SignUp(values)}}>
             {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
                 <View style={styles.Container}>
 
@@ -79,12 +88,12 @@ const RegisterScreen = () => {
                            <VectorImage  source={show_password} />
                         </TouchableOpacity>
                     </View>
-                   <CustomButton textName={'Kayıt Ol'} buttonStyle={styles.Button} />
+                   <CustomButton onPress={handleSubmit} textName={'Kayıt Ol'} buttonStyle={styles.Button} />
                 </View>
             )}
         </Formik>
     );
     
-};
+});
 
 export { RegisterScreen };

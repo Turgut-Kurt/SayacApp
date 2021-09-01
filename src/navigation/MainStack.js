@@ -1,16 +1,23 @@
-import HomeTabs from './HomeTabs';
-import React, {useState , useEffect} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import { mainStack } from '~config';
-import { SplashScreen, LoginScreen,RegisterScreen } from '~/screens';
+import {LoginScreen, RegisterScreen, SplashScreen} from '~/screens';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
+import HomeTabs from './HomeTabs';
+import {UserAuth} from '~/store/Actions';
+import {createStackNavigator} from '@react-navigation/stack';
+import {mainStack} from '~/config/navigators';
 
 //import {Loading, LoginScreen, RegisterScreen, WelcomeScreen} from '~/screens';
 const Stack = createStackNavigator();
 const MainStack = () => {
+  const dispatch = useDispatch();
+  const {isLogged} = useSelector(state => state.user);
+
+  useEffect(() => {
+    dispatch(UserAuth());
+  }, []);
 
   const [showSplashScreen, setShowSplashScreen] = useState(true);
-
   useEffect(() => {
     setTimeout(() => {
       setShowSplashScreen(false);
@@ -19,14 +26,19 @@ const MainStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={mainStack.home_tab}
+      initialRouteName={mainStack.splash}
       screenOptions={{gestureEnabled: false, headerShown: false}}>
-      <Stack.Screen
-        name={showSplashScreen ? mainStack.splash : mainStack.login}
-        component={showSplashScreen ? SplashScreen : LoginScreen}
-      />
-      <Stack.Screen name={mainStack.home_tab} component={HomeTabs} />
-      <Stack.Screen name={mainStack.register} component={RegisterScreen} />
+      {!isLogged ? (
+        <>
+          <Stack.Screen
+            name={showSplashScreen ? mainStack.splash : mainStack.login}
+            component={showSplashScreen ? SplashScreen : LoginScreen}
+          />
+          <Stack.Screen name={mainStack.register} component={RegisterScreen} />
+        </>
+      ) : (
+        <Stack.Screen name={mainStack.home_tab} component={HomeTabs} />
+      )}
     </Stack.Navigator>
   );
 };

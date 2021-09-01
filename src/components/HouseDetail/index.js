@@ -3,6 +3,8 @@ import { View, Text } from 'react-native';
 import VectorImage from 'react-native-vector-image';
 import { home } from '~/assets';
 import { PropTypes, ViewPropTypes } from '~/components/config';
+import { fontSize } from '~/utils';
+import { StatusHeader } from '../StatusHeader';
 import styles from './styles';
 
 const HouseDetail = props => {
@@ -38,6 +40,12 @@ const HouseDetail = props => {
                 <Text style={styles.tcAddressFirstVal}>{cntFirstVal}</Text>
                 <Text style={styles.totalPay}>{totalPay}</Text>
             </View>
+            <StatusHeader containerStyle={{
+                width: "90%",
+                justifyContent: "space-between",
+                marginLeft: fontSize(25),
+                paddingVertical:fontSize(13),
+            }} />
         </View>
     );
 };

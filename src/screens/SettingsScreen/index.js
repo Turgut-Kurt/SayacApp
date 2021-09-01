@@ -3,9 +3,24 @@ import {Text, View} from 'react-native';
 import React from 'react';
 import {CustomButton, Settings} from '~components';
 import {calculator, locked, printer} from '~assets';
-import {navigate} from '~utils';
-import {settingStack} from '~config';
+import {navigate,replace} from '~utils';
+import { settingStack } from '~config';
+import { SignOut } from '~/store/Actions/Auth/SignOut';
+import { useDispatch } from 'react-redux';
+
+
+
+ 
+
+
 const SettingsScreen = () => {
+
+   const dispatch = useDispatch();
+  const logOut = async () => {
+     dispatch(SignOut());
+
+  };
+
   return (
     <View>
       <Settings svg={calculator} text="Fatura değerleri" />
@@ -14,6 +29,10 @@ const SettingsScreen = () => {
       <CustomButton
         textName={'fatura ayarları'}
         onPress={() => navigate(settingStack.bills_settings)}
+      />
+      <CustomButton
+        textName={'Çıkış'}
+        onPress={logOut}
       />
     </View>
   );

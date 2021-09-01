@@ -10,7 +10,10 @@ export default {
   fetchingSuccess,
   fetchingFailure,
 };
-/** @typeimport {SignUp} from './Auth/SignUp';
-import {SignIn} from './Auth/SignIn';
-import {SignOut} from './Auth/SignOut';
-export {SignUp, SignIn, SignOut};*/
+import { SignUp } from './Auth/SignIn';
+import { SignIn } from './Auth/SignUp';
+import { SignOut } from './Auth/SignOut';
+import { UserAuth } from './Auth/UserAuth';
+
+export {SignUp, SignIn, SignOut, UserAuth};
+
