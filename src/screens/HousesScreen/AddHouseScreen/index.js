@@ -47,6 +47,7 @@ const AddHouseScreen = () => {
     subscriberno: '',
     notes: '',
   });
+
   return (
     <Formik
       validationSchema={AddHouseValidationSchema}

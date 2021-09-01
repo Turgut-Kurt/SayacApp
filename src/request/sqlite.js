@@ -1,18 +1,30 @@
-/*import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, FlatList, SafeAreaView } from 'react-native';
-import SQLite from 'react-native-sqlite-storage';
+import {
+  Alert,
+  Button,
+  FlatList,
+  SafeAreaView,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 
+import SQLite from 'react-native-sqlite-storage';
 
 //! veritabanı açar
 const db = SQLite.openDatabase(
-    {
-        name: 'sqliteDB',
-        location: 'default',
-    },
-    () => { console.log("başarılı") },
-    error => { console.log(error) }
+  {
+    name: 'sayacdb',
+    createFromLocation: 1,
+  },
+  () => {
+    console.log('başarılı');
+  },
+  error => {
+    console.log(error);
+  },
 );
-
+/*
 //! kullanılan parametreler
 const [name, setName] = useState('');
 const [subsNo, setSubsNo] = useState('');
@@ -192,4 +204,4 @@ export const listViewItemSeparator = () => {
     </View >
 </>
 */
-
+export {db};
