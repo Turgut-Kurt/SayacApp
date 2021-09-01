@@ -88,7 +88,7 @@ CustomCommonHeader.propTypes = {
   rightViewStyle: ViewPropTypes.style,
   backButton: PropTypes.element,
   leftButton: PropTypes.element,
-  rightButton: PropTypes.element.isRequired,
+  rightButton: PropTypes.element,
   bottomViewStyle: ViewPropTypes.style,
   activeBottom: PropTypes.bool,
   data: PropTypes.array,
