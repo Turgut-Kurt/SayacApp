@@ -24,6 +24,29 @@ const db = SQLite.openDatabase(
     console.log(error);
   },
 );
+//! houses tablosuna veri ekler
+const createData = () => {
+  db.transaction(tx => {
+    tx.executeSql(
+      'INSERT INTO houses (isimsoyisim, tcno, mahalle, cadde, sokak, sayacno, ilksayacdeg, aboneno, notlar, faturaid, odenenfaturasayisi, faturasayisi) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+        [
+        name,
+        tcno,
+        neighbourhood,
+        street,
+        doornumber,
+        counternumber,
+        initialcountervalue,
+        subscriberno,
+        notes,
+      ],
+      (tx, result) => {
+        console.log('tx', tx);
+        console.log('result', result);
+      },
+    );
+  });
+};
 /*
 //! kullanılan parametreler
 const [name, setName] = useState('');
@@ -43,16 +66,7 @@ useEffect(() => {
     })
 }, [])
 
-//! houses tablosuna veri ekler
-export const createData = () => {
-    db.transaction((tx) => {
-        tx.executeSql("INSERT INTO houses (Name, SubsNo, Adr) VALUES (?,?,?)", [name, subsNo, adr], (tx, result) => {
-            console.log('tx', tx)
-            console.log('result', result)
-        })
-    });
 
-};
 
 //! houses tablosundaki tüm verileri okur
 export const readData = () => {
