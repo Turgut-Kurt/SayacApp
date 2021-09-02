@@ -31,7 +31,7 @@ const HouseDetailScreen = () => {
             }}
             onPress={() => navigate(homeStack.add_house)}
             svg={delete_house}
-            text={'Filtrele'}
+            text={'Haneyi Sil'}
           />
         }
         rightButton={
