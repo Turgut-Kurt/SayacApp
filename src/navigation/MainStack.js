@@ -17,10 +17,6 @@ const MainStack = () => {
 
   const [showSplashScreen, setShowSplashScreen] = useState(true);
   useEffect(() => {
-    SQLite.enablePromise(true);
-    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
-      .then(db => console.log('Database opened:', db))
-      .catch(e => console.log(e));
     dispatch(UserAuth());
     setTimeout(() => {
       setShowSplashScreen(false);
