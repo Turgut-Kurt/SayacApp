@@ -5,16 +5,36 @@ import {
   HouseDetail,
   SearchInput,
 } from '~components';
+import React, {useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {arrow, delete_house, edit} from '~/assets';
 import {fontSize, goBack, navigate} from '~utils';
 
-import React from 'react';
+import SQLite from 'react-native-sqlite-storage';
 import VectorImage from 'react-native-vector-image';
 import {homeStack} from '~config';
 import styles from './styles';
 
-const HouseDetailScreen = () => {
+const HouseDetailScreen = ({route}) => {
+  let data = route.params.item;
+  let db;
+  useEffect(() => {
+    SQLite.enablePromise(true);
+    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+      .then(dbRes => {
+        db = dbRes;
+        console.log('Database opened:', dbRes);
+      })
+      .catch(e => console.log(e));
+  }, []);
+  const deleteData = id => {
+    db.transaction(tx => {
+      tx.executeSql('DELETE FROM houses WHERE id = ?', [id], (tx, result) => {
+        console.log('silindi');
+        console.log(result.rows.item(index));
+      });
+    });
+  };
   return (
     <View style={styles.Container}>
       <CustomCommonHeader
@@ -29,9 +49,9 @@ const HouseDetailScreen = () => {
             containerStyle={{
               marginRight: fontSize(10),
             }}
-            onPress={() => navigate(homeStack.add_house)}
+            onPress={() => deleteData(data.id)}
             svg={delete_house}
-            text={'Filtrele'}
+            text={'Haneyi Sil'}
           />
         }
         rightButton={
@@ -42,7 +62,7 @@ const HouseDetailScreen = () => {
           />
         }
       />
-      <HouseDetail />
+      <HouseDetail {...data} />
       <SearchInput
         containerStyle={{width: '90%'}}
         placeholder={'Fatura Arayın'}
