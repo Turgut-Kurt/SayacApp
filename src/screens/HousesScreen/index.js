@@ -8,26 +8,9 @@ import {home_add, home_filter, home_logo} from '~assets';
 import SQLite from 'react-native-sqlite-storage';
 import {homeStack} from '~config';
 
-const data = {
-  cards: [
-    {
-      name: 'Mehmet ÖZKAN',
-      an: 1234567,
-      meter: 123556,
-      address: 'Aşağı Mah. Ata Cd. Kavuncu Sk. No: 12',
-    },
-    {
-      name: 'Fadime DURAN',
-      an: 7654321,
-      meter: 587532,
-      address: 'Aşağı Mah. Ata Cd. Kavuncu Sk.',
-    },
-  ],
-};
-
 const HousesScreen = () => {
   let db;
-  const [cardData, setCardData] = useState(data.cards);
+  //const [cardData, setCardData] = useState(data.cards);
   const [items, setItems] = useState([]);
   useEffect(() => {
     SQLite.enablePromise(true);
@@ -42,7 +25,7 @@ const HousesScreen = () => {
     }, 3000);
   }, []);
 
-  const onSearch = val => {
+  /*const onSearch = val => {
     const filteredData = data.cards.filter(
       x =>
         x.name.toLowerCase().includes(val.toLowerCase()) ||
@@ -51,7 +34,7 @@ const HousesScreen = () => {
     setCardData(filteredData);
 
     console.log(val);
-  };
+  };*/
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM houses', [], (tx, result) => {
