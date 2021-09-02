@@ -97,7 +97,11 @@ const HousesScreen = () => {
         renderItem={({item}) => (
           <HouseCard
             {...item}
-            onPress={() => navigate(homeStack.house_detail)}
+            onPress={() =>
+              navigate(homeStack.house_detail, {
+                item: item,
+              })
+            }
           />
         )}
         data={items}

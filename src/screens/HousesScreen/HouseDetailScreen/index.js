@@ -14,7 +14,8 @@ import VectorImage from 'react-native-vector-image';
 import {homeStack} from '~config';
 import styles from './styles';
 
-const HouseDetailScreen = () => {
+const HouseDetailScreen = ({route}) => {
+  let data = route.params.item;
   return (
     <View style={styles.Container}>
       <CustomCommonHeader
@@ -42,7 +43,7 @@ const HouseDetailScreen = () => {
           />
         }
       />
-      <HouseDetail />
+      <HouseDetail {...data} />
       <SearchInput
         containerStyle={{width: '90%'}}
         placeholder={'Fatura Arayın'}
