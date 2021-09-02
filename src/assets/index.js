@@ -2,7 +2,7 @@ import Bills from './svg/bottomTabBar/bills.svg';
 import BillsSelected from './svg/bottomTabBar/bills_selected.svg';
 import Houses from './svg/bottomTabBar/houses.svg';
 import HousesSelected from './svg/bottomTabBar/houses_selected.svg';
-import Settings from './svg/bottomTabBar/Settings.svg';
+import Settings from './svg/bottomTabBar/settings.svg';
 import SettingsSelected from './svg/bottomTabBar/settings_selected.svg';
 import Status from './svg/bottomTabBar/status.svg';
 import StatusSelected from './svg/bottomTabBar/status_selected.svg';
