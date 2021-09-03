@@ -1,12 +1,14 @@
 import React,{useState, useEffect} from 'react';
 import { View, Text, Image, TouchableOpacity, Pressable, Modal, Button, TextInput } from 'react-native';
 import VectorImage from 'react-native-vector-image';
-import { PropTypes, ViewPropTypes } from '~/components/config';
+import { colors, PropTypes, ViewPropTypes } from '~/components/config';
 import styles from './styles';
-import { centerfocus, home, checkGray, arrow,meterRead } from '~assets';
+import { centerfocus, home, checkGray, arrow,meterRead} from '~assets';
 import { StatusCard } from './../StatusCard';
 import { MeterReadInfoCard } from './../MeterReadInfoCard';
 import { CustomButtonWithSvg } from '../CustomButtonWithSvg';
+import { goBack } from '~/utils';
+
 
 const BillsDetailCard = (props) => {
     const {  an, name, sn, adress, date, onPress, status,meter, meterTime, onPressArrow } = props;
@@ -24,7 +26,7 @@ const BillsDetailCard = (props) => {
           var year = new Date().getFullYear()
           var hours = new Date().getHours()
           var min = new Date().getMinutes()
-          setCurrentTime( date + '/'+ month + '/'+ year + ',    '+ hours + '.'+ min)
+          setCurrentTime( date + '/'+ month + '/'+ year + ',    '+ hours + ':'+ min)
     }
     const setMeter = () => {
         setMeterValue(passMeter);
@@ -37,7 +39,7 @@ const BillsDetailCard = (props) => {
     }, []);
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={onPressArrow} style={styles.arrow}>
+            <TouchableOpacity onPress={() => goBack()} style={styles.arrow}>
                 <VectorImage style={styles.svgArrow} source={arrow} />
             </TouchableOpacity>
             
@@ -70,23 +72,23 @@ const BillsDetailCard = (props) => {
             {meterReadSuccess == true ? (
                 <View>
                     <Pressable style={styles.printerButton} >
-                        <Text>Yazdır</Text>
+                        <Text style={styles.textColorWhite}>Yazdır</Text>
                     </Pressable>
                      <View style={styles.afterReadButtons}>
                         <Pressable style={styles.save} >
-                            <Text>Ödeme Al</Text>
+                            <Text style={styles.textColorWhite}>Ödeme Al</Text>
                         </Pressable>
-                        <Pressable style={styles.cancel} >
-                            <Text>Yeniden Oku</Text>
+                        <Pressable style={styles.cancel} onPress={() => setModal(true)}  >
+                            <Text style={styles.textColorBlue}>Yeniden Oku</Text>
                         </Pressable>
                     </View>
                </View>
             ) : (<Pressable style={styles.readMeterButton} onPress={() => setModal(true)}>
-                    <Text>Sayaç Oku</Text>
+                    <Text style={styles.textColorWhite}>Sayaç Oku</Text>
                 </Pressable>)
             }
             
-            <CustomButtonWithSvg onPress={() => setModal(true)}/>
+            
             
            
 
@@ -105,10 +107,10 @@ const BillsDetailCard = (props) => {
                                     setTime()
                                     setMeter()
                                 }}>
-                                    <Text>Kaydet</Text>
+                                    <Text style={styles.textColorWhite}>Kaydet</Text>
                                 </Pressable>
                                 <Pressable style={styles.cancel} onPress={() => setModal(false)}>
-                                    <Text>İptal</Text>
+                                    <Text style={styles.textColorBlue}>İptal</Text>
                                 </Pressable>
                             </View>
                             
@@ -123,7 +125,7 @@ const BillsDetailCard = (props) => {
                             <VectorImage style={styles.modalSvg} source={meterRead} />
                             <Text style={styles.modalText}>Sayaç Başarıyla Okundu</Text>
                             <Pressable style={styles.saved} onPress={() => setModalSuccess(false)}>
-                                <Text>Tamam</Text>
+                                <Text style={styles.textColorWhite}>Tamam</Text>
                             </Pressable>
                         </View>
                     </View>
@@ -160,7 +162,7 @@ BillsDetailCard.defaultProps = {
     date: 'Ağustos 2021',
     adress: "Aşağı Mah. Ata Cd. Kavuncu Sk. No: 12",
     meter: 557865555,
-    meterTime: '1 Ağustos 2021, 00.01',
+    meterTime: '1 Ağustos 2021, 00:01',
     meterValue:777777,
 };
 

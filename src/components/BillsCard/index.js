@@ -53,7 +53,7 @@ BillsCard.defaultProps = {
 
 const styles = StyleSheet.create({
     container: {
-        width: '94%',
+        width: '90%',
         height: '16%',
         borderRadius: fontSize(14),
         ...globalStyle.asc,

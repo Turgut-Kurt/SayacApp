@@ -4,6 +4,7 @@ import {
   CustomCommonHeader,
   HouseDetail,
   SearchInput,
+  HouseBillDetail,
 } from '~components';
 import React, {useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
@@ -67,6 +68,42 @@ const HouseDetailScreen = ({route}) => {
         containerStyle={{width: '90%'}}
         placeholder={'Fatura Arayın'}
       />
+      <HouseBillDetail
+          month="Haziran"
+          year="2021"
+          status="Okunacak"
+          value="45"
+        />
+        <HouseBillDetail
+          month="Mayıs"
+          year="2021"
+          status="Ödenecek:"
+          value="45"
+        />
+        <HouseBillDetail
+          month="Nisan"
+          year="2021"
+          status="Ödenecek:"
+          value="12"
+        />
+        <HouseBillDetail
+          month="Mart"
+          year="2021"
+          status="Tamamlandı"
+          value="12"
+        />
+        <HouseBillDetail
+          month="Şubat"
+          year="2021"
+          status="Tamamlandı"
+          value="12"
+        />
+        <HouseBillDetail
+          month="Ocak"
+          year="2021"
+          status="Tamamlandı"
+          value="12"
+        />
     </View>
   );
 };

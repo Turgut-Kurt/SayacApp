@@ -159,6 +159,12 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
         
     },
+    textColorWhite: {
+     color: colors.MainWhite   
+    },
+    textColorBlue: {
+        color : colors.MainBlue
+    },
     modalSvg: {
         width: 100,
         height: 100,

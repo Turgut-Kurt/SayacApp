@@ -23,13 +23,10 @@ const SettingsScreen = () => {
 
   return (
     <View>
-      <Settings svg={calculator} text="Fatura değerleri" />
+      <Settings onPress={() => navigate(settingStack.bills_settings)} svg={calculator} text="Fatura değerleri" />
       <Settings svg={locked} text="Kullanıcı seçenekleri" />
       <Settings svg={printer} text="Yazıcı ayarları" />
-      <CustomButton
-        textName={'fatura ayarları'}
-        onPress={() => navigate(settingStack.bills_settings)}
-      />
+      
       <CustomButton
         textName={'Çıkış'}
         onPress={logOut}

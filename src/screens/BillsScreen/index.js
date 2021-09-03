@@ -1,16 +1,16 @@
 import { Text, View, FlatList, ScrollView } from 'react-native';
-import { BillsCard, BillsDetailCard,BillsHeader} from '~components';
+import { BillsCard, BillsDetailCard,BillsHeader, SearchInput} from '~components';
 //import { SearchInput } from '~components';
 
-import { StatusHeader } from '~components';
+import { StatusHeader , CustomCommonHeader, CustomButtonWithSvg} from '~components';
 import React from 'react';
 
-import { HouseDetail, HouseBillDetail } from '~components';
-import { arrow_right } from '~/assets';
+import { HouseDetail, HouseBillDetail,} from '~components';
+import { arrow_right, home_logo, home_filter, home_add, delete_house } from '~/assets';
 
 
-import {navigate} from '~utils';
-import {billStack} from '~config';
+import {navigate , fontSize} from '~utils';
+import {billStack, homeStack, mainStack} from '~config';
 
 const BillsScreen = () => {
   const data = {
@@ -39,53 +39,46 @@ const BillsScreen = () => {
   
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <BillsHeader onPress={() => navigate(billStack.bill_detail)} />
+      <CustomCommonHeader
+        svg={home_logo}
+        activeBottom={false}
+        leftButton={
+          <CustomButtonWithSvg
+            containerStyle={{
+              marginRight: fontSize(10),
+            }}
+            onPress={() => navigate(homeStack.add_house)}
+            svg={delete_house}
+            text={'Faturayı Sil'}
+          />
+        }
+        rightButton={
+          <CustomButtonWithSvg
+            onPress={() => navigate(homeStack.add_house)}
+            svg={home_filter}
+            text={'Filtrele'}
+          />
+        }
+      />
+      <StatusHeader />
+      <SearchInput
+        placeholder={"Sayaç Arayın"}
+        containerStyle={{width: '90%'}}
+      />
       <FlatList
         //ListHeaderComponent={() => (<SearchInput/>)}
-        renderItem={({item}) => <BillsCard {...item} />}
+        renderItem={({ item }) => <BillsCard
+          {...item}
+          onPress={() => navigate(billStack.bill_detail)}
+        />}
         data={data.cards}
         keyExtractor={(item, index) => index.toString()}
       />
-      <BillsDetailCard />
+      
       <View>
-        <HouseDetail />
-        <HouseBillDetail
-          month="Haziran"
-          year="2021"
-          status="Okunacak"
-          value="45"
-        />
-        <HouseBillDetail
-          month="Mayıs"
-          year="2021"
-          status="Ödenecek:"
-          value="45"
-        />
-        <HouseBillDetail
-          month="Nisan"
-          year="2021"
-          status="Ödenecek:"
-          value="12"
-        />
-        <HouseBillDetail
-          month="Mart"
-          year="2021"
-          status="Tamamlandı"
-          value="12"
-        />
-        <HouseBillDetail
-          month="Şubat"
-          year="2021"
-          status="Tamamlandı"
-          value="12"
-        />
-        <HouseBillDetail
-          month="Ocak"
-          year="2021"
-          status="Tamamlandı"
-          value="12"
-        />
-        <StatusHeader />
+        
+        
+        
       </View>
     </View>
   );

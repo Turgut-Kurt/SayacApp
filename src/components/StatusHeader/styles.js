@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     Container: {
         ...globalStyle.jcsa,
         ...globalStyle.fdr,
+        
 
     },
 });
