@@ -19,7 +19,8 @@ const HouseDetail = props => {
     sayacno,
     tcno,
     ilksayacdeg,
-    cntFirstVal,
+    tutar,
+    gecikmetutari,
     totalPay,
   } = props;
 
@@ -42,9 +43,11 @@ const HouseDetail = props => {
             styles.tcAddressFirstVal
           }>{`${mahalle} ${cadde} ${sokak}`}</Text>
         <Text style={styles.tcAddressFirstVal}>
-          {`Sayaç başlangıç değeri : ${ilksayacdeg}`}
+          {`Sayaç başlangıç değeri: ${ilksayacdeg}`}
         </Text>
-        <Text style={styles.totalPay}>{totalPay}</Text>
+        <Text style={styles.totalPay}>
+          {`Toplam ödenecek: ${tutar} + ${gecikmetutari} (gecikme) = ${tutar + gecikmetutari} ₺`}
+        </Text>
       </View>
       <StatusHeader
         containerStyle={{
@@ -65,7 +68,8 @@ HouseDetail.propTypes = {
   tcNo: PropTypes.string,
   subsNo: PropTypes.string,
   address: PropTypes.string,
-  cntFirstVal: PropTypes.string,
+  tutar: PropTypes.number,
+  gecikmetutari: PropTypes.number,
   totalPay: PropTypes.string,
 };
 
