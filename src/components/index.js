@@ -18,3 +18,4 @@ export * from './MontsButton';
 export * from './MeterReadInfoCard';
 export * from './CustomModal';
 export * from './CustomCommonHeader';
+export * from './Loader';

@@ -1,11 +1,12 @@
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 import {
   CustomButton,
   CustomInputLabel,
+  Loader,
   colors,
   globalStyle,
-} from '~/components';
+} from '~components';
 import React, {useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
 import {home_logo, show_password} from '~/assets';
 import {navigate, replace} from '~/utils/navigation';
 
@@ -31,17 +32,25 @@ const LoginScreen = connect(
   const {user} = props;
 
   const [isSecure, setIsSecure] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [formikInitialValues, setFormikinitialValues] = useState({
     email: '',
     password: '',
   });
-
+  const login = values => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      props.SignIn(values);
+    }, 2000);
+  };
   return (
     <KeyboardAwareScrollView style={{flex: 1}}>
+      <Loader loading={loading} />
       <Formik
         validationSchema={LoginValidationSchema}
         initialValues={formikInitialValues}
-        onSubmit={values => props.SignIn(values)}>
+        onSubmit={values => login(values)}>
         {({
           handleChange,
           handleBlur,
@@ -81,11 +90,13 @@ const LoginScreen = connect(
                 <VectorImage source={show_password} />
               </TouchableOpacity>
             </View>
+
             <CustomButton
               onPress={handleSubmit}
               textName={'Giriş Yap'}
               buttonStyle={styles.Button}
             />
+
             <View
               style={{
                 flexDirection: 'row',
