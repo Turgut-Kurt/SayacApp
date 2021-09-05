@@ -202,7 +202,7 @@ const BillSettings = () => {
               errorColor={colors.MainRed}
             />
             <CustomButton
-              textName={'Kaydet'}
+              textName={'Güncelle'}
               onPress={() => createData(values)}
               buttonStyle={styles.Button}
             />
