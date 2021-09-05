@@ -94,7 +94,7 @@ const BillSettings = () => {
             <CustomInputLabel
               name={'name'}
               containerProps={{
-                label: 'Su bedeli',
+                label: 'Atık su bedeli(kesin olacak)',
                 placeholder: '',
                 maxLength: 25,
               }}
@@ -104,7 +104,7 @@ const BillSettings = () => {
             <CustomInputLabel
               name={'name'}
               containerProps={{
-                label: 'Atık su bedeli',
+                label: 'Birim fiyatı(kesin olacak)',
                 placeholder: '',
                 maxLength: 25,
               }}
@@ -114,7 +114,7 @@ const BillSettings = () => {
             <CustomInputLabel
               name={'name'}
               containerProps={{
-                label: 'ÇTV bedeli',
+                label: 'ÇTV bedeli(kesin olacak)',
                 placeholder: '',
                 maxLength: 25,
               }}
@@ -124,7 +124,7 @@ const BillSettings = () => {
             <CustomInputLabel
               name={'name'}
               containerProps={{
-                label: 'Bakım bedeli',
+                label: 'Bakım bedeli(işleme dahil edilmesin)',
                 placeholder: '',
                 maxLength: 25,
               }}
@@ -134,7 +134,7 @@ const BillSettings = () => {
             <CustomInputLabel
               name={'name'}
               containerProps={{
-                label: 'Su bedeli kdv oranı',
+                label: 'Kdv oranı(kesin olacak)',
                 placeholder: '',
                 maxLength: 25,
               }}
@@ -144,7 +144,7 @@ const BillSettings = () => {
             <CustomInputLabel
               name={'name'}
               containerProps={{
-                label: 'Atık su bedeli kdv oranı',
+                label: 'Gecikme faizi oranı(%1,6)',
                 placeholder: '',
                 maxLength: 25,
               }}
@@ -154,37 +154,8 @@ const BillSettings = () => {
             <CustomInputLabel
               name={'name'}
               containerProps={{
-                label: 'Çtv bedeli kdv oranı',
-                placeholder: '',
-                maxLength: 25,
-              }}
-              succesColor={colors.MainGreen}
-              errorColor={colors.MainRed}
-            />
-            <CustomInputLabel
-              name={'name'}
-              containerProps={{
-                label: 'Bakım bedeli kdv oranı',
-                placeholder: '',
-                maxLength: 25,
-              }}
-              succesColor={colors.MainGreen}
-              errorColor={colors.MainRed}
-            />
-            <CustomInputLabel
-              name={'name'}
-              containerProps={{
-                label: 'Gecikme faizi oranı',
-                placeholder: '',
-                maxLength: 25,
-              }}
-              succesColor={colors.MainGreen}
-              errorColor={colors.MainRed}
-            />
-            <CustomInputLabel
-              name={'name'}
-              containerProps={{
-                label: 'Fatura ödeme süresi (gün)',
+                label:
+                  'Fatura ödeme süresi (gün)(fatura kesim tarihi ile son ödeme tarihi arasındaki fark)',
                 placeholder: '',
                 maxLength: 25,
               }}
