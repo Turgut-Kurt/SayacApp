@@ -9,7 +9,8 @@ import {
 import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {add_house, arrow, delete_house, home_filter, home_logo} from '~assets';
-import {fontSize, goBack} from '~utils';
+import { fontSize, goBack, push } from '~utils';
+import { homeStack, mainStack } from '~/config';
 
 import {AddHouseValidationSchema} from '~schema';
 import {Formik} from 'formik';
@@ -19,18 +20,23 @@ import VectorImage from 'react-native-vector-image';
 import {db} from '~request';
 import styles from './styles';
 
-const UpdateHouseScreen = () => {
+const UpdateHouseScreen = ({route}) => {
+  let data = route.params.item;
+  console.log(data);
+  
+  
+
   let db;
   const [formikInitialValues, setFormikinitialValues] = useState({
-    name: '',
-    tcno: '',
-    neighbourhood: '',
-    street: '',
-    doornumber: '',
-    counternumber: '',
-    initialcountervalue: '',
-    subscriberno: '',
-    notes: '',
+    name: data.isimsoyisim,
+    tcno: data.tcno,
+    neighbourhood: data.mahalle,
+    street: data.cadde,
+    doornumber: data.sokak,
+    counternumber: data.sayacno,
+    initialcountervalue: data.ilksayacdeg,
+    subscriberno: data.aboneno,
+    notes: data.notlar,
   });
   useEffect(() => {
     SQLite.enablePromise(true);
@@ -41,30 +47,43 @@ const UpdateHouseScreen = () => {
       })
       .catch(e => console.log(e));
   }, []);
-  const createData = values => {
-    db.transaction(tx => {
-      tx.executeSql(
-        'INSERT INTO houses (isimsoyisim, tcno, mahalle, cadde, sokak, sayacno, ilksayacdeg, aboneno, notlar, faturaid, odenenfaturasayisi, faturasayisi) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
-        [
-          values.name,
-          values.tcno,
-          values.neighbourhood,
-          values.street,
-          values.doornumber,
-          values.counternumber,
-          values.initialcountervalue,
-          values.subscriberno,
-          values.notes,
-        ],
-        (tx, result) => {
-          console.log('tx', tx);
-          console.log('result', result);
-        },
-      );
-    });
+
+  
+
+  
+  const updateData = async (values) => {
+    console.log(values);
+    
+    if (id.length == 0) {
+      Alert.alert('Warning!', 'Please write your data.')
+    } else {
+      try {
+        db.transaction((tx) => {
+          tx.executeSql(
+            "UPDATE houses SET isimsoyisim = ?, tcno = ?, mahalle = ?, cadde = ?, sokak = ?, sayacno = ?, ilksayacdeg = ?, aboneno = ?, notlar = ? WHERE id = ?",
+            [
+              values.name,
+              values.tcno,
+              values.neighbourhood,
+              values.street,
+              values.doornumber,
+              values.counternumber,
+              values.initialcountervalue,
+              values.subscriberno,
+              values.notes,
+              data.id
+            ],
+            () => { Alert.alert('Success!', 'Your data has been updated.') },
+            error => { console.log(error) }
+          )
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
   return (
-    <KeyboardAwareScrollView style={{flex: 1}}>
+    <KeyboardAwareScrollView style={styles.KeyboardAvoid}>
       <Formik
         validationSchema={AddHouseValidationSchema}
         initialValues={formikInitialValues}
@@ -86,7 +105,7 @@ const UpdateHouseScreen = () => {
                   onPress={() => goBack()}
                   style={styles.CustomBack}>
                   <VectorImage source={arrow} />
-                  <Text style={styles.CustomBackText}>Hane Ekle</Text>
+                  <Text style={styles.CustomBackText}>Düzenle</Text>
                 </TouchableOpacity>
               }
               svg={home_logo}
@@ -221,8 +240,8 @@ const UpdateHouseScreen = () => {
               errorColor={colors.MainRed}
             />
             <CustomButton
-              textName={'Kaydet'}
-              onPress={() => createData(values)}
+              textName={'Güncelle'}
+              onPress={() => updateData(values) }
               buttonStyle={styles.Button}
             />
           </View>

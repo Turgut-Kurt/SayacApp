@@ -15,7 +15,7 @@ import { homeStack, mainStack } from '~config';
 import styles from './styles';
 
 const HouseDetailScreen = ({route}) => {
-  let data = route.params.item;
+  let item = route.params.item;
   let db;
   useEffect(() => {
     SQLite.enablePromise(true);
@@ -54,20 +54,22 @@ const HouseDetailScreen = ({route}) => {
             containerStyle={{
               marginRight: fontSize(10),
             }}
-            onPress={() => { deleteData(data.id); push(mainStack.home_tab) }}
+            onPress={() => { deleteData(item.id); push(mainStack.home_tab) }}
             svg={delete_house}
             text={'Haneyi Sil'}
           />
         }
         rightButton={
           <CustomButtonWithSvg
-            onPress={() => navigate(homeStack.add_house)}
+            onPress={() => navigate(homeStack.update_house , {
+                item:item,
+              })  }
             svg={edit}
-            text={'Hane Ekle'}
+            text={'Düzenle'}
           />
         }
       />
-      <HouseDetail {...data} tutar={55} gecikmetutari={2} />
+      <HouseDetail {...item} tutar={55} gecikmetutari={2} />
       <SearchInput
         containerStyle={{width: '90%'}}
         placeholder={'Fatura Arayın'}
