@@ -1,5 +1,5 @@
 import {PropTypes} from '~/components/config';
-import {Text, Modal, Pressable, View} from 'react-native';
+import {Text, Modal, Pressable, View, TextInput} from 'react-native';
 import React from 'react';
 import styles from './styles';
 import { meterRead } from '~assets';
@@ -17,26 +17,49 @@ const CustomModal = props => {
     modalText,
     visibleValue,
     closeFunc,
+    openFunc,
+    
   } = props;
 
-  
+  const pressFunction = () => {
+    openFunc == null ? (
+       closeFunc() 
+    ): (closeFunc(), openFunc() )
+  }
 
-  const modalBackgroundStyle = { backgroundColor: 'rgba(0, 0, 0, 0.5)', borderWidth:2 };
+  const modalBackgroundStyle = { backgroundColor: 'rgba(0, 0, 0, 0.5)' };
   return (
     <>
       <View  style={styles.modal} >
-                <Modal visible={visibleValue} transparent={true} animationType='slide' style={{borderWidth:2}} >
-                    <View style={[styles.modal, modalBackgroundStyle]} >
-                        <View style={styles.modalinside}>
-                            <VectorImage style={styles.modalSvg} source={meterRead} />
-                            <Text style={styles.modalText}>Sayaç Başarıyla Okundu</Text>
-                            <Pressable style={styles.saved} onPress={() => closeFunc()}>
-                                <Text>Tamam</Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                </Modal>
+        <Modal visible={visibleValue} transparent={true} animationType='slide' style={{borderWidth:2}} >
+          <View style={[styles.modal, modalBackgroundStyle]} >
+            <View style={styles.modalinside}>
+              {svg==null ? (null) : <VectorImage style={styles.modalSvg} source={svg} />}
+              <Text style={styles.modalText}>{ modalText }</Text>
+              
+              {inputNumber == 1 ? (<TextInput style={styles.modalInput} />) : (null)}
+              
+              {buttonNumber == 2 ? (
+                <View style={styles.modalButtons}>
+                  <Pressable style={styles.save} onPress={() => pressFunction()}>
+                    <Text style={{ color: 'white' }}>{ buttonOneText }</Text>
+                </Pressable>
+                <Pressable style={styles.cancel} onPress={() => closeFunc()} >
+                  <Text style={{color:'blue'}}>{buttonTwoText}</Text>
+                </Pressable>
+              </View>
+              ) : (null)}
+              {buttonNumber == 1 ? (
+                <Pressable style={styles.saved} onPress={() => closeFunc()}>
+                    <Text style={{ color: 'white' }}>{ buttonOneText }</Text>
+                </Pressable>
+              ) : (null)}
+              
+
             </View>
+          </View>
+        </Modal>
+      </View>
     </>
   );
 };
@@ -55,11 +78,13 @@ CustomModal.propTypes = {
   buttonNumber: PropTypes.number,
 };
 CustomModal.defaultProps = {
-  // buttonColor: colors.MainBlue,
-  // buttonType: false,
+  buttonOneText: 'Tamam',
+  buttonTwoText: 'İptal',
   // onPress=() => setModalVisible(true)
-  // disabled: false,
+  inputNumber: 0,
+  buttonNumber: 1,
   // textColor: colors.MainWhite,
   // textName: 'CustomButton',
+  
 };
 export {CustomModal};

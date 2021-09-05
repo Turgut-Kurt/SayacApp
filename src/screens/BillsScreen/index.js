@@ -4,8 +4,7 @@ import {
   BillsHeader,
   StatusHeader,
 } from '~components';
-import {FlatList, ScrollView, Text, View} from 'react-native';
-import {HouseBillDetail, HouseDetail} from '~components';
+import {FlatList, View} from 'react-native';
 
 import React from 'react';
 import {navigate} from '~utils';
@@ -14,38 +13,41 @@ import {billStack} from '~config';
 const BillsScreen = () => {
   const data = {
     cards: [
-      {
+      { id:0,
         status: 'Tamamlandı',
-        an: '1111111',
+        an: 1111111,
         name: 'Mehmet Özkan',
-        tc: '15555555555',
+        tc: 999999999999,
         date: 'Ağustos 2021',
+        sn:123456
       },
-      {
+      { id:1,
         status: 'Okunacak',
-        an: '1111111',
+        an: 2222222,
         name: 'Fadime Duran',
-        tc: '15555555555',
+        tc: 888888888888,
         date: 'Temmuz 2021',
+        sn:987654
       },
-      {
+      { id:2,
         status: 'Ödenecek',
-        an: '1111111',
+        an: 3333333,
         name: 'Halime Duran',
-        tc: '15555555555',
-        date: 'Temmuz 2021',
+        tc: 777777777777,
+        date: 'Haziran 2021',
+        sn:123789
       },
     ],
   };
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <BillsHeader onPress={() => navigate(billStack.bill_detail)} />
+      <BillsHeader  />
       <FlatList
         //ListHeaderComponent={() => (<SearchInput/>)}
-        renderItem={({item}) => <BillsCard {...item} onPress={() => navigate(billStack.bill_detail)} />}
+        renderItem={({item}) => <BillsCard {...item}  />}
         data={data.cards}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => item.id}
       />
       {/* <BillsDetailCard />
       <View>

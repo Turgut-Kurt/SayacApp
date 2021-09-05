@@ -30,36 +30,36 @@ const styles = StyleSheet.create({
     modalInput: {
         borderWidth: 1,
         borderColor: '#2A70FA',
-        width: '85%',
+        width: '90%',
         height:40,
         borderRadius: 50,
-        marginVertical: 25,
+        marginVertical: 20,
         paddingLeft:10
     },
     save: {
         backgroundColor: '#2A70FA',
-        padding: 10,
+        padding: 5,
         borderRadius: 25,
-        width: 120,
-        height: 40,
+        width: 140,
+        height:35,
         justifyContent: "center",
         alignItems: "center",
-        marginHorizontal:20
+        
     },
     cancel: {
         borderColor: '#2A70FA',
         borderWidth:1,
-        padding: 10,
+        padding: 5,
         borderRadius: 25,
-        width: 120,
-        height: 40,
+        width: 140,
+        height:35,
         justifyContent: "center",
         alignItems: "center",
-        marginHorizontal:20    },
+            },
     modalButtons: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        
+        justifyContent: 'space-between',
+        width: '90%',
     },
     modalSvg: {
         width: 100,

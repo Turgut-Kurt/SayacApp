@@ -22,6 +22,7 @@ import locked from './svg/settings/lock_black_24dp1.svg';
 import printer from './svg/settings/print_black_24dp1.svg';
 import read_icon from './svg/detail/radar_black_24dp1.svg';
 import toberead from './svg/toberead.svg';
+import meterRead from './svg/meterRead.svg';
 export {
   Houses,
   HousesSelected,
@@ -46,5 +47,6 @@ export {
   printer,
   arrow_right,
   read_icon,
-  done_icon
+  done_icon,
+  meterRead,
 };
