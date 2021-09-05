@@ -19,25 +19,6 @@ import VectorImage from 'react-native-vector-image';
 import {db} from '~request';
 import styles from './styles';
 
-const data = [
-  {
-    id: 1,
-    status: 'Okunacak',
-    quantity: 1,
-  },
-  ,
-  {
-    id: 2,
-    status: 'Ödenecek',
-    quantity: 2,
-  },
-  ,
-  {
-    id: 3,
-    status: 'Tamamlandı',
-    quantity: 7,
-  },
-];
 const AddHouseScreen = () => {
   let db;
   const [formikInitialValues, setFormikinitialValues] = useState({
@@ -99,7 +80,6 @@ const AddHouseScreen = () => {
         }) => (
           <View style={styles.Container}>
             <CustomCommonHeader
-              data={data}
               activeBottom={false}
               backButton={
                 <TouchableOpacity
