@@ -1,45 +1,19 @@
 import React,{useState, useEffect} from 'react';
-import { View, Text, Image, TouchableOpacity, Pressable, Modal, Button, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, Pressable, Modal, Button, TextInput } from 'react-native';
 import VectorImage from 'react-native-vector-image';
-import { PropTypes, ViewPropTypes } from '~/components/config';
+import { PropTypes } from '~/components/config';
 import styles from './styles';
-import { centerfocus, home, checkGray, arrow,meterRead } from '~assets';
-import { StatusCard } from './../StatusCard';
-import { MeterReadInfoCard } from './../MeterReadInfoCard';
-import { CustomButtonWithSvg } from '../CustomButtonWithSvg';
+import { centerfocus, home, checkGray, arrow, meterRead } from '~assets';
+import {MeterReadInfoCard, CustomButtonWithSvg, StatusCard,CustomModal, CustomButton } from '~components';
 
 const BillsDetailCard = (props) => {
-    const {  an, name, sn, adress, date, onPress, status,meter, meterTime, onPressArrow } = props;
-    const [modal, setModal] = useState(false);
-    const [modalSuccess, setModalSuccess] = useState(false);
-    const [meterReadSuccess, setMeterReadSuccess] = useState(false);
-    const modalBackgroundStyle = { backgroundColor: 'rgba(0, 0, 0, 0.5)' };
-    const [statusCardState, setStatusCardState] = useState('Okunacak');
-    const [currentTime, setCurrentTime] = useState('');
-    const [passMeter, setPassMeter] = useState(null);
-    const [meterValue, setMeterValue] = useState(null);
-    const setTime = () => {
-          var date = new Date().getDate()
-          var month = new Date().getMonth()
-          var year = new Date().getFullYear()
-          var hours = new Date().getHours()
-          var min = new Date().getMinutes()
-          setCurrentTime( date + '/'+ month + '/'+ year + ',    '+ hours + '.'+ min)
-    }
-    const setMeter = () => {
-        setMeterValue(passMeter);
-    }
+    const { an, name, sn, adress, date,status, meter, meterTime, readSuccess, meterValue, currentTime } = props;
+   
+
+   
     
-    useEffect(() => {
-        setMeterReadSuccess(false);
-        setStatusCardState('Okunacak')
-        
-    }, []);
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={onPressArrow} style={styles.arrow}>
-                <VectorImage style={styles.svgArrow} source={arrow} />
-            </TouchableOpacity>
             
             <View style={styles.topDate}>
                 <VectorImage style={styles.svg} source={centerfocus} />
@@ -57,7 +31,7 @@ const BillsDetailCard = (props) => {
             <Text style={styles.adress}>{adress}</Text>
             <Text style={styles.meter}>Sayaç başlangıç değeri: {meter}</Text>
             <View style={styles.statusCard}>
-                <StatusCard status={statusCardState} />
+                <StatusCard status={status} />
             </View>
             
             <View style={styles.bottom}>
@@ -65,72 +39,10 @@ const BillsDetailCard = (props) => {
                 <Text style={styles.info}>Sayaç okuma zamanı geldi</Text>
                 <Text style={styles.meterTime}>{meterTime}</Text>
             </View>
-            
-            {meterReadSuccess == true ? (<MeterReadInfoCard meterReadTime={currentTime} meterValue={ meterValue}/>):(null)}
-            {meterReadSuccess == true ? (
-                <View>
-                    <Pressable style={styles.printerButton} >
-                        <Text>Yazdır</Text>
-                    </Pressable>
-                     <View style={styles.afterReadButtons}>
-                        <Pressable style={styles.save} >
-                            <Text>Ödeme Al</Text>
-                        </Pressable>
-                        <Pressable style={styles.cancel} >
-                            <Text>Yeniden Oku</Text>
-                        </Pressable>
-                    </View>
-               </View>
-            ) : (<Pressable style={styles.readMeterButton} onPress={() => setModal(true)}>
-                    <Text>Sayaç Oku</Text>
-                </Pressable>)
-            }
-            
-            <CustomButtonWithSvg onPress={() => setModal(true)}/>
-            
-           
 
-            <View  style={styles.modal} >
-                <Modal visible={modal} transparent={true} animationType='slide'>
-                    <View style={[styles.modal, modalBackgroundStyle]}>
-                        <View style={styles.modalinside}>
-                            <Text style={styles.modalText}>Sayaçta Okuduğunuz Değeri Giriniz</Text>
-                            <TextInput style={styles.modalInput} onChangeText={(value) => setPassMeter(value)} />
-                            <View style={styles.modalButtons}>
-                                <Pressable style={styles.save} onPress={() => {
-                                    setModal(false);
-                                    setModalSuccess(true);
-                                    setMeterReadSuccess(true);
-                                    setStatusCardState('Ödenecek')
-                                    setTime()
-                                    setMeter()
-                                }}>
-                                    <Text>Kaydet</Text>
-                                </Pressable>
-                                <Pressable style={styles.cancel} onPress={() => setModal(false)}>
-                                    <Text>İptal</Text>
-                                </Pressable>
-                            </View>
-                            
-                        </View>
-                    </View>
-                </Modal>
-            </View>
-            <View  style={styles.modal} >
-                <Modal visible={modalSuccess} transparent={true} animationType='slide'>
-                    <View style={[styles.modal, modalBackgroundStyle]}>
-                        <View style={styles.modalinside}>
-                            <VectorImage style={styles.modalSvg} source={meterRead} />
-                            <Text style={styles.modalText}>Sayaç Başarıyla Okundu</Text>
-                            <Pressable style={styles.saved} onPress={() => setModalSuccess(false)}>
-                                <Text>Tamam</Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                </Modal>
-            </View>
-
-                       
+            {readSuccess == true ? (<MeterReadInfoCard meterReadTime={currentTime} meterValue={meterValue} />) : (null)}
+       
+            
         </View>
     );
 };

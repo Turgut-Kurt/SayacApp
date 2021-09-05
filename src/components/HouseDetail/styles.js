@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   SubsText: {
     marginVertical: fontSize(4),
-    marginLeft: fontSize(145),
+    marginLeft: fontSize(147),
   },
   ContractSubsNo: {
     marginVertical: fontSize(4),
