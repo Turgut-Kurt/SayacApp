@@ -24,9 +24,12 @@ import home_logo from './svg/home_logo.svg';
 import locked from './svg/settings/lock_black_24dp1.svg';
 import printer from './svg/settings/print_black_24dp1.svg';
 import read_icon from './svg/detail/radar_black_24dp1.svg';
-import show_password from './svg/show_password.svg';
-import splash_logo from './svg/splash_logo.svg';
 import toberead from './svg/toberead.svg';
+import meterRead from './svg/meterRead.svg';
+import splash_logo from './svg/splash_logo.svg'
+import show_password from './svg/show_password.svg';
+
+
 
 export {
   Houses,
@@ -53,6 +56,7 @@ export {
   arrow_right,
   read_icon,
   done_icon,
+  meterRead,
   splash_logo,
   show_password,
   delete1,

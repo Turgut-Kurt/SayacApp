@@ -6,13 +6,12 @@ import {
   SearchInput,
 } from '~components';
 import React, {useEffect} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import {arrow, delete_house, edit} from '~/assets';
-import {fontSize, goBack, navigate} from '~utils';
-
+import { fontSize, goBack, navigate, push } from '~utils';
 import SQLite from 'react-native-sqlite-storage';
 import VectorImage from 'react-native-vector-image';
-import {homeStack} from '~config';
+import { homeStack, mainStack } from '~config';
 import styles from './styles';
 
 const HouseDetailScreen = ({route}) => {
@@ -29,12 +28,18 @@ const HouseDetailScreen = ({route}) => {
   }, []);
   const deleteData = id => {
     db.transaction(tx => {
-      tx.executeSql('DELETE FROM houses WHERE id = ?', [id], (tx, result) => {
-        console.log('silindi');
-        console.log(result.rows.item(index));
-      });
+      tx.executeSql('DELETE FROM houses WHERE id = ?', [id], (tx, results) => {
+        if (results.rowsAffected > 0) {
+          console.log('Veri silindi');
+        } else {
+          console.log('Veri silme gerçekleştirilemedi');
+        }
+      },
+
+      );
     });
   };
+
   return (
     <View style={styles.Container}>
       <CustomCommonHeader
@@ -49,7 +54,7 @@ const HouseDetailScreen = ({route}) => {
             containerStyle={{
               marginRight: fontSize(10),
             }}
-            onPress={() => deleteData(data.id)}
+            onPress={() => { deleteData(data.id); push(mainStack.home_tab) }}
             svg={delete_house}
             text={'Haneyi Sil'}
           />
@@ -62,7 +67,7 @@ const HouseDetailScreen = ({route}) => {
           />
         }
       />
-      <HouseDetail {...data} />
+      <HouseDetail {...data} tutar={55} gecikmetutari={2} />
       <SearchInput
         containerStyle={{width: '90%'}}
         placeholder={'Fatura Arayın'}
