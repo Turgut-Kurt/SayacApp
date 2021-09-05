@@ -15,7 +15,7 @@ import SQLite from 'react-native-sqlite-storage';
 const db = SQLite.openDatabase(
   {
     name: 'sayacdb',
-    createFromLocation: 1,
+    createFromLocation: 3,
   },
   () => {
     console.log('başarılı');
@@ -133,7 +133,7 @@ export const listViewItemSeparator = () => {
 };
 
 //! örnek kullanım
-
+/*
 <>
 
     <View>

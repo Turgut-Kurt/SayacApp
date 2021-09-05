@@ -9,7 +9,8 @@ import {
 import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {add_house, arrow, delete_house, home_filter, home_logo} from '~assets';
-import {fontSize, goBack} from '~utils';
+import { fontSize, goBack, push } from '~utils';
+import { mainStack } from '~config';
 
 import {AddHouseValidationSchema} from '~schema';
 import {Formik} from 'formik';
@@ -222,7 +223,7 @@ const AddHouseScreen = () => {
             />
             <CustomButton
               textName={'Kaydet'}
-              onPress={() => createData(values)}
+              onPress={() => {createData(values) ; push(mainStack.home_tab)}}
               buttonStyle={styles.Button}
             />
           </View>
