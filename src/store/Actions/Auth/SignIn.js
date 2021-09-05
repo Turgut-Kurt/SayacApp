@@ -1,6 +1,7 @@
 import * as userTypes from '~/store/Types/index';
 
 import auth from '@react-native-firebase/auth';
+import {getToast} from '~helpers';
 
 const SignIn = values => async dispatch => {
   await auth()
@@ -13,6 +14,7 @@ const SignIn = values => async dispatch => {
           type: userTypes.USER_SIGNIN,
           payload: uid,
         });
+        getToast();
       }
     })
     .catch(error => {
