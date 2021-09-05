@@ -51,7 +51,7 @@ const HouseCard = props => {
     mahalle,
     cadde,
     sokak,
-    sayacno,
+    tcno,
     svg,
     onPress,
   } = props;
@@ -72,7 +72,7 @@ const HouseCard = props => {
           </View>
         </View>
         <View style={styles.AdressContainer}>
-          <Text style={styles.TextMeterStyle}>{sayacno}</Text>
+          <Text style={styles.TextMeterStyle}>{tcno}</Text>
           <Text style={styles.TextAddressStyle}>
             {`${mahalle} ${cadde} ${sokak}`}
           </Text>

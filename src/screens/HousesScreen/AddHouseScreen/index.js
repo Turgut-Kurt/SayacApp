@@ -45,7 +45,7 @@ const AddHouseScreen = () => {
   const createData = values => {
     db.transaction(tx => {
       tx.executeSql(
-        'INSERT INTO houses (isimsoyisim, tcno, mahalle, cadde, sokak, sayacno, ilksayacdeg, aboneno, notlar, faturaid, odenenfaturasayisi, faturasayisi) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+        'INSERT INTO houses (isimsoyisim, tcno, mahalle, cadde, sokak, sayacno, ilksayacdeg, aboneno, notlar) VALUES (?,?,?,?,?,?,?,?,?)',
         [
           values.name,
           values.tcno,
