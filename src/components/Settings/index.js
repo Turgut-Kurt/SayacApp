@@ -9,7 +9,7 @@ import styles from './styles';
 const Settings = props => {
 
     const {
-        onPress,
+
         svg,
         text,
         consSvg
@@ -17,7 +17,7 @@ const Settings = props => {
 
     return (
         <View style={styles.Container}>
-            <TouchableOpacity onPress={onPress} style={styles.Settings_button}>
+            <TouchableOpacity style={styles.Settings_button}>
                 <View style={styles.Row_view}>
                     <VectorImage
                         source={svg} />
@@ -33,8 +33,7 @@ const Settings = props => {
 Settings.propTypes = {
     svg: PropTypes.number,
     text: PropTypes.string,
-    consSvg: PropTypes.number,
-    onPress: PropTypes.func,
+    consSvg: PropTypes.number
 };
 
 Settings.defaultProps = {

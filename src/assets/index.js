@@ -2,13 +2,13 @@ import Bills from './svg/bottomTabBar/bills.svg';
 import BillsSelected from './svg/bottomTabBar/bills_selected.svg';
 import Houses from './svg/bottomTabBar/houses.svg';
 import HousesSelected from './svg/bottomTabBar/houses_selected.svg';
-import Settings from './svg/bottomTabBar/Settings.svg';
+import Settings from './svg/bottomTabBar/settings.svg';
 import SettingsSelected from './svg/bottomTabBar/settings_selected.svg';
 import Status from './svg/bottomTabBar/status.svg';
 import StatusSelected from './svg/bottomTabBar/status_selected.svg';
 import arrow from './svg/arrow.svg';
 import arrow_right from './svg/settings/west_black_24dp1.svg';
-import meterRead from './svg/meterRead.svg';
+import bill_detail_icon from './svg/detail/center_focus_strong_black_24dp1.svg';
 import calculator from './svg/settings/Frame2.svg';
 import centerfocus from './svg/centerfocus.svg';
 import checkGray from './svg/checkGray.svg';
@@ -46,6 +46,7 @@ export {
   checkcircle,
   arrow,
   checkGray,
+  bill_detail_icon,
   calculator,
   locked,
   printer,
@@ -57,5 +58,4 @@ export {
   delete1,
   edit,
   delete_house,
-  meterRead,
 };

@@ -18,7 +18,7 @@ const AddHouseValidationSchema = yup.object().shape({
     .required('Cadde zorunlu'),
   doornumber: yup
     .string()
-    .min(1, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
     .required('Kapı no zorunlu'),
   counternumber: yup
     .string()

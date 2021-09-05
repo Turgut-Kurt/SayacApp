@@ -10,9 +10,7 @@ import {homeStack} from '~config';
 
 const HousesScreen = () => {
   let db;
-  
-  
-  
+  //const [cardData, setCardData] = useState(data.cards);
   const [items, setItems] = useState([]);
   useEffect(() => {
     SQLite.enablePromise(true);
@@ -20,13 +18,24 @@ const HousesScreen = () => {
       .then(dbRes => {
         db = dbRes;
         console.log('Database opened:', dbRes);
-        readData();
       })
       .catch(e => console.log(e));
-  
+    setTimeout(() => {
+      readData();
+    }, 3000);
   }, []);
 
-    const readData = () => {
+  /*const onSearch = val => {
+    const filteredData = data.cards.filter(
+      x =>
+        x.name.toLowerCase().includes(val.toLowerCase()) ||
+        x.an.toString().startsWith(val),
+    );
+    setCardData(filteredData);
+
+    console.log(val);
+  };*/
+  const readData = () => {
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM houses', [], (tx, result) => {
         let temp = [];
@@ -35,28 +44,11 @@ const HousesScreen = () => {
           temp.push(result.rows.item(index));
           console.log(result.rows.item(index));
           setItems(temp);
-          
-          
         }
         //console.log(result.rows.item[0]);
       });
     });
   };
-
-
-  const onSearch = val => {
-    
-    const filteredData = items.filter(
-      x =>
-        x.isimsoyisim.toLowerCase().includes(val.toLowerCase()) ||
-        x.aboneno.toString().startsWith(val)
-    );
-    setItems(filteredData);
-
-    console.log(val);
-    
-  };
-
 
   return (
     <View style={{backgroundColor: '#ffffff'}}>
@@ -96,7 +88,6 @@ const HousesScreen = () => {
           />
         )}
         data={items}
-        
         keyExtractor={(item, index) => index.toString()}
       />
     </View>
