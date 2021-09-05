@@ -5,12 +5,10 @@ import { colors, fonts, globalStyle, lineHeights, sizes } from '../config';
 
 import React from 'react';
 import VectorImage from 'react-native-vector-image';
-import { centerfocus, toberead, checkcircle } from '~assets';
-import { PropTypes, ViewPropTypes } from '~/components/config';
 import styles from './styles';
-import { navigate } from '~utils';
+import { navigate, fontSize } from '~utils';
 import { billStack } from '~config';
-import { fontSize } from '~utils';
+
 
 //import styles from './styles';
 
