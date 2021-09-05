@@ -1,18 +1,53 @@
-/*import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, FlatList, SafeAreaView } from 'react-native';
-import SQLite from 'react-native-sqlite-storage';
+import {
+  Alert,
+  Button,
+  FlatList,
+  SafeAreaView,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 
+import SQLite from 'react-native-sqlite-storage';
 
 //! veritabanı açar
 const db = SQLite.openDatabase(
-    {
-        name: 'sqliteDB',
-        location: 'default',
-    },
-    () => { console.log("başarılı") },
-    error => { console.log(error) }
+  {
+    name: 'sayacdb',
+    createFromLocation: 1,
+  },
+  () => {
+    console.log('başarılı');
+  },
+  error => {
+    console.log(error);
+  },
 );
-
+//! houses tablosuna veri ekler
+const createData = () => {
+  db.transaction(tx => {
+    tx.executeSql(
+      'INSERT INTO houses (isimsoyisim, tcno, mahalle, cadde, sokak, sayacno, ilksayacdeg, aboneno, notlar, faturaid, odenenfaturasayisi, faturasayisi) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+        [
+        name,
+        tcno,
+        neighbourhood,
+        street,
+        doornumber,
+        counternumber,
+        initialcountervalue,
+        subscriberno,
+        notes,
+      ],
+      (tx, result) => {
+        console.log('tx', tx);
+        console.log('result', result);
+      },
+    );
+  });
+};
+/*
 //! kullanılan parametreler
 const [name, setName] = useState('');
 const [subsNo, setSubsNo] = useState('');
@@ -31,16 +66,7 @@ useEffect(() => {
     })
 }, [])
 
-//! houses tablosuna veri ekler
-export const createData = () => {
-    db.transaction((tx) => {
-        tx.executeSql("INSERT INTO houses (Name, SubsNo, Adr) VALUES (?,?,?)", [name, subsNo, adr], (tx, result) => {
-            console.log('tx', tx)
-            console.log('result', result)
-        })
-    });
 
-};
 
 //! houses tablosundaki tüm verileri okur
 export const readData = () => {
@@ -192,4 +218,4 @@ export const listViewItemSeparator = () => {
     </View >
 </>
 */
-
+export {db};

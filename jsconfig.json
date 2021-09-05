@@ -19,6 +19,9 @@
       "~helpers": [
         "./src/helpers/index"
       ],
+      "~request": [
+        "./src/request/index"
+      ],
       "~schema": [
         "./src/schema/index"
       ],

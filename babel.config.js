@@ -27,6 +27,10 @@ module.exports = {
             rootPathSuffix: 'src/helpers/index',
           },
           {
+            rootPathPrefix: '~request',
+            rootPathSuffix: 'src/request/index',
+          },
+          {
             rootPathPrefix: '~schema',
             rootPathSuffix: 'src/schema/index',
           },

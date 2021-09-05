@@ -10,33 +10,33 @@ import styles from './styles';
 
 const bills = [{
       an:1234656,
-      month:"January",
+      month:"Ocak",
       status:"Tamamlandı",
       billsFee: 130,
     },
     {
       an:127856,
-      month:"February",
+      month:"Şubat",
       status:"Ödenecek",
       billsFee: 140,
 
     },
     {
       an:1265656,
-      month:"February",
+      month:"Mart",
       status:"Ödenecek",
       billsFee: 100,
 
     },
     {
       an:1232356,
-      month:"March",
+      month:"Mart",
       status:"Tamamlandı",
       billsFee: 100,
     },
     {
       an:181356,
-      month:"March",
+      month:"Mart",
       status:"Okunacak",
       billsFee: 80,
     }
@@ -45,17 +45,18 @@ const bills = [{
 
 const monts = [
     { title : "Tümü", name :"Tümü"},
-    { title: 'January', name: 'January' },
-    { title: 'February', name: 'February' },
-    { title: 'March', name: 'March' },
-    { title: 'April', name: 'April' },
-    { title: 'May', name: 'May' },
-    { title: 'June', name: 'June' },
-    { title: 'July', name: 'July' },
-    { title: 'September', name: 'September' },
-    { title: 'October', name: 'October' },
-    { title: 'November', name: 'November' },
-    { title: 'December', name: 'December' },
+    { title: 'Ocak', name: 'Ocak' },
+    { title: 'Şubat', name: 'Şubat' },
+    { title: 'Mart', name: 'Mart' },
+    { title: 'Nisan', name: 'Nisan' },
+    { title: 'Mayıs', name: 'Mayıs' },
+    { title: 'Haziran', name: 'Haziran' },
+    { title: 'Temmuz', name: 'Temmuz' },
+    { title: 'Agustos', name: 'Agustos' },
+    { title: 'Eylül', name: 'Eylül' },
+    { title: 'Ekim', name: 'Ekim' },
+    { title: 'Kasım', name: 'Kasım' },
+    { title: 'Aralık', name: 'Aralık' }
 ]
     
 
