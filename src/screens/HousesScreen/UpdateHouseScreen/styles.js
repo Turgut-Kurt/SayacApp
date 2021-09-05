@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.MainWhite,
   },
+  KeyboardAvoid: {
+    flex: 1,
+    backgroundColor: colors.MainWhite,
+  },
   BackButton: {backgroundColor: colors.MainWhite},
   BackButtonSvg: {
     width: fontSize(22),
