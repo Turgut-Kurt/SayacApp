@@ -57,7 +57,7 @@ const HousesScreen = () => {
             }}
             onPress={() => navigate(homeStack.add_house)}
             svg={home_filter}
-            text={'Filtrele'}
+            text={'Filtrele(sankigereksiz)'}
           />
         }
         rightButton={
