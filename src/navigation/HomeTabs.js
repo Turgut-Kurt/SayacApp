@@ -8,17 +8,18 @@ import {
   Status,
   StatusSelected,
 } from '~assets';
-import {StatusScreen} from '~screens';
 import {StyleSheet, Text} from 'react-native';
-import React from 'react';
-import VectorImage from 'react-native-vector-image';
 import {colors, fonts, sizes} from '~components';
+
+import BillStack from './BillStack';
+import HomeStack from './HomeStack';
+import React from 'react';
+import SettingStack from './SettingStack';
+import {StatusScreen} from '~screens';
+import VectorImage from 'react-native-vector-image';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {fontSize} from '~utils';
 import {homeTabs} from '~config';
-import HomeStack from './HomeStack';
-import SettingStack from './SettingStack';
-import BillStack from './BillStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -87,7 +88,7 @@ const HomeTabs = () => {
 const styles = StyleSheet.create({
   barStyle: {
     backgroundColor: colors.MainWhite,
-    borderWidth: 1,
+    borderTopWidth: 1,
     borderColor: colors.Water,
   },
   tabBarLabelStyle: {fontSize: sizes.h6, ...fonts.Semibold, fontWeight: '600'},

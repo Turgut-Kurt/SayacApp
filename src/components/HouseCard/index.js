@@ -9,36 +9,14 @@ import {fontSize} from '~utils';
 import {home} from '~assets';
 import styles from './styles';
 
-const data = {
+const dataOne = {
   status: 'Ödenecek',
   quantity: 5,
 };
 
-const data1 = {
+const dataTwo = {
   status: 'Okunacak',
   quantity: 2,
-};
-
-const backgroundColor = {
-  backgroundColor:
-    data.status === 'Okunacak'
-      ? colors.MainLightWhite
-      : data.status === 'Tamamlandı'
-      ? colors.MainLightGreen
-      : data.status === 'Ödenecek'
-      ? colors.MainBeige
-      : null,
-};
-
-const textStyle = {
-  color:
-    data.status === 'Okunacak'
-      ? colors.MainLightBlue
-      : data.status === 'Tamamlandı'
-      ? colors.MainGreen
-      : data.status === 'Ödenecek'
-      ? colors.MainBrown
-      : null,
 };
 
 const HouseCard = props => {
@@ -79,18 +57,10 @@ const HouseCard = props => {
         </View>
         <View style={styles.badgeContainer}>
           <View style={{paddingHorizontal: fontSize(20)}}>
-            <StatusBadge
-              {...data}
-              background={backgroundColor}
-              textStyle={textStyle}
-            />
+            <StatusBadge {...dataOne} status={'Ödenecek'} />
           </View>
           <View>
-            <StatusBadge
-              {...data1}
-              background={backgroundColor}
-              textStyle={textStyle}
-            />
+            <StatusBadge {...dataTwo} status={'Okunacak'} />
           </View>
         </View>
       </View>

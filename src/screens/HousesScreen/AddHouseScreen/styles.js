@@ -4,6 +4,10 @@ import {colors, fonts, globalStyle} from '~components';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+  Avoid: {
+    flex: 1,
+    backgroundColor: colors.MainWhite,
+  },
   Container: {
     flex: 1,
     backgroundColor: colors.MainWhite,

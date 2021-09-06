@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+
 const AddHouseValidationSchema = yup.object().shape({
   name: yup
     .string()
@@ -22,7 +23,7 @@ const AddHouseValidationSchema = yup.object().shape({
     .required('Kapı no zorunlu'),
   counternumber: yup
     .string()
-    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .min(7, ({min}) => `En az ${min} karakter olmalıdır.`)
     .required('Sayaç no zorunlu'),
   initialcountervalue: yup
     .string()
@@ -30,7 +31,7 @@ const AddHouseValidationSchema = yup.object().shape({
     .required('İlk sayaç değeri zorunlu'),
   subscriberno: yup
     .string()
-    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .min(8, ({min}) => `En az ${min} karakter olmalıdır.`)
     .required('Abone no zorunlu'),
   notes: yup.string(),
 });

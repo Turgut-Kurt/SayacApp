@@ -3,14 +3,21 @@ import {
   CustomButtonWithSvg,
   CustomCommonHeader,
   CustomInputLabel,
+  CustomModal,
   colors,
   fonts,
 } from '~components';
 import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {add_house, arrow, delete_house, home_filter, home_logo} from '~assets';
-import { fontSize, goBack, push } from '~utils';
-import { mainStack } from '~config';
+import {
+  add_house,
+  arrow,
+  delete_house,
+  home_filter,
+  home_logo,
+  modalhouse,
+} from '~assets';
+import {fontSize, goBack, push} from '~utils';
 
 import {AddHouseValidationSchema} from '~schema';
 import {Formik} from 'formik';
@@ -18,6 +25,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SQLite from 'react-native-sqlite-storage';
 import VectorImage from 'react-native-vector-image';
 import {db} from '~request';
+import {mainStack} from '~config';
 import styles from './styles';
 
 const AddHouseScreen = () => {
@@ -33,6 +41,11 @@ const AddHouseScreen = () => {
     subscriberno: '',
     notes: '',
   });
+  const [visible, setVisible] = useState(false);
+
+  const close = () => {
+    setVisible(!visible);
+  };
   useEffect(() => {
     SQLite.enablePromise(true);
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
@@ -65,7 +78,7 @@ const AddHouseScreen = () => {
     });
   };
   return (
-    <KeyboardAwareScrollView style={{flex: 1}}>
+    <KeyboardAwareScrollView style={styles.Avoid}>
       <Formik
         validationSchema={AddHouseValidationSchema}
         initialValues={formikInitialValues}
@@ -165,7 +178,7 @@ const AddHouseScreen = () => {
                   keyboardType: 'numeric',
                   label: 'Sayaç no',
                   placeholder: '',
-                  maxLength: 10,
+                  maxLength: 7,
                 }}
                 succesColor={colors.MainGreen}
                 errorColor={colors.MainRed}
@@ -199,7 +212,7 @@ const AddHouseScreen = () => {
                   keyboardType: 'numeric',
                   label: 'Abone no',
                   placeholder: '',
-                  maxLength: 10,
+                  maxLength: 8,
                 }}
                 succesColor={colors.MainGreen}
                 errorColor={colors.MainRed}
@@ -213,7 +226,6 @@ const AddHouseScreen = () => {
             <CustomInputLabel
               name={'notes'}
               containerProps={{
-                keyboardType: 'numeric',
                 label: 'Notlar',
                 placeholder: '',
                 maxLength: 25,
@@ -222,9 +234,28 @@ const AddHouseScreen = () => {
               errorColor={colors.MainRed}
             />
             <CustomButton
+              disabled={!(values.tcno !== '' && isValid === true)}
               textName={'Kaydet'}
-              onPress={() => {createData(values) ; push(mainStack.home_tab)}}
-              buttonStyle={styles.Button}
+              onPress={() => {
+                createData(values);
+                setVisible(true);
+                setTimeout(() => {
+                  setVisible(false);
+                  push(mainStack.home_tab);
+                }, 3000);
+              }}
+              buttonStyle={[styles.Button]}
+              buttonColor={
+                values.tcno !== '' && isValid === true
+                  ? colors.MainBlue
+                  : colors.MainDarkGray
+              }
+            />
+            <CustomModal
+              closeFunc={close}
+              visibleValue={visible}
+              svg={modalhouse}
+              modalText={'Hane başarıyla kaydedildi.'}
             />
           </View>
         )}
