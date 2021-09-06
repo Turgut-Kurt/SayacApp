@@ -10,8 +10,8 @@ import {homeStack} from '~config';
 
 const HousesScreen = () => {
   let db;
-  //const [cardData, setCardData] = useState(data.cards);
   const [items, setItems] = useState([]);
+  const [filter, setFilter] = useState([]);
   useEffect(() => {
     SQLite.enablePromise(true);
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
@@ -24,17 +24,13 @@ const HousesScreen = () => {
       readData();
     }, 3000);
   }, []);
-
-  /*const onSearch = val => {
-    const filteredData = data.cards.filter(
-      x =>
-        x.name.toLowerCase().includes(val.toLowerCase()) ||
-        x.an.toString().startsWith(val),
-    );
-    setCardData(filteredData);
-
-    console.log(val);
-  };*/
+  const searchFilter = text => {
+    const searchingData = items.filter(item => {
+      const filtered = `${item.isimsoyisim} ${item.tcno} ${item.aboneno}`;
+      return filtered.indexOf(text.toLowerCase()) > -1;
+    });
+    setFilter(searchingData);
+  };
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM houses', [], (tx, result) => {
@@ -45,7 +41,6 @@ const HousesScreen = () => {
           console.log(result.rows.item(index));
           setItems(temp);
         }
-        //console.log(result.rows.item[0]);
       });
     });
   };
@@ -74,7 +69,7 @@ const HousesScreen = () => {
         }
       />
       <View style={{marginHorizontal: 16}}>
-        <SearchInput onChange={val => onSearch(val)} />
+        <SearchInput onChange={val => searchFilter(val)} />
       </View>
       <FlatList
         renderItem={({item}) => (
@@ -87,7 +82,7 @@ const HousesScreen = () => {
             }
           />
         )}
-        data={items}
+        data={filter && filter.length > 0 ? filter : items}
         keyExtractor={(item, index) => index.toString()}
       />
     </View>
