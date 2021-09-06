@@ -13,3 +13,4 @@ export * from './StatusScreen';
 export * from './LoginScreen';
 export * from './SplashScreen';
 export * from './RegisterScreen';
+export * from './SettingsScreen/PrinterSettings';

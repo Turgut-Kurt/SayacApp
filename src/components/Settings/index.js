@@ -12,12 +12,13 @@ const Settings = props => {
 
         svg,
         text,
-        consSvg
+        consSvg,
+        onPress,
     } = props;
 
     return (
         <View style={styles.Container}>
-            <TouchableOpacity style={styles.Settings_button}>
+            <TouchableOpacity style={styles.Settings_button} onPress={onPress}>
                 <View style={styles.Row_view}>
                     <VectorImage
                         source={svg} />
