@@ -234,6 +234,7 @@ const AddHouseScreen = () => {
               errorColor={colors.MainRed}
             />
             <CustomButton
+              disabled={!(values.tcno !== '' && isValid === true)}
               textName={'Kaydet'}
               onPress={() => {
                 createData(values);
@@ -243,7 +244,12 @@ const AddHouseScreen = () => {
                   push(mainStack.home_tab);
                 }, 3000);
               }}
-              buttonStyle={styles.Button}
+              buttonStyle={[styles.Button]}
+              buttonColor={
+                values.tcno !== '' && isValid === true
+                  ? colors.MainBlue
+                  : colors.MainDarkGray
+              }
             />
             <CustomModal
               closeFunc={close}
