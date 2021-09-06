@@ -3,12 +3,20 @@ import {
   CustomButtonWithSvg,
   CustomCommonHeader,
   CustomInputLabel,
+  CustomModal,
   colors,
   fonts,
 } from '~components';
 import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {add_house, arrow, delete_house, home_filter, home_logo} from '~assets';
+import {
+  add_house,
+  arrow,
+  delete_house,
+  home_filter,
+  home_logo,
+  modalhouse,
+} from '~assets';
 import {fontSize, goBack, push} from '~utils';
 
 import {AddHouseValidationSchema} from '~schema';
@@ -33,6 +41,11 @@ const AddHouseScreen = () => {
     subscriberno: '',
     notes: '',
   });
+  const [visible, setVisible] = useState(false);
+
+  const close = () => {
+    setVisible(!visible);
+  };
   useEffect(() => {
     SQLite.enablePromise(true);
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
@@ -213,7 +226,6 @@ const AddHouseScreen = () => {
             <CustomInputLabel
               name={'notes'}
               containerProps={{
-                keyboardType: 'numeric',
                 label: 'Notlar',
                 placeholder: '',
                 maxLength: 25,
@@ -225,9 +237,19 @@ const AddHouseScreen = () => {
               textName={'Kaydet'}
               onPress={() => {
                 createData(values);
-                push(mainStack.home_tab);
+                setVisible(true);
+                setTimeout(() => {
+                  setVisible(false);
+                  push(mainStack.home_tab);
+                }, 3000);
               }}
               buttonStyle={styles.Button}
+            />
+            <CustomModal
+              closeFunc={close}
+              visibleValue={visible}
+              svg={modalhouse}
+              modalText={'Hane başarıyla kaydedildi.'}
             />
           </View>
         )}

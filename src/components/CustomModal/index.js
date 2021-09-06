@@ -1,10 +1,10 @@
-import {PropTypes} from '~/components/config';
-import {Text, Modal, Pressable, View, TextInput} from 'react-native';
-import React from 'react';
-import styles from './styles';
-import { meterRead } from '~assets';
-import VectorImage from 'react-native-vector-image';
+import {Modal, Pressable, Text, TextInput, View} from 'react-native';
 
+import {PropTypes} from '~/components/config';
+import React from 'react';
+import VectorImage from 'react-native-vector-image';
+import { meterRead } from '~assets';
+import styles from './styles';
 
 const CustomModal = props => {
   const {
@@ -76,6 +76,8 @@ CustomModal.propTypes = {
   buttonTwoText: PropTypes.string,
   inputNumber: PropTypes.number,
   buttonNumber: PropTypes.number,
+  closeFunc: PropTypes.func,
+  openFunc: PropTypes.func,
 };
 CustomModal.defaultProps = {
   buttonOneText: 'Tamam',
