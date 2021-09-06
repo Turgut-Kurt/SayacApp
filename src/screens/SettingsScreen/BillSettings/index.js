@@ -21,27 +21,38 @@ import styles from './styles';
 
 const BillSettings = () => {
   let db;
+  const [data, setData] = useState(null);
   const [formikInitialValues, setFormikinitialValues] = useState({
     name: '',
-    name: '',
-    name: '',
-    name: '',
-    name: '',
-    name: '',
-    name: '',
-    name: '',
-    name: '',
+    tcno: '',
+    neighbourhood: '',
+    street: '',
+    doornumber: '',
+    counternumber: '',
+    initialcountervalue: '',
+    subscriberno: '',
+    notes: '',
   });
+
   useEffect(() => {
     SQLite.enablePromise(true);
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
       .then(dbRes => {
         db = dbRes;
         console.log('Database opened:', dbRes);
+        readData();
       })
       .catch(e => console.log(e));
   }, []);
-  const createData = values => {
+  const readData = () => {
+    db.transaction(tx => {
+      tx.executeSql('SELECT * FROM billsSettings', [], (tx, result) => {
+        console.log('result', result.rows.item(0).atiksubedeli);
+        setData(result.rows.item(0));
+      });
+    });
+  };
+  /*const createData = values => {
     db.transaction(tx => {
       tx.executeSql(
         'INSERT INTO billsettings (name, name, name, name, name, name, name, name, name, name, name, name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
@@ -62,12 +73,18 @@ const BillSettings = () => {
         },
       );
     });
-  };
+  };*/
   return (
     <KeyboardAwareScrollView style={styles.Avoid}>
       <Formik
         validationSchema={AddHouseValidationSchema}
-        initialValues={formikInitialValues}
+        initialValues={
+          data !== null
+            ? {
+                name: '5',
+              }
+            : formikInitialValues
+        }
         //onSubmit={values => console.log(values)}
       >
         {({
@@ -91,6 +108,7 @@ const BillSettings = () => {
               }
               svg={home_logo}
             />
+            {console.log(data)}
             <CustomInputLabel
               name={'name'}
               containerProps={{
