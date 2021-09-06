@@ -9,8 +9,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {add_house, arrow, delete_house, home_filter, home_logo} from '~assets';
-import { fontSize, goBack, push } from '~utils';
-import { mainStack } from '~config';
+import {fontSize, goBack, push} from '~utils';
 
 import {AddHouseValidationSchema} from '~schema';
 import {Formik} from 'formik';
@@ -18,6 +17,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SQLite from 'react-native-sqlite-storage';
 import VectorImage from 'react-native-vector-image';
 import {db} from '~request';
+import {mainStack} from '~config';
 import styles from './styles';
 
 const AddHouseScreen = () => {
@@ -165,7 +165,7 @@ const AddHouseScreen = () => {
                   keyboardType: 'numeric',
                   label: 'Sayaç no',
                   placeholder: '',
-                  maxLength: 10,
+                  maxLength: 7,
                 }}
                 succesColor={colors.MainGreen}
                 errorColor={colors.MainRed}
@@ -199,7 +199,7 @@ const AddHouseScreen = () => {
                   keyboardType: 'numeric',
                   label: 'Abone no',
                   placeholder: '',
-                  maxLength: 10,
+                  maxLength: 8,
                 }}
                 succesColor={colors.MainGreen}
                 errorColor={colors.MainRed}
@@ -223,7 +223,10 @@ const AddHouseScreen = () => {
             />
             <CustomButton
               textName={'Kaydet'}
-              onPress={() => {createData(values) ; push(mainStack.home_tab)}}
+              onPress={() => {
+                createData(values);
+                push(mainStack.home_tab);
+              }}
               buttonStyle={styles.Button}
             />
           </View>
