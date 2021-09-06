@@ -65,7 +65,7 @@ const AddHouseScreen = () => {
     });
   };
   return (
-    <KeyboardAwareScrollView style={{flex: 1}}>
+    <KeyboardAwareScrollView style={styles.Avoid}>
       <Formik
         validationSchema={AddHouseValidationSchema}
         initialValues={formikInitialValues}
