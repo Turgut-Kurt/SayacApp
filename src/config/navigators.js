@@ -21,6 +21,7 @@ export const homeStack = {
 export const settingStack = {
   settings: 'SettingsScreen',
   bills_settings: 'BillSettings',
+  printer_settings: 'PrinterSettings',
 };
 export const billStack = {
   bills: 'BillsScreen',

@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {settingStack} from '~config';
-import {SettingsScreen, BillSettings} from '~/screens';
+import { SettingsScreen, BillSettings, PrinterSettings } from '~/screens';
 
 const Stack = createStackNavigator();
 const SettingStack = () => {
@@ -13,6 +13,10 @@ const SettingStack = () => {
       <Stack.Screen
         name={settingStack.bills_settings}
         component={BillSettings}
+      />
+      <Stack.Screen
+        name={settingStack.printer_settings}
+        component={PrinterSettings}
       />
     </Stack.Navigator>
   );
