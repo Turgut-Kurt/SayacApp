@@ -39,34 +39,39 @@ const styles = StyleSheet.create({
     height: fontSize(24),
     marginHorizontal: 5,
   },
+  svg1: {
+    width: fontSize(15),
+    height: fontSize(15),
+    marginHorizontal: 5,
+  },
   person: {
-    fontSize: fontSize(18),
+    fontSize: fontSize(14),
     color: colors.MainBlack,
     marginHorizontal: 5,
   },
   anText: {
     marginLeft: 'auto',
-    fontSize: fontSize(18),
+    fontSize: fontSize(14),
   },
 
   an: {
     color: colors.MainBlue,
-    fontSize: fontSize(18),
+    fontSize: fontSize(14),
     marginHorizontal: 5,
   },
   tc: {
-    fontSize: fontSize(16),
+    fontSize: fontSize(12),
     color: colors.MainDarkGray,
     marginHorizontal: 5,
   },
   date: {
-    fontSize: fontSize(16),
+    fontSize: fontSize(12),
     color: colors.MainDarkGray,
     marginHorizontal: 5,
   },
   status: {
     marginLeft: 'auto',
-    fontSize: fontSize(16),
+    fontSize: fontSize(12),
   },
 });
 
