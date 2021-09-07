@@ -36,7 +36,7 @@ const BillsCard = props => {
         styles.container,
         {
           backgroundColor:
-            faturadurumu === 'okunacak'
+            faturadurumu === 'Okunacak'
               ? colors.MainLightWhite
               : faturadurumu === 'Tamamlandı'
               ? colors.MainLightGreen
@@ -59,7 +59,7 @@ const BillsCard = props => {
             styles.status,
             {
               color:
-                faturadurumu === 'okunacak'
+                faturadurumu === 'Okunacak'
                   ? colors.MainLightBlue
                   : faturadurumu === 'Tamamlandı'
                   ? colors.MainGreen
@@ -70,10 +70,10 @@ const BillsCard = props => {
           ]}>
           {faturadurumu}:{' '}
         </Text>
-        {faturadurumu === 'okunacak' ? (
-          <VectorImage style={styles.svg} source={toberead} />
+        {faturadurumu === 'Okunacak' ? (
+          <VectorImage style={styles.svg1} source={toberead} />
         ) : faturadurumu === 'Tamamlandı' ? (
-          <VectorImage style={styles.svg} source={checkcircle} />
+          <VectorImage style={styles.svg1} source={checkcircle} />
         ) : faturadurumu === 'Ödenecek' ? (
           <Text style={{color: colors.MainBrown, fontSize: fontSize(20)}}>
             {price} ₺
