@@ -23,6 +23,7 @@ const BillsScreen = () => {
         status: 'Tamamlandı',
         an: 1111111,
         name: 'Mehmet Özkan',
+        quantity: 2,
         tc: 999999999999,
         date: 'Ağustos 2021',
         sn: 123456,
@@ -32,6 +33,7 @@ const BillsScreen = () => {
         status: 'Okunacak',
         an: 2222222,
         name: 'Fadime Duran',
+        quantity: 5,
         tc: 888888888888,
         date: 'Temmuz 2021',
         sn: 987654,
@@ -42,6 +44,7 @@ const BillsScreen = () => {
         an: 3333333,
         name: 'Halime Duran',
         tc: 777777777777,
+        quantity: 3,
         date: 'Haziran 2021',
         sn: 123789,
       },
@@ -52,7 +55,8 @@ const BillsScreen = () => {
     <View style={{backgroundColor: 'white', flex: 1}}>
       <CustomCommonHeader
         svg={home_logo}
-        activeBottom={false}
+        data={data.cards}
+        activeBottom={true}
         rightButton={
           <CustomButtonWithSvg
             containerStyle={{
