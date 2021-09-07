@@ -1,6 +1,6 @@
 import {CustomButtonWithSvg, CustomCommonHeader} from '~components';
 import {FlatList, Text, View} from 'react-native';
-import {HouseCard, SearchInput} from '~components';
+import {HouseCard, SearchInput, Loader} from '~components';
 import React, {useEffect, useState} from 'react';
 import {fontSize, navigate} from '~utils';
 import {home_add, home_filter, home_logo} from '~assets';
@@ -12,17 +12,20 @@ const HousesScreen = () => {
   let db;
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState([]);
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     SQLite.enablePromise(true);
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
       .then(dbRes => {
         db = dbRes;
         console.log('Database opened:', dbRes);
+        
       })
       .catch(e => console.log(e));
     setTimeout(() => {
       readData();
-    }, 3000);
+      setLoading(false);
+     }, 3000);
   }, []);
   const searchFilter = text => {
     const searchingData = items.filter(item => {
@@ -46,7 +49,10 @@ const HousesScreen = () => {
   };
 
   return (
-    <View style={{backgroundColor: '#ffffff'}}>
+    <View style={{ backgroundColor: '#ffffff' }}>
+      <Loader
+      loading={loading}
+      />
       <CustomCommonHeader
         svg={home_logo}
         activeBottom={false}
