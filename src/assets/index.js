@@ -2,7 +2,7 @@ import Bills from './svg/bottomTabBar/bills.svg';
 import BillsSelected from './svg/bottomTabBar/bills_selected.svg';
 import Houses from './svg/bottomTabBar/houses.svg';
 import HousesSelected from './svg/bottomTabBar/houses_selected.svg';
-import Settings from './svg/bottomTabBar/settings.svg';
+import Settings from './svg/bottomTabBar/Settings.svg';
 import SettingsSelected from './svg/bottomTabBar/settings_selected.svg';
 import Status from './svg/bottomTabBar/status.svg';
 import StatusSelected from './svg/bottomTabBar/status_selected.svg';
@@ -22,6 +22,7 @@ import home_add from './svg/home_add.svg';
 import home_filter from './svg/home_filter.svg';
 import home_logo from './svg/home_logo.svg';
 import locked from './svg/settings/lock_black_24dp1.svg';
+import logout from './svg/settings/logout.svg';
 import meterRead from './svg/meterRead.svg';
 import modalhouse from './svg/modal/modalhouse.svg';
 import printer from './svg/settings/print_black_24dp1.svg';
@@ -29,7 +30,6 @@ import read_icon from './svg/detail/radar_black_24dp1.svg';
 import show_password from './svg/show_password.svg';
 import splash_logo from './svg/splash_logo.svg'
 import toberead from './svg/toberead.svg';
-import logout from './svg/settings/logout.svg';
 
 export {
   Houses,
