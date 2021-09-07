@@ -6,7 +6,9 @@ import {navigate, replace} from '~utils';
 import React from 'react';
 import {SignOut} from '~/store/Actions/Auth/SignOut';
 import {settingStack} from '~config';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logout, home_logo } from '~/assets'
+import {CustomCommonHeader} from '~/components'
 
 const SettingsScreen = () => {
   const dispatch = useDispatch();
@@ -15,16 +17,15 @@ const SettingsScreen = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
-      <Settings svg={calculator} text="Fatura değerleri" />
+    <View style={{ flex: 1 }}>
+      <CustomCommonHeader
+        svg={home_logo}
+        activeBottom={false}
+      />
+      <Settings svg={calculator} text="Fatura değerleri"  onPress={() => navigate(settingStack.bills_settings)}/>
       <Settings svg={locked} text="Kullanıcı seçenekleri" />
       <Settings svg={printer} text="Yazıcı ayarları" onPress={() => navigate(settingStack.printer_settings)} />
-      <CustomButton
-        textName={'fatura ayarları'}
-        onPress={() => navigate(settingStack.bills_settings)}
-      />
-
-      <CustomButton textName={'Çıkış'} onPress={logOut} />
+      <Settings svg={logout} text="Çıkış" onPress={logOut} />
     </View>
   );
 };
