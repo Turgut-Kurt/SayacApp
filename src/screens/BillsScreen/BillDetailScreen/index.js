@@ -4,6 +4,7 @@ import React, {useEffect,useState} from 'react';
 import {CustomButton, BillsDetailCard, CustomModal} from '~components';
 import { goBack } from '~utils';
 import { centerfocus, home, checkGray, arrow, meterRead } from '~assets';
+import SQLite from 'react-native-sqlite-storage';
 
 const BillDetailScreen = ({ route }) => {
 
@@ -13,6 +14,43 @@ const BillDetailScreen = ({ route }) => {
   const [meterValue, setMeterValue] = useState(null);
   const [currentTime, setCurrentTime] = useState('');
     
+  const data = route.params;
+  
+  let db;
+  
+  
+  const updateData = async () => {
+    
+    SQLite.enablePromise(true);
+    
+    const db = await SQLite.openDatabase({
+      name: 'sayacdb.db',
+      createFromLocation: 1,
+      
+    });
+    if (data.id.length == 0) {
+      
+      Alert.alert('Warning!', 'Please write your data.')
+    } else {
+      try {
+         db.transaction((tx) => {
+          tx.executeSql(
+            "UPDATE bills SET faturadurumu = ? WHERE id = ?",
+            [
+              'Ödenecek',
+              data.id,
+            ],
+            () => { Alert.alert('Success!', 'Your data has been updated.') },
+            error => { console.log(error) }
+          )
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  
   
  
 
@@ -39,6 +77,7 @@ const BillDetailScreen = ({ route }) => {
     setModalSuccessVisible(!modalSuccessVisible)
     setTime()
     setMeterReadSuccess(true);
+    updateData();
   }
 
   const setMeter = (value) => {
@@ -50,7 +89,7 @@ const BillDetailScreen = ({ route }) => {
       <TouchableOpacity onPress={() => goBack()} style={{ margin:10}}>
           <VectorImage style={{width: 24, height: 24, marginHorizontal: 5}} source={arrow} />
       </TouchableOpacity>
-      <BillsDetailCard {...route.params} readSuccess={meterReadSuccess} currentTime={currentTime} />
+      <BillsDetailCard {...route.params} status={data.faturadurumu} readSuccess={meterReadSuccess} currentTime={currentTime} />
       
       <CustomModal
         visibleValue={modalVisible}
@@ -62,7 +101,7 @@ const BillDetailScreen = ({ route }) => {
         onPress={() => changeModalVisible()}
         buttonOneText='Kaydet'
         
-            />
+      />
       <CustomModal
         visibleValue={modalSuccessVisible}
         closeFunc={changeModalSuccessVisible}

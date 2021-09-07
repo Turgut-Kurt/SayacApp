@@ -9,7 +9,7 @@ import {MeterReadInfoCard, CustomButtonWithSvg, StatusCard,CustomModal, CustomBu
 const BillsDetailCard = (props) => {
     const { an, name, sn, adress, date,status, meter, meterTime, readSuccess, meterValue, currentTime } = props;
    
-
+    
    
     
     return (
