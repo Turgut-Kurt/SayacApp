@@ -13,6 +13,7 @@ const App = () => {
   let miliSeconds = generalDate.setHours(generalDate.getHours() + 3);
   let minDate = new Date(miliSeconds);
   console.log(moment(minDate).date());
+  console.log(moment(minDate).month());
 
   return (
     <Provider store={store}>
