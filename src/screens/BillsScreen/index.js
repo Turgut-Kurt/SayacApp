@@ -88,6 +88,7 @@ const BillsScreen = () => {
     });
   };
   /*
+  /
   const newSetData = async () => {
      SQLite.enablePromise(true);
      const db = await SQLite.openDatabase({
