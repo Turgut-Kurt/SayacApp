@@ -87,7 +87,8 @@ const BillsScreen = () => {
       });
     });
   };
-  /*const newSetData = async () => {
+  /*
+  const newSetData = async () => {
      SQLite.enablePromise(true);
      const db = await SQLite.openDatabase({
        name: 'sayacdb.db',
