@@ -64,6 +64,7 @@ const LoginScreen = connect(
             <CustomInputLabel
               name={'email'}
               containerProps={{
+                keyboardType: 'email-address',
                 label: 'E-Mail',
                 placeholder: '',
                 maxLength: 25,
@@ -75,7 +76,6 @@ const LoginScreen = connect(
               <CustomInputLabel
                 name={'password'}
                 containerProps={{
-                  keyboardType: 'numeric',
                   label: 'Şifre',
                   placeholder: '',
                   maxLength: 25,
