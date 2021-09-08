@@ -27,8 +27,16 @@ const BillsCard = props => {
     'Kasım',
     'Aralık',
   ];
-  const {containerStyle, aboneno, isimsoyisim, tcno, faturadurumu, ay, price} =
-    props;
+  const {
+    id,
+    containerStyle,
+    aboneno,
+    isimsoyisim,
+    tcno,
+    faturadurumu,
+    ay,
+    price,
+  } = props;
   return (
     <TouchableOpacity
       onPress={() => navigate(billStack.bill_detail, {...props})}
