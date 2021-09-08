@@ -200,7 +200,10 @@ const BillSettings = ({route}) => {
             <CustomButton
               disabled={!(values.kdvorani !== '' && isValid === true)}
               textName={'Güncelle'}
-              onPress={() => updateData(values)}
+              onPress={() => {
+                updateData(values);
+                goBack();
+              }}
               buttonStyle={styles.Button}
               buttonColor={
                 values.kdvorani !== '' && isValid === true

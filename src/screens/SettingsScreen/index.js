@@ -11,7 +11,7 @@ import {SignOut} from '~/store/Actions/Auth/SignOut';
 import {settingStack} from '~config';
 import {useDispatch} from 'react-redux';
 
-const SettingsScreen = () => {
+const SettingsScreen = ({navigation}) => {
   const [data, setData] = useState();
   let db;
   const dispatch = useDispatch();
@@ -20,15 +20,18 @@ const SettingsScreen = () => {
   };
 
   useEffect(() => {
-    SQLite.enablePromise(true);
-    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
-      .then(dbRes => {
-        db = dbRes;
-        console.log('Database opened:', dbRes);
-        readData();
-      })
-      .catch(e => console.log(e));
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      SQLite.enablePromise(true);
+      SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+        .then(dbRes => {
+          db = dbRes;
+          console.log('Database opened:', dbRes);
+          readData();
+        })
+        .catch(e => console.log(e));
+    });
+    return unsubscribe;
+  }, [navigation]);
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM billsSettings', [], (tx, result) => {
