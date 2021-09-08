@@ -6,27 +6,47 @@ import {
   HouseDetail,
   SearchInput,
 } from '~components';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {arrow, delete_house, edit} from '~/assets';
-import { fontSize, goBack, navigate, push } from '~utils';
-import { homeStack, mainStack } from '~config';
+import {fontSize, goBack, navigate, push} from '~utils';
+import {homeStack, mainStack} from '~config';
 
 import SQLite from 'react-native-sqlite-storage';
 import VectorImage from 'react-native-vector-image';
 import styles from './styles';
 
-const HouseDetailScreen = ({route}) => {
+const HouseDetailScreen = ({route, navigation}) => {
   let item = route.params.item;
   let db;
+  const [items, setItems] = useState([]);
   useEffect(() => {
-    SQLite.enablePromise(true);
-    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
-      .then(dbRes => {
-        db = dbRes;
-        console.log('Database opened:', dbRes);
-      })
-      .catch(e => console.log(e));
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      SQLite.enablePromise(true);
+      SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+        .then(dbRes => {
+          db = dbRes;
+          console.log('Database opened:', dbRes);
+        })
+        .catch(e => console.log(e));
+      setTimeout(() => {
+        readData();
+      }, 1000);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const readData = () => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'SELECT * FROM houses WHERE id=?',
+        [item.id],
+        (tx, result) => {
+          setItems(result.rows.item(0));
+        },
+      );
+    });
+  };
+
   const deleteData = id => {
     db.transaction(tx => {
       tx.executeSql('DELETE FROM houses WHERE id = ?', [id], (tx, results) => {
@@ -35,9 +55,7 @@ const HouseDetailScreen = ({route}) => {
         } else {
           console.log('Veri silme gerçekleştirilemedi');
         }
-      },
-
-      );
+      });
     });
   };
 
@@ -55,22 +73,29 @@ const HouseDetailScreen = ({route}) => {
             containerStyle={{
               marginRight: fontSize(10),
             }}
-            onPress={() => { deleteData(item.id); push(mainStack.home_tab) }}
+            onPress={() => {
+              deleteData(item.id);
+              push(mainStack.home_tab);
+            }}
             svg={delete_house}
             text={'Haneyi Sil'}
           />
         }
         rightButton={
           <CustomButtonWithSvg
-            onPress={() => navigate(homeStack.update_house , {
-                item:item,
-              })  }
+            onPress={() =>
+              navigate(homeStack.update_house, {
+                items: items,
+              })
+            }
             svg={edit}
             text={'Düzenle'}
           />
         }
       />
-      <HouseDetail {...item} tutar={55} gecikmetutari={2} />
+      {console.log('items')}
+      {console.log(items)}
+      <HouseDetail {...items} tutar={55} gecikmetutari={2} />
       <SearchInput
         containerStyle={{width: '90%'}}
         placeholder={'Fatura Arayın'}

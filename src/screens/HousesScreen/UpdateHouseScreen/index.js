@@ -21,7 +21,8 @@ import {db} from '~request';
 import styles from './styles';
 
 const UpdateHouseScreen = ({route}) => {
-  let data = route.params.item;
+  let data = route.params.items;
+  console.log('UpdateHouseScreen');
   console.log(data);
 
   let db;
