@@ -28,15 +28,15 @@ const UpdateHouseScreen = ({route}) => {
 
   let db;
   const [formikInitialValues, setFormikinitialValues] = useState({
-    name: data.isimsoyisim,
-    tcno: data.tcno,
-    neighbourhood: data.mahalle,
-    street: data.cadde,
-    doornumber: data.sokak,
-    counternumber: data.sayacno,
-    initialcountervalue: data.ilksayacdeg,
-    subscriberno: data.aboneno,
-    notes: data.notlar,
+    name: `${data.isimsoyisim}`,
+    tcno: `${data.tcno}`,
+    neighbourhood: `${data.mahalle}`,
+    street: `${data.cadde}`,
+    doornumber: `${data.sokak}`,
+    counternumber: `${data.sayacno}`,
+    initialcountervalue: `${data.ilksayacdeg}`,
+    subscriberno: `${data.aboneno}`,
+    notes: `${data.notlar}`,
   });
   useEffect(() => {
     SQLite.enablePromise(true);
