@@ -1,6 +1,6 @@
 import {CustomButtonWithSvg, CustomCommonHeader} from '~components';
 import {FlatList, Text, View} from 'react-native';
-import {HouseCard, SearchInput, Loader} from '~components';
+import {HouseCard, Loader, SearchInput} from '~components';
 import React, {useEffect, useState} from 'react';
 import {fontSize, navigate} from '~utils';
 import {home_add, home_filter, home_logo} from '~assets';
@@ -8,25 +8,27 @@ import {home_add, home_filter, home_logo} from '~assets';
 import SQLite from 'react-native-sqlite-storage';
 import {homeStack} from '~config';
 
-const HousesScreen = () => {
+const HousesScreen = ({navigation}) => {
   let db;
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    SQLite.enablePromise(true);
-    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
-      .then(dbRes => {
-        db = dbRes;
-        console.log('Database opened:', dbRes);
-        
-      })
-      .catch(e => console.log(e));
-    setTimeout(() => {
-      readData();
-      setLoading(false);
-     }, 3000);
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      SQLite.enablePromise(true);
+      SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+        .then(dbRes => {
+          db = dbRes;
+          console.log('Database opened:', dbRes);
+        })
+        .catch(e => console.log(e));
+      setTimeout(() => {
+        readData();
+        setLoading(false);
+      }, 3000);
+    });
+    return unsubscribe;
+  }, [navigation]);
   const searchFilter = text => {
     const searchingData = items.filter(item => {
       const filtered = `${item.isimsoyisim} ${item.tcno} ${item.aboneno}`;
@@ -49,10 +51,8 @@ const HousesScreen = () => {
   };
 
   return (
-    <View style={{ backgroundColor: '#ffffff' }}>
-      <Loader
-      loading={loading}
-      />
+    <View style={{backgroundColor: '#ffffff'}}>
+      <Loader loading={loading} />
       <CustomCommonHeader
         svg={home_logo}
         activeBottom={false}

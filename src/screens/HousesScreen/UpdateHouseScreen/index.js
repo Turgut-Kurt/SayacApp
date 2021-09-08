@@ -241,7 +241,10 @@ const UpdateHouseScreen = ({route}) => {
             <CustomButton
               disabled={!(values.tcno !== '' && isValid === true)}
               textName={'Güncelle'}
-              onPress={() => updateData(values)}
+              onPress={() => {
+                updateData(values);
+                goBack();
+              }}
               buttonStyle={styles.Button}
               buttonColor={
                 values.tcno !== '' && isValid === true

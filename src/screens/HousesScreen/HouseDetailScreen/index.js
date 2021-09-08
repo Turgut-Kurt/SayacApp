@@ -1,3 +1,4 @@
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import {
   CustomButton,
   CustomButtonWithSvg,
@@ -6,12 +7,12 @@ import {
   SearchInput,
 } from '~components';
 import React, {useEffect} from 'react';
-import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import {arrow, delete_house, edit} from '~/assets';
 import { fontSize, goBack, navigate, push } from '~utils';
+import { homeStack, mainStack } from '~config';
+
 import SQLite from 'react-native-sqlite-storage';
 import VectorImage from 'react-native-vector-image';
-import { homeStack, mainStack } from '~config';
 import styles from './styles';
 
 const HouseDetailScreen = ({route}) => {
