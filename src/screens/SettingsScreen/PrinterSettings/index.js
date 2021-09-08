@@ -1,4 +1,12 @@
-import { CustomButton } from '~components';
+import {
+    CustomButton,
+    CustomButtonWithSvg,
+    CustomCommonHeader,
+    CustomInputLabel,
+    colors,
+    fonts,
+    CustomModal
+} from '~components';
 import styles from './styles'
 import React, {
     useState,
@@ -14,9 +22,11 @@ import {
     PermissionsAndroid,
     FlatList,
     TouchableHighlight,
+    TouchableOpacity
 } from 'react-native';
-
-
+import { fontSize, goBack } from '~utils';
+import { add_house, arrow, delete_house, meterRead, home_logo } from '~assets';
+import VectorImage from 'react-native-vector-image';
 import BleManager from 'react-native-ble-manager';
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -30,10 +40,8 @@ const PrinterSettings = () => {
     const [enable, setEnable] = useState(false);
     const [found, setFound] = useState(false);
 
+
     const startScan = async () => {
-
-
-
         if (enable) {
             if (!isScanning) {
                 await BleManager.scan([], 5, true).then((results) => {
@@ -43,9 +51,7 @@ const PrinterSettings = () => {
                     console.error(err);
                 });
             }
-
         }
-
     }
 
     const handleStopScan = () => {
@@ -221,8 +227,9 @@ const PrinterSettings = () => {
     }
 
 
+
     return (
-        <View style={styles.containerMain}>
+        <View style={styles.Container}>
             {/* {global.HermesInternal == null ? null : (
                         <View style={styles.engine}>
                             <Text style={styles.footer}>Engine: Hermes</Text>
@@ -238,6 +245,20 @@ const PrinterSettings = () => {
                     <View style={{ margin: 10 }}>
                         <Button title="Retrieve connected peripherals" onPress={() => retrieveConnected()} />
                     </View>*/}
+
+            <CustomCommonHeader
+                activeBottom={false}
+                backButton={
+                    <TouchableOpacity
+                        onPress={() => goBack()}
+                        style={styles.CustomBack}>
+                        <VectorImage source={arrow} />
+                        <Text style={styles.CustomBackText}>Fatura değerleri</Text>
+                    </TouchableOpacity>
+                }
+                svg={home_logo}
+            />
+
             <View style={styles.textStyle}>
                 {connected ? (<FlatList
                     data={list}
@@ -251,8 +272,14 @@ const PrinterSettings = () => {
                 )}
             </View>
 
+
             <View style={styles.bottomView}>
-                <CustomButton textName={"Yazıcı Ara"} onPress={() => startScan()} />
+                <CustomButton
+                    textName={"Yazıcı Ara"}
+                    onPress={() => {
+                        startScan();
+
+                    }} />
             </View>
         </View>);
 };

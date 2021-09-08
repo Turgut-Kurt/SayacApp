@@ -6,7 +6,10 @@ import {
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-
+    Container: {
+        flex: 1,
+        backgroundColor: colors.MainWhite,
+    },
     containerMain: {
         flex: 1,
         alignItems: 'center',
@@ -21,8 +24,14 @@ const styles = StyleSheet.create({
         position: 'absolute', //Here is the trick
         bottom: 0, //Here is the trick
     },
-    textStyle: {
-
+    CustomBack: {
+        ...globalStyle.fdr,
+        ...globalStyle.aic,
+    },
+    CustomBackText: {
+        paddingLeft: fontSize(16),
+        ...fonts.Semibold,
+        fontSize: fontSize(14),
     },
 
 

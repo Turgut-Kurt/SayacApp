@@ -58,7 +58,7 @@ BillsDetailCard.propTypes = {
     an: PropTypes.number,
     sn: PropTypes.number,
     meter: PropTypes.number,
-    meterValue: PropTypes.number,
+    //meterValue: PropTypes.number,
   
 };
 
