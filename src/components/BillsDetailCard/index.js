@@ -19,7 +19,7 @@ import {arrow, centerfocus, checkGray, home, meterRead} from '~assets';
 
 import {PropTypes} from '~/components/config';
 import VectorImage from 'react-native-vector-image';
-import moment from 'moment';
+import {calculateBill} from '~helpers';
 import styles from './styles';
 
 const BillsDetailCard = props => {
