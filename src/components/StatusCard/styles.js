@@ -1,9 +1,10 @@
+import {calcWidth, calculate, fontSize} from '~utils';
 import {colors, globalStyle} from '../config';
-import {calculate, calcWidth,fontSize} from '~utils';
+
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
     ...globalStyle.fdr,
     ...globalStyle.asc,
     ...globalStyle.jccaic,
@@ -11,15 +12,15 @@ const styles = StyleSheet.create({
     paddingVertical: fontSize(8),
     borderRadius: fontSize(20),
     alignItems: 'center',
-    marginBottom:10
+    marginBottom: 10,
   },
   svg: {
-    width: fontSize(20),
-    height: fontSize(20)
+    width: fontSize(16),
+    height: fontSize(16),
   },
   text: {
     marginHorizontal: 5,
-    fontSize: fontSize(16)
+    fontSize: fontSize(12),
   },
 });
 export default styles;

@@ -241,7 +241,7 @@ const AddHouseScreen = () => {
                 setVisible(true);
                 setTimeout(() => {
                   setVisible(false);
-                  push(mainStack.home_tab);
+                  goBack();
                 }, 3000);
               }}
               buttonStyle={[styles.Button]}

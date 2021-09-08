@@ -119,7 +119,8 @@ const unreadPercent = (unreadBills / TotalBills) * 100;
     
     return (
         <View >
-            <View style={{flexDirection:"row"}}>
+            <View style={{
+                flexDirection: "row", marginLeft:fontSize(15)}}>
                 <FlatList
                     renderItem={({ item , index  }) => <MontsButton
                     {...item}

@@ -21,22 +21,21 @@ import {db} from '~request';
 import styles from './styles';
 
 const UpdateHouseScreen = ({route}) => {
-  let data = route.params.item;
+  let data = route.params.items;
+  console.log('UpdateHouseScreen');
   console.log(data);
-  
-  
 
   let db;
   const [formikInitialValues, setFormikinitialValues] = useState({
-    name: data.isimsoyisim,
-    tcno: data.tcno,
-    neighbourhood: data.mahalle,
-    street: data.cadde,
-    doornumber: data.sokak,
-    counternumber: data.sayacno,
-    initialcountervalue: data.ilksayacdeg,
-    subscriberno: data.aboneno,
-    notes: data.notlar,
+    name: `${data.isimsoyisim}`,
+    tcno: `${data.tcno}`,
+    neighbourhood: `${data.mahalle}`,
+    street: `${data.cadde}`,
+    doornumber: `${data.sokak}`,
+    counternumber: `${data.sayacno}`,
+    initialcountervalue: `${data.ilksayacdeg}`,
+    subscriberno: `${data.aboneno}`,
+    notes: `${data.notlar}`,
   });
   useEffect(() => {
     SQLite.enablePromise(true);
@@ -48,19 +47,16 @@ const UpdateHouseScreen = ({route}) => {
       .catch(e => console.log(e));
   }, []);
 
-  
-
-  
-  const updateData = async (values) => {
+  const updateData = async values => {
     console.log(values);
-    
-    if (id.length == 0) {
-      Alert.alert('Warning!', 'Please write your data.')
+
+    if (data.id.length == 0) {
+      Alert.alert('Warning!', 'Please write your data.');
     } else {
       try {
-        db.transaction((tx) => {
+        db.transaction(tx => {
           tx.executeSql(
-            "UPDATE houses SET isimsoyisim = ?, tcno = ?, mahalle = ?, cadde = ?, sokak = ?, sayacno = ?, ilksayacdeg = ?, aboneno = ?, notlar = ? WHERE id = ?",
+            'UPDATE houses SET isimsoyisim = ?, tcno = ?, mahalle = ?, cadde = ?, sokak = ?, sayacno = ?, ilksayacdeg = ?, aboneno = ?, notlar = ? WHERE id = ?',
             [
               values.name,
               values.tcno,
@@ -71,12 +67,16 @@ const UpdateHouseScreen = ({route}) => {
               values.initialcountervalue,
               values.subscriberno,
               values.notes,
-              data.id
+              data.id,
             ],
-            () => { Alert.alert('Success!', 'Your data has been updated.') },
-            error => { console.log(error) }
-          )
-        })
+            () => {
+              Alert.alert('Success!', 'Your data has been updated.');
+            },
+            error => {
+              console.log(error);
+            },
+          );
+        });
       } catch (error) {
         console.log(error);
       }
@@ -240,9 +240,18 @@ const UpdateHouseScreen = ({route}) => {
               errorColor={colors.MainRed}
             />
             <CustomButton
+              disabled={!(values.tcno !== '' && isValid === true)}
               textName={'Güncelle'}
-              onPress={() => updateData(values) }
+              onPress={() => {
+                updateData(values);
+                goBack();
+              }}
               buttonStyle={styles.Button}
+              buttonColor={
+                values.tcno !== '' && isValid === true
+                  ? colors.MainBlue
+                  : colors.MainDarkGray
+              }
             />
           </View>
         )}

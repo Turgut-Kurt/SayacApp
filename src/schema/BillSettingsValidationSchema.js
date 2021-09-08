@@ -1,39 +1,38 @@
 import * as yup from 'yup';
 
 const BillSettingsValidationSchema = yup.object().shape({
-  name: yup
+  birimfiyat: yup
     .string()
-    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
-    .required('Email zorunlu'),
-  tcno: yup
+    .min(1, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .required('Birimfiyat zorunlu'),
+  atiksubedeli: yup
     .string()
-    .min(11, ({min}) => `En az ${min} karakter olmalıdır.`)
-    .required('Tc kimlik no zorunlu'),
-  neighbourhood: yup
+    .min(1, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .required('Atiksubedeli zorunlu'),
+  ctvbedeli: yup
     .string()
-    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
-    .required('Mahalle zorunlu'),
-  street: yup
+    .min(1, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .required('Ctvbedeli zorunlu'),
+  bakimbedeli: yup
     .string()
-    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
-    .required('Cadde zorunlu'),
-  doornumber: yup
+    .min(1, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .required('Bakimbedeli zorunlu'),
+  kdvorani: yup
     .string()
-    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
-    .required('Kapı no zorunlu'),
-  counternumber: yup
+    .min(1, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .required('Kdvorani zorunlu'),
+  gecikmefaiziorani: yup
     .string()
-    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
-    .required('Sayaç no zorunlu'),
-  initialcountervalue: yup
+    .min(1, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .required('Gecikmefaiziorani zorunlu'),
+  faturaodemesuresi: yup
     .string()
-    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
-    .required('İlk sayaç değeri zorunlu'),
-  subscriberno: yup
+    .min(1, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .required('Faturaodemesuresi zorunlu'),
+  sayacdongugunu: yup
     .string()
-    .min(3, ({min}) => `En az ${min} karakter olmalıdır.`)
-    .required('Abone no zorunlu'),
-  notes: yup.string(),
+    .min(1, ({min}) => `En az ${min} karakter olmalıdır.`)
+    .required('Sayacdongugunu zorunlu'),
 });
 
 export {BillSettingsValidationSchema};

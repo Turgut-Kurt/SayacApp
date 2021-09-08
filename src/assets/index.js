@@ -22,6 +22,7 @@ import home_add from './svg/home_add.svg';
 import home_filter from './svg/home_filter.svg';
 import home_logo from './svg/home_logo.svg';
 import locked from './svg/settings/lock_black_24dp1.svg';
+import logout from './svg/settings/logout.svg';
 import meterRead from './svg/meterRead.svg';
 import modalhouse from './svg/modal/modalhouse.svg';
 import printer from './svg/settings/print_black_24dp1.svg';
@@ -62,4 +63,5 @@ export {
   edit,
   delete_house,
   modalhouse,
+  logout,
 };
