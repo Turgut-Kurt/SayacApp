@@ -49,7 +49,7 @@ const UpdateHouseScreen = ({route}) => {
   const updateData = async values => {
     console.log(values);
 
-    if (id.length == 0) {
+    if (data.id.length == 0) {
       Alert.alert('Warning!', 'Please write your data.');
     } else {
       try {
@@ -239,9 +239,15 @@ const UpdateHouseScreen = ({route}) => {
               errorColor={colors.MainRed}
             />
             <CustomButton
+              disabled={!(values.tcno !== '' && isValid === true)}
               textName={'Güncelle'}
               onPress={() => updateData(values)}
               buttonStyle={styles.Button}
+              buttonColor={
+                values.tcno !== '' && isValid === true
+                  ? colors.MainBlue
+                  : colors.MainDarkGray
+              }
             />
           </View>
         )}
