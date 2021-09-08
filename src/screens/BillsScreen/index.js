@@ -27,6 +27,7 @@ const BillsScreen = ({navigation}) => {
   const [read, setRead] = useState();
   const [pay, setPay] = useState();
   const [ok, setOk] = useState();
+  const [bills, setBills] = useState();
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       SQLite.enablePromise(true);
@@ -58,6 +59,9 @@ const BillsScreen = ({navigation}) => {
           }
         },
       );
+      tx.executeSql('SELECT * FROM billsSettings;', [], (tx, result) => {
+        setBills(result.rows.item(0));
+      });
       tx.executeSql(
         'SELECT COUNT(faturadurumu) as count FROM bills WHERE faturadurumu="Okunacak"',
         [],
@@ -211,7 +215,7 @@ const BillsScreen = ({navigation}) => {
         />
       </View>
       <FlatList
-        renderItem={({item}) => <BillsCard {...item} />}
+        renderItem={({item}) => <BillsCard {...item} {...bills} />}
         data={filter && filter.length > 0 ? filter : items}
         keyExtractor={(item, index) => item.id}
       />

@@ -1,9 +1,9 @@
 import {Modal, Pressable, Text, TextInput, View} from 'react-native';
+import React, {useState} from 'react';
 
 import {PropTypes} from '~/components/config';
-import React from 'react';
 import VectorImage from 'react-native-vector-image';
-import { meterRead } from '~assets';
+import {meterRead} from '~assets';
 import styles from './styles';
 
 const CustomModal = props => {
@@ -18,44 +18,51 @@ const CustomModal = props => {
     visibleValue,
     closeFunc,
     openFunc,
-    
+    setValue,
+    runFunc,
   } = props;
 
   const pressFunction = () => {
-    openFunc == null ? (
-       closeFunc() 
-    ): (closeFunc(), openFunc() )
-  }
+    openFunc == null ? closeFunc() : (closeFunc(), openFunc());
+    runFunc();
+  };
 
-  const modalBackgroundStyle = { backgroundColor: 'rgba(0, 0, 0, 0.5)' };
+  const modalBackgroundStyle = {backgroundColor: 'rgba(0, 0, 0, 0.5)'};
   return (
     <>
-      <View  style={styles.modal} >
-        <Modal visible={visibleValue} transparent={true} animationType='slide' style={{borderWidth:2}} >
-          <View style={[styles.modal, modalBackgroundStyle]} >
+      <View style={styles.modal}>
+        <Modal
+          visible={visibleValue}
+          transparent={true}
+          animationType="slide"
+          style={{borderWidth: 2}}>
+          <View style={[styles.modal, modalBackgroundStyle]}>
             <View style={styles.modalinside}>
-              {svg==null ? (null) : <VectorImage style={styles.modalSvg} source={svg} />}
-              <Text style={styles.modalText}>{ modalText }</Text>
-              
-              {inputNumber == 1 ? (<TextInput style={styles.modalInput} />) : (null)}
-              
+              {svg == null ? null : (
+                <VectorImage style={styles.modalSvg} source={svg} />
+              )}
+              <Text style={styles.modalText}>{modalText}</Text>
+
+              {inputNumber == 1 ? (
+                <TextInput onChangeText={setValue} style={styles.modalInput} />
+              ) : null}
               {buttonNumber == 2 ? (
                 <View style={styles.modalButtons}>
-                  <Pressable style={styles.save} onPress={() => pressFunction()}>
-                    <Text style={{ color: 'white' }}>{ buttonOneText }</Text>
-                </Pressable>
-                <Pressable style={styles.cancel} onPress={() => closeFunc()} >
-                  <Text style={{color:'blue'}}>{buttonTwoText}</Text>
-                </Pressable>
-              </View>
-              ) : (null)}
+                  <Pressable
+                    style={styles.save}
+                    onPress={() => pressFunction()}>
+                    <Text style={{color: 'white'}}>{buttonOneText}</Text>
+                  </Pressable>
+                  <Pressable style={styles.cancel} onPress={() => closeFunc()}>
+                    <Text style={{color: 'blue'}}>{buttonTwoText}</Text>
+                  </Pressable>
+                </View>
+              ) : null}
               {buttonNumber == 1 ? (
                 <Pressable style={styles.saved} onPress={() => closeFunc()}>
-                    <Text style={{ color: 'white' }}>{ buttonOneText }</Text>
+                  <Text style={{color: 'white'}}>{buttonOneText}</Text>
                 </Pressable>
-              ) : (null)}
-              
-
+              ) : null}
             </View>
           </View>
         </Modal>

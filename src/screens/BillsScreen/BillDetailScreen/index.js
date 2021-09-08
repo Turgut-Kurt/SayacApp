@@ -5,6 +5,7 @@ import {arrow, centerfocus, checkGray, home, meterRead} from '~assets';
 
 import SQLite from 'react-native-sqlite-storage';
 import VectorImage from 'react-native-vector-image';
+import {calculateBill} from '~helpers';
 import {goBack} from '~utils';
 
 const BillDetailScreen = ({route}) => {
@@ -13,6 +14,7 @@ const BillDetailScreen = ({route}) => {
   const [meterReadSuccess, setMeterReadSuccess] = useState(false);
   const [meterValue, setMeterValue] = useState(null);
   const [currentTime, setCurrentTime] = useState('');
+  const [value, setValue] = useState('');
   const data = route.params;
   let db;
 
@@ -74,7 +76,18 @@ const BillDetailScreen = ({route}) => {
   const setMeter = value => {
     setMeterValue(value);
   };
-
+  const calculate = () => {
+    let hesapla = calculateBill(
+      value,
+      data.ilksayacdeg,
+      data.birimfiyat,
+      data.atiksubedeli,
+      data.kdvorani,
+      data.ctvbedeli,
+    );
+    console.log('hesapla');
+    console.log(hesapla);
+  };
   return (
     <View>
       <TouchableOpacity onPress={() => goBack()} style={{margin: 10}}>
@@ -97,8 +110,10 @@ const BillDetailScreen = ({route}) => {
         inputNumber={1}
         buttonNumber={2}
         modalText="Sayaçta okuduğunuz değeri giriniz"
+        setValue={setValue}
         onPress={() => changeModalVisible()}
         buttonOneText="Kaydet"
+        runFunc={calculate}
       />
       <CustomModal
         visibleValue={modalSuccessVisible}
@@ -106,9 +121,10 @@ const BillDetailScreen = ({route}) => {
         buttonNumber={1}
         modalText="Sayaç başarıyla okundu"
         buttonOneText="Tamam"
+        setValue={setValue}
         svg={meterRead}
       />
-
+      {console.log(value)}
       <CustomButton textName="Sayaç Oku" onPress={() => changeModalVisible()} />
     </View>
   );
