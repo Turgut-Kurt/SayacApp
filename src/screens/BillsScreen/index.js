@@ -15,10 +15,12 @@ import SQLite from 'react-native-sqlite-storage';
 import {billStack} from '~config';
 import moment from 'moment';
 
-const BillsScreen = () => {
+const BillsScreen = ({navigation}) => {
   let generalDate = new Date();
-  let miliSeconds = generalDate.setHours(generalDate.getHours() + 3);
+  let miliSeconds = generalDate.setHours(generalDate.getHours());
   let minDate = new Date(miliSeconds);
+  //console.log('moment(minDate)');
+  //console.log(moment(minDate).format('DD-MM-YYYY HH:mm'));
   let db;
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState([]);
@@ -26,17 +28,20 @@ const BillsScreen = () => {
   const [pay, setPay] = useState();
   const [ok, setOk] = useState();
   useEffect(() => {
-    SQLite.enablePromise(true);
-    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
-      .then(dbRes => {
-        db = dbRes;
-        console.log('Database opened:', dbRes);
-      })
-      .catch(e => console.log(e));
-    setTimeout(() => {
-      readData();
-    }, 3000);
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      SQLite.enablePromise(true);
+      SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+        .then(dbRes => {
+          db = dbRes;
+          console.log('Database opened:', dbRes);
+        })
+        .catch(e => console.log(e));
+      setTimeout(() => {
+        readData();
+      }, 1000);
+    });
+    return unsubscribe;
+  }, [navigation]);
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql(
@@ -96,7 +101,7 @@ const BillsScreen = () => {
               '',
               '',
               'bidursun',
-              `${moment(minDate)}`,
+              `${moment(minDate).format('DD-MM-YYYY HH:mm')}`,
               '',
               `${result.rows.item(index).id}`,
             ],
