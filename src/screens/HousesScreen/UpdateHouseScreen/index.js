@@ -23,8 +23,6 @@ import styles from './styles';
 const UpdateHouseScreen = ({route}) => {
   let data = route.params.item;
   console.log(data);
-  
-  
 
   let db;
   const [formikInitialValues, setFormikinitialValues] = useState({
@@ -48,19 +46,16 @@ const UpdateHouseScreen = ({route}) => {
       .catch(e => console.log(e));
   }, []);
 
-  
-
-  
-  const updateData = async (values) => {
+  const updateData = async values => {
     console.log(values);
-    
+
     if (id.length == 0) {
-      Alert.alert('Warning!', 'Please write your data.')
+      Alert.alert('Warning!', 'Please write your data.');
     } else {
       try {
-        db.transaction((tx) => {
+        db.transaction(tx => {
           tx.executeSql(
-            "UPDATE houses SET isimsoyisim = ?, tcno = ?, mahalle = ?, cadde = ?, sokak = ?, sayacno = ?, ilksayacdeg = ?, aboneno = ?, notlar = ? WHERE id = ?",
+            'UPDATE houses SET isimsoyisim = ?, tcno = ?, mahalle = ?, cadde = ?, sokak = ?, sayacno = ?, ilksayacdeg = ?, aboneno = ?, notlar = ? WHERE id = ?',
             [
               values.name,
               values.tcno,
@@ -71,12 +66,16 @@ const UpdateHouseScreen = ({route}) => {
               values.initialcountervalue,
               values.subscriberno,
               values.notes,
-              data.id
+              data.id,
             ],
-            () => { Alert.alert('Success!', 'Your data has been updated.') },
-            error => { console.log(error) }
-          )
-        })
+            () => {
+              Alert.alert('Success!', 'Your data has been updated.');
+            },
+            error => {
+              console.log(error);
+            },
+          );
+        });
       } catch (error) {
         console.log(error);
       }
@@ -241,7 +240,7 @@ const UpdateHouseScreen = ({route}) => {
             />
             <CustomButton
               textName={'Güncelle'}
-              onPress={() => updateData(values) }
+              onPress={() => updateData(values)}
               buttonStyle={styles.Button}
             />
           </View>
