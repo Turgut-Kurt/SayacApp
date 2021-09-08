@@ -35,7 +35,7 @@ const BillsScreen = () => {
       .catch(e => console.log(e));
     setTimeout(() => {
       readData();
-    }, 3000);
+    }, 1000);
   }, []);
   const readData = () => {
     db.transaction(tx => {
