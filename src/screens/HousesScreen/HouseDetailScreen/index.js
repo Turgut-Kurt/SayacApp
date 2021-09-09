@@ -115,7 +115,7 @@ const HouseDetailScreen = ({route, navigation}) => {
   };
 
   const searchFilter = text => {
-    const searchingData = items.filter(item => {
+    const searchingData = bills.filter(item => {
       const filtered = `${item.ay}`;
       return filtered.indexOf(text.toLowerCase()) > -1;
     });
@@ -177,8 +177,7 @@ const HouseDetailScreen = ({route, navigation}) => {
           />
         }
       />
-      {console.log('items')}
-      {console.log(items)}
+      
       {console.log('bills')}
       {console.log(bills)}
       <HouseDetail {...item} tutar={55} gecikmetutari={2} />
