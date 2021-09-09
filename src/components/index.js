@@ -19,3 +19,4 @@ export * from './MeterReadInfoCard';
 export * from './CustomModal';
 export * from './CustomCommonHeader';
 export * from './Loader';
+export * from './MeterPaidInfoCard';

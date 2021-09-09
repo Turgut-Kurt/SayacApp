@@ -30,6 +30,9 @@ import read_icon from './svg/detail/radar_black_24dp1.svg';
 import show_password from './svg/show_password.svg';
 import splash_logo from './svg/splash_logo.svg'
 import toberead from './svg/toberead.svg';
+import wallet from './svg/wallet.svg';
+import printed from './svg/printed.svg';
+import notPrinted from './svg/notPrinted.svg';
 
 export {
   Houses,
@@ -64,4 +67,7 @@ export {
   delete_house,
   modalhouse,
   logout,
+  wallet,
+  printed,
+  notPrinted,
 };

@@ -35,7 +35,7 @@ const BillsCard = props => {
     tcno,
     faturadurumu,
     ay,
-    price,
+    tutar,
   } = props;
   return (
     <TouchableOpacity
@@ -85,7 +85,7 @@ const BillsCard = props => {
           <VectorImage style={styles.svg1} source={checkcircle} />
         ) : faturadurumu === 'Ödenecek' ? (
           <Text style={{color: colors.MainBrown, fontSize: fontSize(20)}}>
-            {price} ₺
+            {tutar} ₺
           </Text>
         ) : null}
       </View>

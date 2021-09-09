@@ -139,7 +139,7 @@ const BillsScreen = ({navigation}) => {
                '',
                '',
                '',
-               'bidursun',
+               `${result.rows.item(index).ilksayacdeg}`,
                `${moment(minDate).format('DD-MM-YYYY HH:mm')}`,
                '',
                `${result.rows.item(index).id}`,
