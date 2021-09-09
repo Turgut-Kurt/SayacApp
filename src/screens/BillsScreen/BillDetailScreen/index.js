@@ -1,22 +1,26 @@
-import {BillsDetailCard, CustomButton, CustomModal} from '~components';
+import {BillsDetailCard, colors, CustomButton, CustomModal} from '~components';
 import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {arrow, centerfocus, checkGray, home, meterRead} from '~assets';
+import { arrow, centerfocus, checkGray, home, meterRead, wallet } from '~assets';
+import moment from 'moment';
 
 import SQLite from 'react-native-sqlite-storage';
 import VectorImage from 'react-native-vector-image';
 import {calculateBill} from '~helpers';
-import {goBack} from '~utils';
+import {calcWidth, fontSize, goBack} from '~utils';
 
 const BillDetailScreen = ({route, navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible1, setModalVisible1] = useState(false);
   const [modalSuccessVisible, setModalSuccessVisible] = useState(false);
-  const [meterReadSuccess, setMeterReadSuccess] = useState(false);
-  const [meterValue, setMeterValue] = useState(null);
   const [currentTime, setCurrentTime] = useState('');
   const [value, setValue] = useState('');
   const [update, setUpdate] = useState(false);
   const data = route.params;
+
+   let generalDate = new Date();
+  let miliSeconds = generalDate.setHours(generalDate.getHours());
+  let minDate = new Date(miliSeconds);
   
   let db;
   let hesapla;
@@ -67,13 +71,10 @@ const BillDetailScreen = ({route, navigation}) => {
  
 
    const updateData = async () => {
-
     SQLite.enablePromise(true);
-
     const db = await SQLite.openDatabase({
       name: 'sayacdb.db',
       createFromLocation: 1,
-
     });
     if (data.id.length == 0) {
 
@@ -85,10 +86,11 @@ const BillDetailScreen = ({route, navigation}) => {
        console.log(hesapla)
          db.transaction((tx) => {
           tx.executeSql(
-            "UPDATE bills SET faturadurumu = ?, okunandeg = ?, tutar = ? WHERE id = ?",
+            "UPDATE bills SET faturadurumu = ?, okunandeg = ?, okundugutarihi = ?, tutar = ? WHERE id = ?",
             [
               'Ödenecek',
               value,
+              `${moment(minDate).format('DD-MM-YYYY HH:mm')}`,
               `${hesapla}`,
               data.id,
             ],
@@ -103,6 +105,8 @@ const BillDetailScreen = ({route, navigation}) => {
     }
   };
 
+  
+
 
   const setTime = () => {
     var date = new Date().getDate();
@@ -115,9 +119,7 @@ const BillDetailScreen = ({route, navigation}) => {
     );
   };
 
-  useEffect(() => {
-    setMeterReadSuccess(false);
-  }, []);
+  
 
   const changeModalVisible = () => {
     setModalVisible(!modalVisible);
@@ -128,23 +130,56 @@ const BillDetailScreen = ({route, navigation}) => {
     setUpdate(!update);
   };
 
+   const changeModalVisible1 = async () => {
+     setModalVisible1(!modalVisible1);
+     SQLite.enablePromise(true);
+     const db = await SQLite.openDatabase({
+      name: 'sayacdb.db',
+      createFromLocation: 1,
+    });
+    if (data.id.length == 0) {
+
+      Alert.alert('Warning!', 'Please write your data.')
+    } else {
+
+      try {
+        db.transaction((tx) => {
+          tx.executeSql(
+            "UPDATE bills SET faturadurumu = ?, odemetarihi = ? WHERE id = ?",
+            [
+              'Tamamlandı',
+              `${moment(minDate).format('DD-MM-YYYY HH:mm')}`,
+              data.id,
+            ],
+            
+            () => { Alert.alert('Success!', 'Your data has been updated.') },
+            error => { console.log(error) }
+          )
+        })
+        }  catch (error) {
+        console.log(error);
+      }
+    }
+  
+
+  };
+
 
 
   const changeModalSuccessVisible = () => {
     setModalSuccessVisible(!modalSuccessVisible);
     setTime();
-    setMeterReadSuccess(true);
+    
     updateData();
     
   };
-
-  const setMeter = value => {
-    setMeterValue(value);
-  };
+ console.log("data12121212");
+  console.log(data);
+  
   const calculate = () => {
       hesapla = calculateBill(
       value,
-      data.ilksayacdeg,
+      data.oncekisayacdeg,
       data.birimfiyat,
       data.atiksubedeli,
       data.kdvorani,
@@ -162,7 +197,7 @@ const BillDetailScreen = ({route, navigation}) => {
         />
       </TouchableOpacity>
       <BillsDetailCard
-        readSuccess={items.faturadurumu }
+        billsStatus={items.faturadurumu}
         data={items}
         status={items.faturadurumu}
         currentTime={currentTime}
@@ -188,8 +223,31 @@ const BillDetailScreen = ({route, navigation}) => {
         buttonOneText="Tamam"
         svg={meterRead}
       />
+      <CustomModal
+        visibleValue={modalVisible1}
+        closeFunc={() => { setModalVisible1(!modalVisible1); changeUpdate();}}
+        buttonNumber={1}
+        modalText={"Ödeme başarıyla alındı."}
+        buttonOneText="Tamam"
+        svg={wallet}
+      />
       {console.log(value)}
-      <CustomButton textName="Sayaç Oku" onPress={() => changeModalVisible()} />
+      {items.faturadurumu == "Okunacak" ?
+        <CustomButton textName="Sayaç Oku" onPress={() => changeModalVisible()} />
+        :
+        items.faturadurumu == "Ödenecek" ?
+          <View>
+            <CustomButton textName="Ödeme Al" onPress={() => changeModalVisible1()} />
+            <View style={{flexDirection:"row", justifyContent:'space-around', marginVertical:fontSize(16),}}>
+               <CustomButton buttonStyle={{width:calcWidth(42)}} textName="Yazdır" onPress={() => changeModalVisible()} />
+               <CustomButton buttonColor={"white"} textColor={colors.MainBlue}  buttonStyle={{width:calcWidth(42),borderWidth:2,borderColor:colors.MainBlue }} textName="Yeniden Oku" onPress={() => changeModalVisible()} />
+              </View>
+          </View>
+          : <View style={{flexDirection:"row", justifyContent:'space-around', marginVertical:fontSize(16),}}>
+               <CustomButton buttonStyle={{width:calcWidth(42)}} textName="Yazdır" onPress={() => changeModalVisible()} />
+               <CustomButton buttonColor={"white"} textColor={colors.MainBlue}  buttonStyle={{width:calcWidth(42),borderWidth:2,borderColor:colors.MainBlue }} textName="Yeniden Oku" onPress={() => changeModalVisible()} />
+          </View>
+      }
     </View>
   );
 };
