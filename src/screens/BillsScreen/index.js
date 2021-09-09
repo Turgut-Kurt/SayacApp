@@ -27,7 +27,7 @@ const BillsScreen = ({navigation}) => {
   const [read, setRead] = useState();
   const [pay, setPay] = useState();
   const [ok, setOk] = useState();
-  const [bills, setBills] = useState();
+  const [bills, setBills] = useState([]);
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       SQLite.enablePromise(true);
@@ -85,41 +85,41 @@ const BillsScreen = ({navigation}) => {
       );
     });
   };
-  const setData = async () => {
-    SQLite.enablePromise(true);
-    const db = await SQLite.openDatabase({
-      name: 'sayacdb.db',
-      createFromLocation: 1,
-    });
-    console.log(db);
-    db.transaction(tx => {
-      tx.executeSql('SELECT * FROM houses;', [], (tx, result) => {
-        for (let index = 0; index < result.rows.length; index++) {
-          tx.executeSql(
-            'INSERT INTO bills (faturadurumu, tutar, ay, odemetarihi, okundugutarihi, okunandeg, oncekisayacdeg, sayacokumatarihi, gecikmetutari, housesid) VALUES  (?,?,?,?,?,?,?,?,?,?)',
-            [
-              'Okunacak',
-              '',
-              `${moment(minDate).month() + 1}`,
-              '',
-              '',
-              '',
-              'bidursun',
-              `${moment(minDate).format('DD-MM-YYYY HH:mm')}`,
-              '',
-              `${result.rows.item(index).id}`,
-            ],
-            (tx, result) => {
-              console.log('tx', tx);
-              console.log('result', result);
-            },
-          );
-        }
-      });
-    });
-  };
-  /*
-  /
+
+  // const setData = async () => {
+  //   SQLite.enablePromise(true);
+  //   const db = await SQLite.openDatabase({
+  //     name: 'sayacdb.db',
+  //     createFromLocation: 1,
+  //   });
+  //   console.log(db);
+  //   db.transaction(tx => {
+  //     tx.executeSql('SELECT * FROM houses;', [], (tx, result) => {
+  //       for (let index = 0; index < result.rows.length; index++) {
+  //         tx.executeSql(
+  //           'INSERT INTO bills (faturadurumu, tutar, ay, odemetarihi, okundugutarihi, okunandeg, oncekisayacdeg, sayacokumatarihi, gecikmetutari, housesid) VALUES  (?,?,?,?,?,?,?,?,?,?)',
+  //           [
+  //             'Okunacak',
+  //             '',
+  //             `${moment(minDate).month() + 1}`,
+  //             '',
+  //             '',
+  //             '',
+  //             'bidursun',
+  //             `${moment(minDate).format('DD-MM-YYYY HH:mm')}`,
+  //             '',
+  //             `${result.rows.item(index).id}`,
+  //           ],
+  //           (tx, result) => {
+  //             console.log('tx', tx);
+  //             console.log('result', result);
+  //           },
+  //         );
+  //       }
+  //     });
+  //   });
+  // };
+ 
   const newSetData = async () => {
      SQLite.enablePromise(true);
      const db = await SQLite.openDatabase({
@@ -131,19 +131,20 @@ const BillsScreen = ({navigation}) => {
        tx.executeSql('SELECT * FROM houses;', [], (tx, result) => {
          for (let index = 0; index < result.rows.length; index++) {
            tx.executeSql(
-             'INSERT INTO bills (faturadurumu, tutar, ay, odemetarihi, okundugutarihi, okunandeg, oncekisayacdeg, sayacokumatarihi, gecikmetutari, housesid) SELECT ?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT * from bills where ay=?)',
+             'INSERT INTO bills (faturadurumu, tutar, ay, odemetarihi, okundugutarihi, okunandeg, oncekisayacdeg, sayacokumatarihi, gecikmetutari, housesid) SELECT ?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT * FROM bills WHERE ay = ? AND housesid = ?)',
              [
-               'okunacak',
+               'Okunacak',
                '',
                `${moment(minDate).month() + 1}`,
                '',
                '',
                '',
                'bidursun',
-               `${moment(minDate)}`,
+               `${moment(minDate).format('DD-MM-YYYY HH:mm')}`,
                '',
                `${result.rows.item(index).id}`,
                `${moment(minDate).month() + 1}`,
+               `${result.rows.item(index).id}`,
              ],
              (tx, result) => {
                console.log('tx', tx);
@@ -153,7 +154,8 @@ const BillsScreen = ({navigation}) => {
          }
        });
      });
-   };*/
+  };
+  
   const searchFilter = text => {
     const searchingData = items.filter(item => {
       const filtered = `${item.isimsoyisim} ${item.aboneno}`;
@@ -192,7 +194,7 @@ const BillsScreen = ({navigation}) => {
             containerStyle={{
               marginRight: fontSize(10),
             }}
-            onPress={() => setData()}
+            onPress={() => newSetData()}
             svg={home_filter}
             text={'Oluştur'}
           />
@@ -214,11 +216,15 @@ const BillsScreen = ({navigation}) => {
           onChange={val => searchFilter(val)}
         />
       </View>
+      {console.log("***********************")}
+      {console.log(items)}
+      {console.log("***********************")}
       <FlatList
         renderItem={({item}) => <BillsCard {...item} {...bills} />}
         data={filter && filter.length > 0 ? filter : items}
         keyExtractor={(item, index) => item.id}
       />
+      
     </View>
   );
 };
