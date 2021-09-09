@@ -31,7 +31,7 @@ const HouseBillDetail = props => {
         ? colors.MainLightWhite
         : faturadurumu === 'Tamamlandı'
         ? colors.MainLightGreen
-        : faturadurumu === 'Ödenecek:'
+        : faturadurumu === 'Ödenecek'
         ? colors.MainBeige
         : null,
   };
@@ -42,7 +42,7 @@ const HouseBillDetail = props => {
         ? colors.MainLightBlue
         : faturadurumu === 'Tamamlandı'
         ? colors.MainGreen
-        : faturadurumu === 'Ödenecek:'
+        : faturadurumu === 'Ödenecek'
         ? colors.MainBrown
         : null,
   };
@@ -54,12 +54,12 @@ const HouseBillDetail = props => {
 
   const read_icon = {
     display:
-      faturadurumu === 'Ödenecek:' ? 'none' : faturadurumu === 'Tamamlandı' ? 'none' : null,
+      faturadurumu === 'Ödenecek' ? 'none' : faturadurumu === 'Tamamlandı' ? 'none' : null,
   };
 
   const done_icon = {
     display:
-      faturadurumu === 'Okunacak' ? 'none' : faturadurumu === 'Ödenecek:' ? 'none' : null,
+      faturadurumu === 'Okunacak' ? 'none' : faturadurumu === 'Ödenecek' ? 'none' : null,
   };
 
   return (

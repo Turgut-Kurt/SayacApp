@@ -51,10 +51,11 @@ const BillsDetailCard = props => {
     meterValue,
     currentTime,
   } = props;
-  console.log('data');
+  console.log('"""""""""data"""""""""""""""""');
   console.log(data);
   return (
     <View style={styles.container}>
+       {console.log(readSuccess)}
       <View style={styles.topDate}>
         <VectorImage style={styles.svg} source={centerfocus} />
         <Text style={styles.date}>{monthNames[data.ay - 1]} 2021</Text>
@@ -85,10 +86,11 @@ const BillsDetailCard = props => {
         <Text style={styles.meterTime}>{data.sayacokumatarihi}</Text>
       </View>
 
-      {readSuccess == true ? (
+      {readSuccess == "Ödenecek" ? (
         <MeterReadInfoCard
           meterReadTime={currentTime}
-          meterValue={meterValue}
+          meterValue={data.okunandeg}
+          amount={data.tutar}
         />
       ) : null}
     </View>
@@ -104,7 +106,7 @@ BillsDetailCard.propTypes = {
   an: PropTypes.number,
   sn: PropTypes.number,
   meter: PropTypes.number,
-  meterValue: PropTypes.string,
+  meterValue: PropTypes.number,
 };
 
 BillsDetailCard.defaultProps = {
@@ -118,7 +120,7 @@ BillsDetailCard.defaultProps = {
   adress: 'Aşağı Mah. Ata Cd. Kavuncu Sk. No: 12',
   meter: 557865555,
   meterTime: '1 Ağustos 2021, 00.01',
-  meterValue: '777777',
+  meterValue: 777777,
 };
 
 export {BillsDetailCard};

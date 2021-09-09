@@ -42,8 +42,7 @@ const MeterReadInfoCard = (props) => {
 MeterReadInfoCard.propTypes = {
     onPress: PropTypes.func,
     meterReadtime: PropTypes.string,
-    
-    meterValue: PropTypes.string,
+    meterValue: PropTypes.number,
   
 };
 

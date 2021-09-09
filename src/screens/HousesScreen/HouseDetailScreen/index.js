@@ -18,6 +18,8 @@ import styles from './styles';
 
 const HouseDetailScreen = ({route, navigation}) => {
   let item = route.params.item;
+  console.log("item----------")
+  console.log(item)
   let db;
   const [items, setItems] = useState([]);
   const [bills, setBills] = useState();
@@ -77,15 +79,15 @@ const HouseDetailScreen = ({route, navigation}) => {
         },
       );
       tx.executeSql(
-        'SELECT COUNT(faturadurumu) as count FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE bills.housesid = ? AND faturadurumu="Ödenecek"',
-        [],
+        'SELECT COUNT(faturadurumu) as count FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE houses.id = ? AND faturadurumu="Ödenecek"',
+        [item.id],
         (tx, result) => {
           setPay(result.rows.item(0).count);
         },
       );
       tx.executeSql(
         'SELECT COUNT(faturadurumu) as count FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE bills.housesid = ? AND faturadurumu="Tamamlandı"',
-        [],
+        [item.id],
         (tx, result) => {
           setOk(result.rows.item(0).count);
         },
@@ -149,9 +151,14 @@ const HouseDetailScreen = ({route, navigation}) => {
       },
     ],
   };
+  
 
   return (
     <View style={styles.Container}>
+      {console.log("---------------------------")}
+      {console.log(pay)}
+      {console.log(read)}
+      {console.log(ok)}
       <CustomCommonHeader
         data={data.cards}
         backButton={
