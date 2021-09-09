@@ -219,8 +219,9 @@ const BillsScreen = ({navigation}) => {
       {console.log("***********************")}
       {console.log(items)}
       {console.log("***********************")}
+      
       <FlatList
-        renderItem={({item}) => <BillsCard {...item} {...bills} />}
+        renderItem={({item}) => <BillsCard {...bills} {...item}  />}
         data={filter && filter.length > 0 ? filter : items}
         keyExtractor={(item, index) => item.id}
       />
