@@ -46,7 +46,7 @@ const BillsScreen = ({navigation}) => {
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql(
-        'SELECT * FROM houses INNER JOIN bills ON houses.id = bills.housesid;',
+        'SELECT * FROM houses INNER JOIN bills ON houses.id = bills.housesid',
         //'SELECT * FROM bills;',
         [],
         (tx, result) => {

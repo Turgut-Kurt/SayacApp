@@ -9,6 +9,7 @@ import {home} from '~/assets';
 import styles from './styles';
 
 const HouseDetail = props => {
+  
   const {
     svg,
     aboneno,
@@ -49,14 +50,6 @@ const HouseDetail = props => {
           {`Toplam ödenecek: ${tutar} + ${gecikmetutari} (gecikme) = ${tutar + gecikmetutari} ₺`}
         </Text>
       </View>
-      <StatusHeader
-        containerStyle={{
-          width: '90%',
-          justifyContent: 'space-between',
-          marginLeft: fontSize(25),
-          paddingVertical: fontSize(13),
-        }}
-      />
     </View>
   );
 };

@@ -1,8 +1,9 @@
-import { Alert, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TouchableOpacity, View, FlatList } from 'react-native';
 import {
   CustomButton,
   CustomButtonWithSvg,
   CustomCommonHeader,
+  HouseBillDetail,
   HouseDetail,
   SearchInput,
 } from '~components';
@@ -19,6 +20,11 @@ const HouseDetailScreen = ({route, navigation}) => {
   let item = route.params.item;
   let db;
   const [items, setItems] = useState([]);
+  const [bills, setBills] = useState();
+  const [filter, setFilter] = useState([]);
+  const [read, setRead] = useState();
+  const [pay, setPay] = useState();
+  const [ok, setOk] = useState();
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       SQLite.enablePromise(true);
@@ -30,24 +36,64 @@ const HouseDetailScreen = ({route, navigation}) => {
         .catch(e => console.log(e));
       setTimeout(() => {
         readData();
+        
       }, 1000);
     });
     return unsubscribe;
   }, [navigation]);
 
+
+
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql(
-        'SELECT * FROM houses WHERE id=?',
+        'SELECT * FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE bills.housesid = ?',
         [item.id],
         (tx, result) => {
-          setItems(result.rows.item(0));
+          let bills = [];
+          console.log('result', result);
+          for (let index = 0; index < result.rows.length; index++) {
+            bills.push(result.rows.item(index));
+            console.log(result.rows.item(index));
+            setBills(bills);
+          }
+        },
+
+
+      );
+      tx.executeSql(
+        'SELECT COUNT(faturadurumu) as count FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE bills.housesid = ? AND faturadurumu="Okunacak";',
+        [item.id],
+        (tx, result) => {
+          setRead(result.rows.item(0).count);
+        },
+      );
+      tx.executeSql(
+        'SELECT COUNT(faturadurumu) as count FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE bills.housesid = ? AND faturadurumu="Ödenecek"',
+        [],
+        (tx, result) => {
+          setPay(result.rows.item(0).count);
+        },
+      );
+      tx.executeSql(
+        'SELECT COUNT(faturadurumu) as count FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE bills.housesid = ? AND faturadurumu="Tamamlandı"',
+        [],
+        (tx, result) => {
+          setOk(result.rows.item(0).count);
         },
       );
     });
   };
 
-  const deleteData = id => {
+  
+
+  const deleteData = async id => {
+    SQLite.enablePromise(true);
+    const db = await SQLite.openDatabase({
+      name: 'sayacdb.db',
+      createFromLocation: 1,
+    });
+    console.log(db);
     db.transaction(tx => {
       tx.executeSql('DELETE FROM houses WHERE id = ?', [id], (tx, results) => {
         if (results.rowsAffected > 0) {
@@ -57,17 +103,55 @@ const HouseDetailScreen = ({route, navigation}) => {
         }
       });
     });
+    db.transaction(tx => {
+      tx.executeSql('DELETE FROM bills WHERE housesid = ?', [id], (tx, results) => {
+        if (results.rowsAffected > 0) {
+          console.log('Veri silindi');
+        } else {
+          console.log('Veri silme gerçekleştirilemedi');
+        }
+      });
+    });
+  };
+
+  const searchFilter = text => {
+    const searchingData = items.filter(item => {
+      const filtered = `${item.ay}`;
+      return filtered.indexOf(text.toLowerCase()) > -1;
+    });
+    setFilter(searchingData);
+  };
+
+  const data = {
+    cards: [
+      {
+        id: 0,
+        status: 'Okunacak',
+        quantity: read,
+      },
+      {
+        id: 1,
+        status: 'Ödenecek',
+        quantity: pay,
+      },
+      {
+        id: 2,
+        status: 'Tamamlandı',
+        quantity: ok,
+      },
+    ],
   };
 
   return (
     <View style={styles.Container}>
       <CustomCommonHeader
+        data={data.cards}
         backButton={
           <TouchableOpacity onPress={() => goBack()}>
             <VectorImage source={arrow} />
           </TouchableOpacity>
         }
-        activeBottom={false}
+        activeBottom={true}
         leftButton={
           <CustomButtonWithSvg
             containerStyle={{
@@ -95,11 +179,21 @@ const HouseDetailScreen = ({route, navigation}) => {
       />
       {console.log('items')}
       {console.log(items)}
-      <HouseDetail {...items} tutar={55} gecikmetutari={2} />
+      {console.log('bills')}
+      {console.log(bills)}
+      <HouseDetail {...item} tutar={55} gecikmetutari={2} />
+      
       <SearchInput
         containerStyle={{width: '90%'}}
         placeholder={'Fatura Arayın'}
+        onChange={val => searchFilter(val)}
       />
+      <FlatList
+        renderItem={({item}) => <HouseBillDetail {...item} {...bills} />}
+        data={filter && filter.length > 0 ? filter : bills}
+        keyExtractor={(item, index) => item.id}
+      />
+      
     </View>
   );
 };

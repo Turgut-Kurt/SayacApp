@@ -8,43 +8,58 @@ import {colors} from '../config';
 import styles from './styles';
 
 const HouseBillDetail = props => {
-  const {containerStyle, svg, month, year, status, value, svg2, svg3} = props;
-
+  const { containerStyle, svg, ay, year, faturadurumu, value, svg2, svg3 } = props;
+  
+  const monthNames = [
+    'Ocak',
+    'Şubat',
+    'Mart',
+    'Nisan',
+    'Mayıs',
+    'Haziran',
+    'Temmuz',
+    'Ağustos',
+    'Eylül',
+    'Ekim',
+    'Kasım',
+    'Aralık',
+  ];
+  
   const background = {
     backgroundColor:
-      status === 'Okunacak'
+      faturadurumu === 'Okunacak'
         ? colors.MainLightWhite
-        : status === 'Tamamlandı'
+        : faturadurumu === 'Tamamlandı'
         ? colors.MainLightGreen
-        : status === 'Ödenecek:'
+        : faturadurumu === 'Ödenecek:'
         ? colors.MainBeige
         : null,
   };
 
   const textcolor = {
     color:
-      status === 'Okunacak'
+      faturadurumu === 'Okunacak'
         ? colors.MainLightBlue
-        : status === 'Tamamlandı'
+        : faturadurumu === 'Tamamlandı'
         ? colors.MainGreen
-        : status === 'Ödenecek:'
+        : faturadurumu === 'Ödenecek:'
         ? colors.MainBrown
         : null,
   };
 
   const valueText = {
     display:
-      status === 'Okunacak' ? 'none' : status === 'Tamamlandı' ? 'none' : null,
+      faturadurumu === 'Okunacak' ? 'none' : faturadurumu === 'Tamamlandı' ? 'none' : null,
   };
 
   const read_icon = {
     display:
-      status === 'Ödenecek:' ? 'none' : status === 'Tamamlandı' ? 'none' : null,
+      faturadurumu === 'Ödenecek:' ? 'none' : faturadurumu === 'Tamamlandı' ? 'none' : null,
   };
 
   const done_icon = {
     display:
-      status === 'Okunacak' ? 'none' : status === 'Ödenecek:' ? 'none' : null,
+      faturadurumu === 'Okunacak' ? 'none' : faturadurumu === 'Ödenecek:' ? 'none' : null,
   };
 
   return (
@@ -52,11 +67,11 @@ const HouseBillDetail = props => {
       <TouchableOpacity style={[styles.Bill, containerStyle, {...background}]}>
         <View style={styles.Time}>
           <VectorImage source={svg} style={styles.Svg} />
-          <Text style={styles.TimeText}>{month}</Text>
+          <Text style={styles.TimeText}>{monthNames[ay - 1]}</Text>
           <Text style={styles.TimeText}>{year}</Text>
         </View>
         <View style={styles.Time}>
-          <Text style={[{...textcolor}, styles.Status]}>{status}</Text>
+          <Text style={[{...textcolor}, styles.Status]}>{faturadurumu}</Text>
           <Text style={[{...valueText}, styles.Value]}>{value} ₺</Text>
           <VectorImage style={{...read_icon}} source={svg2} />
           <VectorImage style={{...done_icon}} source={svg3} />
@@ -71,9 +86,9 @@ HouseBillDetail.propTypes = {
     background: ViewPropTypes.style,
     textcolor: ViewPropTypes.style,
     svg: PropTypes.number,
-    month: PropTypes.string,
+    ay: PropTypes.string,
     year: PropTypes.string,
-    status: PropTypes.string,
+    faturadurumu: PropTypes.string,
     value: PropTypes.string,
     svg2: PropTypes.number,
     svg3: PropTypes.number,
