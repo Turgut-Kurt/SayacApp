@@ -58,8 +58,16 @@ const HouseDetailScreen = ({route, navigation}) => {
             setBills(bills);
           }
         },
-
-
+      );
+      tx.executeSql(
+        'SELECT * FROM houses WHERE id = ?',
+        [item.id],
+        (tx, result) => {
+          console.log('result', result);
+          console.log("******************")
+          console.log(result.rows.item(0));
+          setItems(result.rows.item(0));
+        }
       );
       tx.executeSql(
         'SELECT COUNT(faturadurumu) as count FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE bills.housesid = ? AND faturadurumu="Okunacak";',
@@ -180,7 +188,7 @@ const HouseDetailScreen = ({route, navigation}) => {
       
       {console.log('bills')}
       {console.log(bills)}
-      <HouseDetail {...item} tutar={55} gecikmetutari={2} />
+      <HouseDetail {...items} tutar={55} gecikmetutari={2} />
       
       <SearchInput
         containerStyle={{width: '90%'}}

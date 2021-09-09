@@ -16,6 +16,7 @@ const BillDetailScreen = ({route}) => {
   const [currentTime, setCurrentTime] = useState('');
   const [value, setValue] = useState('');
   const data = route.params;
+  
   let db;
 
   const updateData = async () => {
@@ -28,8 +29,10 @@ const BillDetailScreen = ({route}) => {
       Alert.alert('Warning!', 'Please write your data.');
     } else {
       try {
+        
+
         db.transaction(tx => {
-          tx.executeSql(
+           tx.executeSql(
             'UPDATE bills SET faturadurumu = ? WHERE id = ?',
             ['Ödenecek', data.id],
             () => {
