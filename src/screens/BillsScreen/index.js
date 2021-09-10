@@ -140,7 +140,7 @@ const BillsScreen = ({navigation}) => {
                '',
                '',
                `${result.rows.item(index).ilksayacdeg}`,
-               `${moment(minDate).format('DD-MM-YYYY HH:mm')}`,
+               `${moment(minDate).format('DD MMMM YYYY, hh.mm')}`,
                '',
                `${result.rows.item(index).id}`,
                `${moment(minDate).month() + 1}`,

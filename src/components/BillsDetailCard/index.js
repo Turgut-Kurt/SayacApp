@@ -11,9 +11,9 @@ import {
   CustomButton,
   CustomButtonWithSvg,
   CustomModal,
+  MeterPaidInfoCard,
   MeterReadInfoCard,
   StatusCard,
-  MeterPaidInfoCard,
 } from '~components';
 import React, {useEffect, useState} from 'react';
 import {arrow, centerfocus, checkGray, home, meterRead} from '~assets';
@@ -21,10 +21,10 @@ import {arrow, centerfocus, checkGray, home, meterRead} from '~assets';
 import {PropTypes} from '~/components/config';
 import VectorImage from 'react-native-vector-image';
 import {calculateBill} from '~helpers';
+import moment from 'moment';
 import styles from './styles';
 
 const BillsDetailCard = props => {
-
   const monthNames = [
     'Ocak',
     'Şubat',
@@ -57,7 +57,7 @@ const BillsDetailCard = props => {
   console.log(data);
   return (
     <View style={styles.container}>
-       <View style={styles.topDate}>
+      <View style={styles.topDate}>
         <VectorImage style={styles.svg} source={centerfocus} />
         <Text style={styles.date}>{monthNames[data.ay - 1]} 2021</Text>
         <Text style={styles.snText}>Sn:</Text>
@@ -87,30 +87,26 @@ const BillsDetailCard = props => {
         <Text style={styles.meterTime}>{data.sayacokumatarihi}</Text>
       </View>
 
-      {billsStatus == "Ödenecek" ? (
+      {billsStatus == 'Ödenecek' ? (
         <MeterReadInfoCard
           meterReadTime={data.okundugutarihi}
           meterValue={data.okunandeg}
           amount={data.tutar}
         />
-      ) : billsStatus == "Tamamlandı" ?
-    
-          (<View>
-            <MeterReadInfoCard
-          meterReadTime={data.okundugutarihi}
-          meterValue={data.okunandeg}
-          amount={data.tutar}
-            />
-            <MeterPaidInfoCard
-          meterReadTime={data.odemetarihi}
-          meterValue={data.okunandeg}
-          amount={data.tutar}
-            />
-
-          </View>
-      
-    ) : ( null )
-      }
+      ) : billsStatus == 'Tamamlandı' ? (
+        <View>
+          <MeterReadInfoCard
+            meterReadTime={data.okundugutarihi}
+            meterValue={data.okunandeg}
+            amount={data.tutar}
+          />
+          <MeterPaidInfoCard
+            meterReadTime={data.odemetarihi}
+            meterValue={data.okunandeg}
+            amount={data.tutar}
+          />
+        </View>
+      ) : null}
     </View>
   );
 };
