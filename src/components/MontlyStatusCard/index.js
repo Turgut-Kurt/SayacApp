@@ -11,7 +11,9 @@ import styles from './styles';
 const MontlyStatusCard = (props, {navigation}) => {
   let db;
   const [items, setItems] = useState([]);
+  const [isPressed, setIsPressed] = useState();
 
+  const [monthlyStatusData, setMontlyStatusData] = useState([]);
   const monts = [
     {title: 'Tümü', name: 'Tümü'},
     {title: 'Ocak', name: 'Ocak'},
@@ -27,37 +29,36 @@ const MontlyStatusCard = (props, {navigation}) => {
     {title: 'Kasım', name: 'Kasım'},
     {title: 'Aralık', name: 'Aralık'},
   ];
-
   const bills = [
     {
       an: 1234656,
       month: 'Ocak',
-      status: 'Tamamlandı',
-      billsFee: 130,
+      faturadurumu: 'Tamamlandı',
+      tutar: 130,
     },
     {
       an: 127856,
       month: 'Şubat',
-      status: 'Ödenecek',
-      billsFee: 140,
+      faturadurumu: 'Ödenecek',
+      tutar: 140,
     },
     {
       an: 1265656,
       month: 'Mart',
-      status: 'Ödenecek',
-      billsFee: 100,
+      faturadurumu: 'Ödenecek',
+      tutar: 100,
     },
     {
       an: 1232356,
       month: 'Mart',
-      status: 'Tamamlandı',
-      billsFee: 100,
+      faturadurumu: 'Tamamlandı',
+      tutar: 100,
     },
     {
       an: 181356,
       month: 'Mart',
-      status: 'Okunacak',
-      billsFee: 80,
+      faturadurumu: 'Okunacak',
+      tutar: 80,
     },
   ];
 
@@ -66,12 +67,12 @@ const MontlyStatusCard = (props, {navigation}) => {
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
       .then(dbRes => {
         db = dbRes;
-        'Database opened:', dbRes;
+        console.log('Database opened:', dbRes);
       })
       .catch(e => console.log(e));
     setTimeout(() => {
       readData();
-    }, 1000);
+    }, 500);
   }, []);
 
   const readData = () => {
@@ -86,52 +87,54 @@ const MontlyStatusCard = (props, {navigation}) => {
     });
   };
 
-  const [isPressed, setIsPressed] = useState();
-
-  const [monthlyStatusData, setMontlyStatusData] = useState([]);
-
   const filterData = filter => {
-    if (filter === 'Tümü') setMontlyStatusData(bills);
+    if (filter === 0) setMontlyStatusData(items);
     else {
-      setMontlyStatusData(bills.filter(({month}) => month === filter));
+      setMontlyStatusData(items.filter(({ay}) => ay === `${filter}`));
     }
   };
 
-  const TotalBills = Object.keys(bills).length;
+  const TotalBills = Object.keys(items).length;
 
   // Paid BillsFeeTotal
 
-  const paid = monthlyStatusData.filter(({status}) => status === 'Tamamlandı');
+  const paid = monthlyStatusData.filter(
+    ({faturadurumu}) => faturadurumu === 'Tamamlandı',
+  );
 
   const paidBills = Object.keys(paid).length;
 
-  const paidPercent = (paidBills / TotalBills) * 100;
+  const paidPercent = Number(((paidBills / TotalBills) * 100).toFixed(2));
 
   const paidBillsFeeTotal = monthlyStatusData.reduce(
-    (prev, cur) => prev + cur.billsFee,
+    (prev, cur) => prev + cur.tutar,
     0,
   );
 
   // Unpaid BillsFeeTotal
 
-  const unpaid = monthlyStatusData.filter(({status}) => status === 'Ödenecek');
+  const unpaid = monthlyStatusData.filter(
+    ({faturadurumu}) => faturadurumu === 'Ödenecek',
+  );
 
   const unpaidBills = Object.keys(unpaid).length;
 
-  const unpaidPercent = (unpaidBills / TotalBills) * 100;
+  const unpaidPercent = Number(((unpaidBills / TotalBills) * 100).toFixed(2));
 
   const unpaidBillsFeeTotal = monthlyStatusData.reduce(
-    (prev, cur) => prev + cur.billsFee,
+    (prev, cur) => prev + cur.tutar,
     0,
   );
 
   // number of meter to be read
 
-  const unread = monthlyStatusData.filter(({status}) => status === 'Okunacak');
+  const unread = monthlyStatusData.filter(
+    ({faturadurumu}) => faturadurumu === 'Okunacak',
+  );
 
   const unreadBills = Object.keys(unread).length;
 
-  const unreadPercent = (unreadBills / TotalBills) * 100;
+  const unreadPercent = Number(((unreadBills / TotalBills) * 100).toFixed(2));
 
   const {containerStyle, textStyle} = props;
 
@@ -147,8 +150,9 @@ const MontlyStatusCard = (props, {navigation}) => {
             <MontsButton
               {...item}
               onPress={() => {
-                filterData(item.name);
                 setIsPressed(index);
+                filterData(index);
+                console.log(index);
               }}
               containerStyle={index === isPressed && styles.ButtonActive}
               textStyle={index === isPressed && styles.TextStyleActive}
@@ -177,7 +181,7 @@ const MontlyStatusCard = (props, {navigation}) => {
             <View
               style={{
                 height: fontSize(12),
-                width: fontSize(unreadPercent),
+                width: isNaN(unreadPercent) ? 0 : unreadPercent,
                 backgroundColor: colors.MainDarkGray,
                 borderRadius: fontSize(5),
               }}></View>
@@ -191,7 +195,7 @@ const MontlyStatusCard = (props, {navigation}) => {
             <View
               style={{
                 height: fontSize(12),
-                width: fontSize(unpaidPercent),
+                width: isNaN(unpaidPercent) ? 0 : unpaidPercent,
                 backgroundColor: colors.MainBeige,
                 borderRadius: fontSize(5),
               }}></View>
@@ -205,7 +209,7 @@ const MontlyStatusCard = (props, {navigation}) => {
             <View
               style={{
                 height: fontSize(12),
-                width: fontSize(paidPercent),
+                width: isNaN(paidPercent) ? 0 : paidPercent,
                 backgroundColor: colors.MainLightGreen,
                 borderRadius: fontSize(5),
               }}></View>
@@ -214,7 +218,7 @@ const MontlyStatusCard = (props, {navigation}) => {
         </View>
         <View style={{paddingVertical: fontSize(30)}}>
           <Text style={[styles.TextStyle, textStyle]}>
-            Ödenen miktar : {paidBillsFeeTotal} ₺
+            Ödenen miktar : {Number(unpaidBillsFeeTotal.toFixed(2))} ₺
           </Text>
           <Text style={[styles.TextStyle, textStyle]}>
             Ödenen gecikme miktarı :
@@ -225,7 +229,7 @@ const MontlyStatusCard = (props, {navigation}) => {
         </View>
         <View>
           <Text style={[styles.TextStyle, textStyle]}>
-            Kalan miktar : {unpaidBillsFeeTotal} ₺
+            Kalan miktar : {Number(unpaidBillsFeeTotal.toFixed(2))} ₺
           </Text>
           <Text style={[styles.TextStyle, textStyle]}>
             Kalan gecikme miktarı :
@@ -234,6 +238,17 @@ const MontlyStatusCard = (props, {navigation}) => {
             Kalan genel toplam :
           </Text>
         </View>
+      </View>
+      <View>
+        <Text style={[styles.TextStyle, textStyle]}>
+          Kalan miktar : {unpaidBillsFeeTotal} ₺
+        </Text>
+        <Text style={[styles.TextStyle, textStyle]}>
+          Kalan gecikme miktarı :
+        </Text>
+        <Text style={[styles.TextStyle, textStyle, {color: colors.MainBlue}]}>
+          Kalan genel toplam :
+        </Text>
       </View>
     </View>
   );
