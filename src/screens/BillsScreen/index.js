@@ -54,6 +54,7 @@ const BillsScreen = ({navigation}) => {
           console.log('result', result);
           for (let index = 0; index < result.rows.length; index++) {
             temp.push(result.rows.item(index));
+            console.log('result.rows.item(index)');
             console.log(result.rows.item(index));
             setItems(temp);
           }

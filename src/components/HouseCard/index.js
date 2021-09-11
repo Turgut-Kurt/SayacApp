@@ -1,27 +1,20 @@
 import {PropTypes, ViewPropTypes} from '~/components/config';
+import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {colors, globalStyle} from '../config';
 
-import React from 'react';
+import SQLite from 'react-native-sqlite-storage';
 import {StatusBadge} from '~/components';
 import VectorImage from 'react-native-vector-image';
 import {fontSize} from '~utils';
 import {home} from '~assets';
 import styles from './styles';
 
-const dataOne = {
-  status: 'Ödenecek',
-  quantity: 5,
-};
-
-const dataTwo = {
-  status: 'Okunacak',
-  quantity: 2,
-};
-
 const HouseCard = props => {
+  let db;
   const {
     data,
+    id,
     containerStyle,
     svgStyle,
     aboneno,
@@ -32,8 +25,51 @@ const HouseCard = props => {
     tcno,
     svg,
     onPress,
+    navigation,
   } = props;
+  console.log(props);
+  const [read, setRead] = useState();
+  const [pay, setPay] = useState();
+  useEffect(() => {
+      SQLite.enablePromise(true);
+      SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+        .then(dbRes => {
+          db = dbRes;
+          console.log('Database opened:', dbRes);
+        })
+        .catch(e => console.log(e));
+      setTimeout(() => {
+        readData();
+      }, 500);
+  }, []);
+  const readData = () => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'SELECT COUNT(faturadurumu) as count FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE bills.housesid = ? AND faturadurumu="Okunacak";',
+        [id],
+        (tx, result) => {
+          setRead(result.rows.item(0).count);
+        },
+      );
+      tx.executeSql(
+        'SELECT COUNT(faturadurumu) as count FROM houses INNER JOIN bills on houses.id = bills.housesid WHERE houses.id = ? AND faturadurumu="Ödenecek"',
+        [id],
+        (tx, result) => {
+          setPay(result.rows.item(0).count);
+        },
+      );
+    });
+  };
 
+  const dataOne = {
+    status: 'Ödenecek',
+    quantity: pay,
+  };
+
+  const dataTwo = {
+    status: 'Okunacak',
+    quantity: read,
+  };
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={[styles.Container, containerStyle]}>
@@ -56,12 +92,16 @@ const HouseCard = props => {
           </Text>
         </View>
         <View style={styles.badgeContainer}>
-          <View style={{paddingHorizontal: fontSize(20)}}>
-            <StatusBadge {...dataOne} status={'Ödenecek'} />
-          </View>
-          <View>
-            <StatusBadge {...dataTwo} status={'Okunacak'} />
-          </View>
+          {pay ? (
+            <View style={{paddingHorizontal: fontSize(10)}}>
+              <StatusBadge {...dataOne} status={'Ödenecek'} />
+            </View>
+          ) : null}
+          {read ? (
+            <View style={{paddingHorizontal: fontSize(10)}}>
+              <StatusBadge {...dataTwo} status={'Okunacak'} />
+            </View>
+          ) : null}
         </View>
       </View>
     </TouchableOpacity>
