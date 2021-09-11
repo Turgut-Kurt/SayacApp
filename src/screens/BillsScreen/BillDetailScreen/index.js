@@ -30,6 +30,7 @@ const BillDetailScreen = ({route, navigation}) => {
   let hesapla;
 
   const [items, setItems] = useState([]);
+  const [bills, setBills] = useState([]);
 
   useEffect(() => {
     SQLite.enablePromise(true);
@@ -56,6 +57,9 @@ const BillDetailScreen = ({route, navigation}) => {
           setItems(result.rows.item(0));
         },
       );
+      tx.executeSql('SELECT * FROM billsSettings;', [], (tx, result) => {
+        setBills(result.rows.item(0));
+      });
     });
   };
 
@@ -74,13 +78,7 @@ const BillDetailScreen = ({route, navigation}) => {
         db.transaction(tx => {
           tx.executeSql(
             'UPDATE bills SET faturadurumu = ?, okunandeg = ?, okundugutarihi = ?, tutar = ? WHERE id = ?',
-            [
-              'Ödenecek',
-              value,
-              `${moment(minDate).format('DD MMMM YYYY, hh.mm')}`,
-              `${hesapla}`,
-              data.id,
-            ],
+            ['Ödenecek', value, `${miliSeconds}`, `${hesapla}`, data.id],
 
             () => {
               Alert.alert('Success!', 'Your data has been updated.');
@@ -130,11 +128,7 @@ const BillDetailScreen = ({route, navigation}) => {
         db.transaction(tx => {
           tx.executeSql(
             'UPDATE bills SET faturadurumu = ?, odemetarihi = ? WHERE id = ?',
-            [
-              'Tamamlandı',
-              `${moment(minDate).format('DD MMMM YYYY, hh.mm')}`,
-              data.id,
-            ],
+            ['Tamamlandı', `${miliSeconds}`, data.id],
 
             () => {
               Alert.alert('Success!', 'Your data has been updated.');
@@ -182,6 +176,7 @@ const BillDetailScreen = ({route, navigation}) => {
       <BillsDetailCard
         billsStatus={items.faturadurumu}
         data={items}
+        bills={bills}
         status={items.faturadurumu}
         currentTime={currentTime}
       />

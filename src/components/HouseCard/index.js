@@ -31,17 +31,17 @@ const HouseCard = props => {
   const [read, setRead] = useState();
   const [pay, setPay] = useState();
   useEffect(() => {
-      SQLite.enablePromise(true);
-      SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
-        .then(dbRes => {
-          db = dbRes;
-          console.log('Database opened:', dbRes);
-        })
-        .catch(e => console.log(e));
-      setTimeout(() => {
-        readData();
-      }, 500);
-  }, []);
+    SQLite.enablePromise(true);
+    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+      .then(dbRes => {
+        db = dbRes;
+        console.log('Database opened:', dbRes);
+      })
+      .catch(e => console.log(e));
+    setTimeout(() => {
+      readData();
+    }, 500);
+  });
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql(

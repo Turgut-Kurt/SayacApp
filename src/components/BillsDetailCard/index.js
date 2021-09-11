@@ -50,11 +50,16 @@ const BillsDetailCard = props => {
     meter,
     meterTime,
     billsStatus,
+    bills,
     meterValue,
     currentTime,
   } = props;
-  console.log('"""""""""data"""""""""""""""""');
-  console.log(data);
+  const gecikme = () => {
+    let day = bills.gecikmefaiziorani / 30;
+  };
+  console.log('okundugutarihidataasdada');
+  console.log(moment(data.okundugutarihi));
+  console.log(data.okundugutarihi);
   return (
     <View style={styles.container}>
       <View style={styles.topDate}>
@@ -84,7 +89,9 @@ const BillsDetailCard = props => {
       <View style={styles.bottom}>
         <VectorImage style={styles.svg} source={checkGray} />
         <Text style={styles.info}>Sayaç okuma zamanı geldi</Text>
-        <Text style={styles.meterTime}>{data.sayacokumatarihi}</Text>
+        <Text style={styles.meterTime}>
+          {moment(data.sayacokumatarihi).format('LLL')}
+        </Text>
       </View>
 
       {billsStatus == 'Ödenecek' ? (
@@ -92,6 +99,7 @@ const BillsDetailCard = props => {
           meterReadTime={data.okundugutarihi}
           meterValue={data.okunandeg}
           amount={data.tutar}
+          delayAmount={'5'}
         />
       ) : billsStatus == 'Tamamlandı' ? (
         <View>
