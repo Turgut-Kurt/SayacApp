@@ -1,8 +1,8 @@
 import { CustomButton, Settings } from '~components';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
-import { calculator, locked, printer } from '~assets';
-import { home_logo, logout } from '~/assets';
+import { calculator, locked, printer, home_logo, logout } from '~assets';
+
 import { navigate, replace } from '~utils';
 
 import { CustomCommonHeader } from '~/components';
