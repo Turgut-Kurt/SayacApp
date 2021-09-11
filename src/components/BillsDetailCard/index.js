@@ -13,16 +13,18 @@ import {
   CustomModal,
   MeterReadInfoCard,
   StatusCard,
+  MeterPaidInfoCard,
 } from '~components';
 import React, { useEffect, useState } from 'react';
 import { arrow, centerfocus, checkGray, home, meterRead } from '~assets';
 
 import { PropTypes } from '~/components/config';
 import VectorImage from 'react-native-vector-image';
-import moment from 'moment';
+import {calculateBill} from '~helpers';
 import styles from './styles';
 
 const BillsDetailCard = props => {
+
   const monthNames = [
     'Ocak',
     'Şubat',
@@ -47,15 +49,15 @@ const BillsDetailCard = props => {
     status,
     meter,
     meterTime,
-    readSuccess,
+    billsStatus,
     meterValue,
     currentTime,
   } = props;
-  console.log('data');
+  console.log('"""""""""data"""""""""""""""""');
   console.log(data);
   return (
     <View style={styles.container}>
-      <View style={styles.topDate}>
+       <View style={styles.topDate}>
         <VectorImage style={styles.svg} source={centerfocus} />
         <Text style={styles.date}>{monthNames[data.ay - 1]} 2021</Text>
         <Text style={styles.snText}>Sn:</Text>
@@ -85,12 +87,30 @@ const BillsDetailCard = props => {
         <Text style={styles.meterTime}>{data.sayacokumatarihi}</Text>
       </View>
 
-      {readSuccess == true ? (
+      {billsStatus == "Ödenecek" ? (
         <MeterReadInfoCard
-          meterReadTime={currentTime}
-          meterValue={meterValue}
+          meterReadTime={data.okundugutarihi}
+          meterValue={data.okunandeg}
+          amount={data.tutar}
         />
-      ) : null}
+      ) : billsStatus == "Tamamlandı" ?
+    
+          (<View>
+            <MeterReadInfoCard
+          meterReadTime={data.okundugutarihi}
+          meterValue={data.okunandeg}
+          amount={data.tutar}
+            />
+            <MeterPaidInfoCard
+          meterReadTime={data.odemetarihi}
+          meterValue={data.okunandeg}
+          amount={data.tutar}
+            />
+
+          </View>
+      
+    ) : ( null )
+      }
     </View>
   );
 };
@@ -104,7 +124,7 @@ BillsDetailCard.propTypes = {
   an: PropTypes.number,
   sn: PropTypes.number,
   meter: PropTypes.number,
-  meterValue: PropTypes.string,
+  meterValue: PropTypes.number,
 };
 
 BillsDetailCard.defaultProps = {
@@ -118,7 +138,7 @@ BillsDetailCard.defaultProps = {
   adress: 'Aşağı Mah. Ata Cd. Kavuncu Sk. No: 12',
   meter: 557865555,
   meterTime: '1 Ağustos 2021, 00.01',
-  meterValue: '777777',
+  meterValue: 777777,
 };
 
 export { BillsDetailCard };

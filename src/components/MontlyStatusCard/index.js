@@ -1,14 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View , Text, FlatList, Animated } from 'react-native';
 import { colors, PropTypes, ViewPropTypes, } from '~/components/config';
 import { fontSize } from '~/utils';
 import { MontsButton } from '../MontsButton';
 import styles from './styles';
+import SQLite from 'react-native-sqlite-storage';
+import {Loader} from '~components';
 
 
 
+const MontlyStatusCard = (props, { navigation }) => {
 
-const bills = [{
+    let db;
+    const [items, setItems] = useState([]);
+    
+
+    const monts = [
+    { title : "Tümü", name :"Tümü"},
+    { title: 'Ocak', name: 'Ocak' },
+    { title: 'Şubat', name: 'Şubat' },
+    { title: 'Mart', name: 'Mart' },
+    { title: 'Nisan', name: 'Nisan' },
+    { title: 'Mayıs', name: 'Mayıs' },
+    { title: 'Haziran', name: 'Haziran' },
+    { title: 'Temmuz', name: 'Temmuz' },
+    { title: 'Agustos', name: 'Agustos' },
+    { title: 'Eylül', name: 'Eylül' },
+    { title: 'Ekim', name: 'Ekim' },
+    { title: 'Kasım', name: 'Kasım' },
+    { title: 'Aralık', name: 'Aralık' }
+]
+    
+    const bills = [{
       an:1234656,
       month:"Ocak",
       status:"Tamamlandı",
@@ -42,26 +65,40 @@ const bills = [{
     }
 ]
 
-
-const monts = [
-    { title : "Tümü", name :"Tümü"},
-    { title: 'Ocak', name: 'Ocak' },
-    { title: 'Şubat', name: 'Şubat' },
-    { title: 'Mart', name: 'Mart' },
-    { title: 'Nisan', name: 'Nisan' },
-    { title: 'Mayıs', name: 'Mayıs' },
-    { title: 'Haziran', name: 'Haziran' },
-    { title: 'Temmuz', name: 'Temmuz' },
-    { title: 'Agustos', name: 'Agustos' },
-    { title: 'Eylül', name: 'Eylül' },
-    { title: 'Ekim', name: 'Ekim' },
-    { title: 'Kasım', name: 'Kasım' },
-    { title: 'Aralık', name: 'Aralık' }
-]
     
-
-
-const MontlyStatusCard = (props) => {
+    
+    
+    
+    useEffect(() => {
+    
+      SQLite.enablePromise(true);
+      SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+        .then(dbRes => {
+          db = dbRes;
+          console.log('Database opened:', dbRes);
+        })
+        .catch(e => console.log(e));
+      setTimeout(() => {
+        readData();
+        
+      }, 1000);
+    
+    
+  }, []);
+  
+  const readData = () => {
+    db.transaction(tx => {
+      tx.executeSql('SELECT * FROM bills', [], (tx, result) => {
+        let temp = [];
+        console.log('result', result);
+        for (let index = 0; index < result.rows.length; index++) {
+          temp.push(result.rows.item(index));
+          console.log(result.rows.item(index));
+          setItems(temp);
+        }
+      });
+    });
+  };
 
     
     const [isPressed , setIsPressed] = useState()
