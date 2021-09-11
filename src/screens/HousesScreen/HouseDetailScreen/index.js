@@ -1,4 +1,4 @@
-import { Alert, Text, TouchableOpacity, View, FlatList } from 'react-native';
+import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import {
   CustomButton,
   CustomButtonWithSvg,
@@ -18,8 +18,6 @@ import styles from './styles';
 
 const HouseDetailScreen = ({route, navigation}) => {
   let item = route.params.item;
-  console.log("item----------")
-  console.log(item)
   let db;
   const [items, setItems] = useState([]);
   const [bills, setBills] = useState();
@@ -33,7 +31,6 @@ const HouseDetailScreen = ({route, navigation}) => {
       SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
         .then(dbRes => {
           db = dbRes;
-          console.log('Database opened:', dbRes);
         })
         .catch(e => console.log(e));
       setTimeout(() => {
@@ -53,10 +50,8 @@ const HouseDetailScreen = ({route, navigation}) => {
         [item.id],
         (tx, result) => {
           let bills = [];
-          console.log('result', result);
           for (let index = 0; index < result.rows.length; index++) {
             bills.push(result.rows.item(index));
-            console.log(result.rows.item(index));
             setBills(bills);
           }
         },
@@ -65,9 +60,6 @@ const HouseDetailScreen = ({route, navigation}) => {
         'SELECT * FROM houses WHERE id = ?',
         [item.id],
         (tx, result) => {
-          console.log('result', result);
-          console.log("******************")
-          console.log(result.rows.item(0));
           setItems(result.rows.item(0));
         }
       );
@@ -103,7 +95,6 @@ const HouseDetailScreen = ({route, navigation}) => {
       name: 'sayacdb.db',
       createFromLocation: 1,
     });
-    console.log(db);
     db.transaction(tx => {
       tx.executeSql('DELETE FROM houses WHERE id = ?', [id], (tx, results) => {
         if (results.rowsAffected > 0) {
@@ -155,10 +146,6 @@ const HouseDetailScreen = ({route, navigation}) => {
 
   return (
     <View style={styles.Container}>
-      {console.log("---------------------------")}
-      {console.log(pay)}
-      {console.log(read)}
-      {console.log(ok)}
       <CustomCommonHeader
         data={data.cards}
         backButton={
