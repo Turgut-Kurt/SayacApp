@@ -42,7 +42,6 @@ const CustomModal = props => {
                 <VectorImage style={styles.modalSvg} source={svg} />
               )}
               <Text style={styles.modalText}>{modalText}</Text>
-
               {inputNumber == 1 ? (
                 <TextInput onChangeText={setValue} style={styles.modalInput} />
               ) : null}

@@ -16,8 +16,13 @@ const StatusCard = props => {
     ) : status === 'Tamamlandı' ? (
       <VectorImage style={styles.svg} source={checkcircle} />
     ) : status === 'Ödenecek' ? (
-      <Text style={{color: colors.MainBrown, fontSize: fontSize(20)}}>
-        {price} ₺
+      <Text
+        style={{
+          color: colors.MainBrown,
+          fontSize: fontSize(12),
+          ...fonts.Semibold,
+        }}>
+        {Number(price.toFixed(2))} ₺
       </Text>
     ) : null;
   };
@@ -65,7 +70,7 @@ const StatusCard = props => {
         ]}>
         {status}
       </Text>
-      {price === null ? vectorimage() : showprice()}
+      {vectorimage()}
     </TouchableOpacity>
   );
 };

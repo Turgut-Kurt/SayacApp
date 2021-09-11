@@ -25,6 +25,10 @@ import moment from 'moment';
 import styles from './styles';
 
 const BillsDetailCard = props => {
+  let toplam;
+  let gecikme;
+  let generalDate = new Date();
+  let miliSeconds = generalDate.setHours(generalDate.getHours());
   const monthNames = [
     'Ocak',
     'Şubat',
@@ -54,9 +58,15 @@ const BillsDetailCard = props => {
     meterValue,
     currentTime,
   } = props;
-  const gecikme = () => {
-    let day = bills.gecikmefaiziorani / 30;
+  const calc = () => {
+    let gunlukgecikme = bills.gecikmefaiziorani / 30;
+    let ms = miliSeconds - data.okundugutarihi;
+    let duration = moment.duration(ms, 'milliseconds');
+    let days = duration.asDays();
+    gecikme = days * gunlukgecikme * data.tutar;
+    toplam = gecikme + data.tutar;
   };
+  calc();
   console.log('okundugutarihidataasdada');
   console.log(moment(data.okundugutarihi));
   console.log(data.okundugutarihi);
@@ -98,20 +108,21 @@ const BillsDetailCard = props => {
         <MeterReadInfoCard
           meterReadTime={data.okundugutarihi}
           meterValue={data.okunandeg}
-          amount={data.tutar}
-          delayAmount={'5'}
+          amount={Number(toplam.toFixed(2))}
+          delayAmount={Number(gecikme.toFixed(2))}
         />
       ) : billsStatus == 'Tamamlandı' ? (
         <View>
           <MeterReadInfoCard
             meterReadTime={data.okundugutarihi}
             meterValue={data.okunandeg}
-            amount={data.tutar}
+            delayAmount={Number(gecikme.toFixed(2))}
+            amount={Number(toplam.toFixed(2))}
           />
           <MeterPaidInfoCard
-            meterReadTime={data.odemetarihi}
+            meterReadTime={moment(data.odemetarihi).format('LLL')}
             meterValue={data.okunandeg}
-            amount={data.tutar}
+            amount={Number(toplam.toFixed(2))}
           />
         </View>
       ) : null}

@@ -85,7 +85,7 @@ const BillsCard = props => {
           <VectorImage style={styles.svg1} source={checkcircle} />
         ) : faturadurumu === 'Ödenecek' ? (
           <Text style={{color: colors.MainBrown, fontSize: fontSize(16)}}>
-            {tutar} ₺
+            {Number(tutar.toFixed(2))} ₺
           </Text>
         ) : null}
       </View>

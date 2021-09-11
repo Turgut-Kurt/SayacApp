@@ -20,7 +20,7 @@ const MeterPaidInfoCard = (props) => {
 
         <View style={styles.lines}>
           <Text style={styles.info}>Alınan:</Text>
-          <Text style={styles.values}>{amount}</Text>
+          <Text style={styles.values}>{`${amount} ₺`}</Text>
         </View>
         <View style={styles.lines}>
           <Text style={(styles.info, {color: colors.MainBlue})}>

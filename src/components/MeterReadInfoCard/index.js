@@ -26,11 +26,11 @@ const MeterReadInfoCard = props => {
       </View>
       <View style={styles.lines}>
         <Text style={styles.info}>Gecikme:</Text>
-        <Text style={styles.values}>{delayAmount}</Text>
+        <Text style={styles.values}>{`${delayAmount} ₺`}</Text>
       </View>
       <View style={styles.lines}>
         <Text style={styles.info}>Tutar:</Text>
-        <Text style={styles.values}>{amount}</Text>
+        <Text style={styles.values}>{`${amount} ₺`}</Text>
       </View>
     </View>
   );
