@@ -13,10 +13,7 @@ const SignUp = values => async dispatch => {
       values.surname,
     )
     .then(res => {
-      console.log(res.user.email);
       const uid = res.user.uid;
-      console.log(uid);
-
       database()
         .ref(`/USERS/${uid}/info`)
         .set({

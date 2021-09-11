@@ -53,7 +53,6 @@ const BillsCard = props => {
               : null,
         },
       ]}>
-      {console.log(id)}
       <View style={styles.top}>
         <VectorImage style={styles.svg} source={centerfocus} />
         <Text style={styles.person}>{isimsoyisim} </Text>
@@ -84,8 +83,8 @@ const BillsCard = props => {
         ) : faturadurumu === 'Tamamlandı' ? (
           <VectorImage style={styles.svg1} source={checkcircle} />
         ) : faturadurumu === 'Ödenecek' ? (
-          <Text style={{color: colors.MainBrown, fontSize: fontSize(20)}}>
-            {tutar} ₺
+          <Text style={{color: colors.MainBrown, fontSize: fontSize(16)}}>
+            {Number(tutar.toFixed(2))} ₺
           </Text>
         ) : null}
       </View>

@@ -11,9 +11,9 @@ import {
   CustomButton,
   CustomButtonWithSvg,
   CustomModal,
+  MeterPaidInfoCard,
   MeterReadInfoCard,
   StatusCard,
-  MeterPaidInfoCard,
 } from '~components';
 import React, { useEffect, useState } from 'react';
 import { arrow, centerfocus, checkGray, home, meterRead } from '~assets';
@@ -21,10 +21,14 @@ import { arrow, centerfocus, checkGray, home, meterRead } from '~assets';
 import { PropTypes } from '~/components/config';
 import VectorImage from 'react-native-vector-image';
 import {calculateBill} from '~helpers';
+import moment from 'moment';
 import styles from './styles';
 
 const BillsDetailCard = props => {
-
+  let toplam;
+  let gecikme;
+  let generalDate = new Date();
+  let miliSeconds = generalDate.setHours(generalDate.getHours());
   const monthNames = [
     'Ocak',
     'Şubat',
@@ -50,14 +54,22 @@ const BillsDetailCard = props => {
     meter,
     meterTime,
     billsStatus,
+    bills,
     meterValue,
     currentTime,
   } = props;
-  console.log('"""""""""data"""""""""""""""""');
-  console.log(data);
+  const calc = () => {
+    let gunlukgecikme = bills.gecikmefaiziorani / 30;
+    let ms = miliSeconds - data.okundugutarihi;
+    let duration = moment.duration(ms, 'milliseconds');
+    let days = duration.asDays();
+    gecikme = days * gunlukgecikme * data.tutar;
+    toplam = gecikme + data.tutar;
+  };
+  calc();
   return (
     <View style={styles.container}>
-       <View style={styles.topDate}>
+      <View style={styles.topDate}>
         <VectorImage style={styles.svg} source={centerfocus} />
         <Text style={styles.date}>{monthNames[data.ay - 1]} 2021</Text>
         <Text style={styles.snText}>Sn:</Text>
@@ -78,39 +90,39 @@ const BillsDetailCard = props => {
         Sayaç başlangıç değeri: {data.ilksayacdeg}
       </Text>
       <View style={styles.statusCard}>
-        <StatusCard status={status} />
+        <StatusCard status={status} price={data.tutar} />
       </View>
 
       <View style={styles.bottom}>
         <VectorImage style={styles.svg} source={checkGray} />
         <Text style={styles.info}>Sayaç okuma zamanı geldi</Text>
-        <Text style={styles.meterTime}>{data.sayacokumatarihi}</Text>
+        <Text style={styles.meterTime}>
+          {moment(data.sayacokumatarihi).format('LLL')}
+        </Text>
       </View>
 
-      {billsStatus == "Ödenecek" ? (
+      {billsStatus == 'Ödenecek' ? (
         <MeterReadInfoCard
           meterReadTime={data.okundugutarihi}
           meterValue={data.okunandeg}
-          amount={data.tutar}
+          amount={Number(toplam.toFixed(2))}
+          delayAmount={Number(gecikme.toFixed(2))}
         />
-      ) : billsStatus == "Tamamlandı" ?
-    
-          (<View>
-            <MeterReadInfoCard
-          meterReadTime={data.okundugutarihi}
-          meterValue={data.okunandeg}
-          amount={data.tutar}
-            />
-            <MeterPaidInfoCard
-          meterReadTime={data.odemetarihi}
-          meterValue={data.okunandeg}
-          amount={data.tutar}
-            />
-
-          </View>
-      
-    ) : ( null )
-      }
+      ) : billsStatus == 'Tamamlandı' ? (
+        <View>
+          <MeterReadInfoCard
+            meterReadTime={data.okundugutarihi}
+            meterValue={data.okunandeg}
+            delayAmount={Number(gecikme.toFixed(2))}
+            amount={Number(toplam.toFixed(2))}
+          />
+          <MeterPaidInfoCard
+            meterReadTime={moment(data.odemetarihi).format('LLL')}
+            meterValue={data.okunandeg}
+            amount={Number(toplam.toFixed(2))}
+          />
+        </View>
+      ) : null}
     </View>
   );
 };
