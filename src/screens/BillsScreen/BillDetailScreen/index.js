@@ -23,9 +23,6 @@ const BillDetailScreen = ({route, navigation}) => {
   let generalDate = new Date();
   let miliSeconds = generalDate.setHours(generalDate.getHours());
   let minDate = new Date(miliSeconds);
-
-  console.log('moment');
-  console.log(moment().format('DD MMMM YYYY, hh.mm'));
   let db;
   let hesapla;
 
@@ -52,8 +49,6 @@ const BillDetailScreen = ({route, navigation}) => {
         //'SELECT * FROM bills;',
         [data.id],
         (tx, result) => {
-          console.log('22222222222');
-          console.log(result.rows.item(0));
           setItems(result.rows.item(0));
         },
       );
@@ -73,8 +68,6 @@ const BillDetailScreen = ({route, navigation}) => {
       Alert.alert('Warning!', 'Please write your data.');
     } else {
       try {
-        console.log('hesapla : ');
-        console.log(hesapla);
         db.transaction(tx => {
           tx.executeSql(
             'UPDATE bills SET faturadurumu = ?, okunandeg = ?, okundugutarihi = ?, tutar = ? WHERE id = ?',
@@ -150,8 +143,6 @@ const BillDetailScreen = ({route, navigation}) => {
 
     updateData();
   };
-  console.log('data12121212');
-  console.log(data);
 
   const calculate = () => {
     hesapla = calculateBill(
@@ -162,8 +153,6 @@ const BillDetailScreen = ({route, navigation}) => {
       data.kdvorani,
       data.ctvbedeli,
     );
-    console.log('hesapla');
-    console.log(hesapla);
   };
   return (
     <View>

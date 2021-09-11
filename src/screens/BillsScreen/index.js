@@ -32,7 +32,6 @@ const BillsScreen = ({navigation}) => {
       SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
         .then(dbRes => {
           db = dbRes;
-          console.log('Database opened:', dbRes);
         })
         .catch(e => console.log(e));
       setTimeout(() => {
@@ -52,8 +51,6 @@ const BillsScreen = ({navigation}) => {
           console.log('result', result);
           for (let index = 0; index < result.rows.length; index++) {
             temp.push(result.rows.item(index));
-            console.log('result.rows.item(index)');
-            console.log(result.rows.item(index));
             setItems(temp);
           }
         },
@@ -125,7 +122,6 @@ const BillsScreen = ({navigation}) => {
       name: 'sayacdb.db',
       createFromLocation: 1,
     });
-    console.log(db);
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM houses;', [], (tx, result) => {
         for (let index = 0; index < result.rows.length; index++) {
@@ -145,16 +141,13 @@ const BillsScreen = ({navigation}) => {
               `${moment(minDate).month() + 1}`,
               `${result.rows.item(index).id}`,
             ],
-            (tx, result) => {
-              console.log('tx', tx);
-              console.log('result', result);
-            },
+            (tx, result) => {},
           );
         }
       });
     });
   };
-  
+
   const searchFilter = text => {
     const searchingData = items.filter(item => {
       const filtered = `${item.isimsoyisim} ${item.aboneno}`;
@@ -215,16 +208,11 @@ const BillsScreen = ({navigation}) => {
           onChange={val => searchFilter(val)}
         />
       </View>
-      {console.log("***********************")}
-      {console.log(items)}
-      {console.log("***********************")}
-      
       <FlatList
-        renderItem={({item}) => <BillsCard {...bills} {...item}  />}
+        renderItem={({item}) => <BillsCard {...bills} {...item} />}
         data={filter && filter.length > 0 ? filter : items}
         keyExtractor={(item, index) => item.id}
       />
-      
     </View>
   );
 };

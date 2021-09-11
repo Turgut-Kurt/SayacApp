@@ -25,7 +25,6 @@ const SettingsScreen = ({navigation}) => {
       SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
         .then(dbRes => {
           db = dbRes;
-          console.log('Database opened:', dbRes);
           readData();
         })
         .catch(e => console.log(e));
@@ -35,7 +34,6 @@ const SettingsScreen = ({navigation}) => {
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM billsSettings', [], (tx, result) => {
-        console.log('result', result.rows.item(0).atiksubedeli);
         setData(result.rows.item(0));
       });
     });

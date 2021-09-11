@@ -25,9 +25,7 @@ const HouseCard = props => {
     tcno,
     svg,
     onPress,
-    navigation,
   } = props;
-  console.log(props);
   const [read, setRead] = useState();
   const [pay, setPay] = useState();
   useEffect(() => {
@@ -35,7 +33,6 @@ const HouseCard = props => {
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
       .then(dbRes => {
         db = dbRes;
-        console.log('Database opened:', dbRes);
       })
       .catch(e => console.log(e));
     setTimeout(() => {

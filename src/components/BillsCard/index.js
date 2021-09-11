@@ -53,7 +53,6 @@ const BillsCard = props => {
               : null,
         },
       ]}>
-      {console.log(id)}
       <View style={styles.top}>
         <VectorImage style={styles.svg} source={centerfocus} />
         <Text style={styles.person}>{isimsoyisim} </Text>

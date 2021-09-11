@@ -67,9 +67,6 @@ const BillsDetailCard = props => {
     toplam = gecikme + data.tutar;
   };
   calc();
-  console.log('okundugutarihidataasdada');
-  console.log(moment(data.okundugutarihi));
-  console.log(data.okundugutarihi);
   return (
     <View style={styles.container}>
       <View style={styles.topDate}>

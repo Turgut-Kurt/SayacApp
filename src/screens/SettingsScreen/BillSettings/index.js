@@ -21,7 +21,6 @@ import styles from './styles';
 
 const BillSettings = ({route}) => {
   let data = route.params.item;
-  console.log(data);
   let db;
 
   const [formikInitialValues, setFormikinitialValues] = useState({
@@ -40,7 +39,6 @@ const BillSettings = ({route}) => {
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
       .then(dbRes => {
         db = dbRes;
-        console.log('Database opened:', dbRes);
         readData();
       })
       .catch(e => console.log(e));
@@ -48,14 +46,11 @@ const BillSettings = ({route}) => {
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM billsSettings', [], (tx, result) => {
-        console.log('result', result.rows.item(0).atiksubedeli);
         setData(result.rows.item(0));
       });
     });
   };
   const updateData = async values => {
-    console.log(values);
-
     if (data.id.length == 0) {
       Alert.alert('Warning!', 'Please write your data.');
     } else {
