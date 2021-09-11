@@ -78,7 +78,7 @@ const BillsDetailCard = props => {
         Sayaç başlangıç değeri: {data.ilksayacdeg}
       </Text>
       <View style={styles.statusCard}>
-        <StatusCard status={status} />
+        <StatusCard status={status} price={data.tutar} />
       </View>
 
       <View style={styles.bottom}>
