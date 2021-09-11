@@ -1,216 +1,240 @@
+import {Animated, FlatList, Text, View} from 'react-native';
+import {PropTypes, ViewPropTypes, colors} from '~/components/config';
 import React, {useEffect, useState} from 'react';
-import { View , Text, FlatList, Animated } from 'react-native';
-import { colors, PropTypes, ViewPropTypes, } from '~/components/config';
-import { fontSize } from '~/utils';
-import { MontsButton } from '../MontsButton';
-import styles from './styles';
-import SQLite from 'react-native-sqlite-storage';
+
 import {Loader} from '~components';
+import {MontsButton} from '../MontsButton';
+import SQLite from 'react-native-sqlite-storage';
+import {fontSize} from '~/utils';
+import styles from './styles';
 
-
-
-const MontlyStatusCard = (props, { navigation }) => {
-
-    let db;
+const MontlyStatusCard = (props, {navigation}) => {
+  let db;
   const [items, setItems] = useState([]);
-      const [isPressed , setIsPressed] = useState()
+  const [isPressed, setIsPressed] = useState();
 
-    const [monthlyStatusData, setMontlyStatusData] = useState([]);
-    
-
-    const monts = [
-    { title : "Tümü", name :"Tümü"},
-    { title: 'Ocak', name: 'Ocak' },
-    { title: 'Şubat', name: 'Şubat' },
-    { title: 'Mart', name: 'Mart' },
-    { title: 'Nisan', name: 'Nisan' },
-    { title: 'Mayıs', name: 'Mayıs' },
-    { title: 'Haziran', name: 'Haziran' },
-    { title: 'Temmuz', name: 'Temmuz' },
-    { title: 'Agustos', name: 'Agustos' },
-    { title: 'Eylül', name: 'Eylül' },
-    { title: 'Ekim', name: 'Ekim' },
-    { title: 'Kasım', name: 'Kasım' },
-    { title: 'Aralık', name: 'Aralık' }
-  ]
-  
-    
-    const bills = [{
-      an:1234656,
-      month:"Ocak",
-      faturadurumu:"Tamamlandı",
+  const [monthlyStatusData, setMontlyStatusData] = useState([]);
+  const monts = [
+    {title: 'Tümü', name: 'Tümü'},
+    {title: 'Ocak', name: 'Ocak'},
+    {title: 'Şubat', name: 'Şubat'},
+    {title: 'Mart', name: 'Mart'},
+    {title: 'Nisan', name: 'Nisan'},
+    {title: 'Mayıs', name: 'Mayıs'},
+    {title: 'Haziran', name: 'Haziran'},
+    {title: 'Temmuz', name: 'Temmuz'},
+    {title: 'Agustos', name: 'Agustos'},
+    {title: 'Eylül', name: 'Eylül'},
+    {title: 'Ekim', name: 'Ekim'},
+    {title: 'Kasım', name: 'Kasım'},
+    {title: 'Aralık', name: 'Aralık'},
+  ];
+  const bills = [
+    {
+      an: 1234656,
+      month: 'Ocak',
+      faturadurumu: 'Tamamlandı',
       tutar: 130,
     },
     {
-      an:127856,
-      month:"Şubat",
-      faturadurumu:"Ödenecek",
+      an: 127856,
+      month: 'Şubat',
+      faturadurumu: 'Ödenecek',
       tutar: 140,
-
     },
     {
-      an:1265656,
-      month:"Mart",
-      faturadurumu:"Ödenecek",
-      tutar: 100,
-
-    },
-    {
-      an:1232356,
-      month:"Mart",
-      faturadurumu:"Tamamlandı",
+      an: 1265656,
+      month: 'Mart',
+      faturadurumu: 'Ödenecek',
       tutar: 100,
     },
     {
-      an:181356,
-      month:"Mart",
-      faturadurumu:"Okunacak",
+      an: 1232356,
+      month: 'Mart',
+      faturadurumu: 'Tamamlandı',
+      tutar: 100,
+    },
+    {
+      an: 181356,
+      month: 'Mart',
+      faturadurumu: 'Okunacak',
       tutar: 80,
-    }
-]
+    },
+  ];
 
-    
-    
-    
-    
-    useEffect(() => {
-    
-      SQLite.enablePromise(true);
-      SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
-        .then(dbRes => {
-          db = dbRes;
-          console.log('Database opened:', dbRes);
-        })
-        .catch(e => console.log(e));
-      setTimeout(() => {
-        readData();
-        
-      },500 );
-    
-    
+  useEffect(() => {
+    SQLite.enablePromise(true);
+    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+      .then(dbRes => {
+        db = dbRes;
+        console.log('Database opened:', dbRes);
+      })
+      .catch(e => console.log(e));
+    setTimeout(() => {
+      readData();
+    }, 500);
   }, []);
-  
+
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM bills', [], (tx, result) => {
         let temp = [];
-        console.log('result', result);
         for (let index = 0; index < result.rows.length; index++) {
           temp.push(result.rows.item(index));
-          console.log(result.rows.item(index));
           setItems(temp);
         }
       });
     });
   };
 
-    
+  const filterData = filter => {
+    if (filter === 0) setMontlyStatusData(items);
+    else {
+      setMontlyStatusData(items.filter(({ay}) => ay === `${filter}`));
+    }
+  };
 
-    
-    const filterData = (filter) => {
-        if (filter === 0)
-             setMontlyStatusData(items);
-            
-        else {
-          setMontlyStatusData(items.filter(({ ay }) => ay === `${filter}`));
-             }
-        
-    };
-    
-    
+  const TotalBills = Object.keys(items).length;
 
+  // Paid BillsFeeTotal
 
-    const TotalBills = Object.keys(items).length;
+  const paid = monthlyStatusData.filter(
+    ({faturadurumu}) => faturadurumu === 'Tamamlandı',
+  );
 
+  const paidBills = Object.keys(paid).length;
 
-// Paid BillsFeeTotal
+  const paidPercent = Number(((paidBills / TotalBills) * 100).toFixed(2));
 
-const paid = monthlyStatusData.filter(({ faturadurumu }) => faturadurumu === 'Tamamlandı');
+  const paidBillsFeeTotal = monthlyStatusData.reduce(
+    (prev, cur) => prev + cur.tutar,
+    0,
+  );
 
-const paidBills = Object.keys(paid).length;
+  // Unpaid BillsFeeTotal
 
-const paidPercent = Number(((paidBills / TotalBills) * 100).toFixed(2));
+  const unpaid = monthlyStatusData.filter(
+    ({faturadurumu}) => faturadurumu === 'Ödenecek',
+  );
 
-const paidBillsFeeTotal = monthlyStatusData.reduce((prev, cur) => prev + cur.tutar, 0);
+  const unpaidBills = Object.keys(unpaid).length;
 
-// Unpaid BillsFeeTotal
+  const unpaidPercent = Number(((unpaidBills / TotalBills) * 100).toFixed(2));
 
-const unpaid = monthlyStatusData.filter(({ faturadurumu }) => faturadurumu === 'Ödenecek');
+  const unpaidBillsFeeTotal = monthlyStatusData.reduce(
+    (prev, cur) => prev + cur.tutar,
+    0,
+  );
 
-const unpaidBills = Object.keys(unpaid).length;
+  // number of meter to be read
 
-const unpaidPercent = Number(((unpaidBills / TotalBills) * 100).toFixed(2));
+  const unread = monthlyStatusData.filter(
+    ({faturadurumu}) => faturadurumu === 'Okunacak',
+  );
 
-const unpaidBillsFeeTotal = monthlyStatusData.reduce((prev, cur) => prev + cur.tutar, 0);
+  const unreadBills = Object.keys(unread).length;
 
-// number of meter to be read
+  const unreadPercent = Number(((unreadBills / TotalBills) * 100).toFixed(2));
 
-const unread = monthlyStatusData.filter(({ faturadurumu }) => faturadurumu === 'Okunacak');
+  const {containerStyle, textStyle} = props;
 
-const unreadBills = Object.keys(unread).length;
-
-const unreadPercent = Number(((unreadBills / TotalBills) * 100).toFixed(2));
-
-
-    
-     const { containerStyle , textStyle, } = props;
-    
-    
-    return (
-      <View >
-        {console.log("monthlyStatusData")}
-        {console.log(monthlyStatusData)}
-         <View style={{
-                flexDirection: "row", marginLeft:fontSize(15)}}>
-                <FlatList
-                    renderItem={({ item , index  }) => <MontsButton
-                        {...item}
-                        onPress={() => { setIsPressed(index) ;filterData(index); console.log(index) }}
-                        containerStyle={index === isPressed && styles.ButtonActive}
-                        textStyle={index === isPressed && styles.TextStyleActive}
-                    />}
-                    data={monts}
-                    keyExtractor={(item, index) => index.toString()}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                 />
-             </View>
-            <View style={[styles.Container, containerStyle]}>
-             <View>
-                <Text style={[styles.TextStyle, textStyle]}>Fatura sayısı       :  {TotalBills}</Text>
-                <View style={styles.Status}>
-                    <Text style={[styles.TextStyle, textStyle, { color: colors.MainDarkGray }]}>Okunacak            :   {unreadBills}/{TotalBills} </Text>
-              <View style={{ height: fontSize(12), width:(isNaN(unreadPercent) ? 0 : unreadPercent)  ,backgroundColor : colors.MainDarkGray, borderRadius:fontSize(5)}}></View>
-                    <Text >{unreadPercent} %</Text>
-                </View>
-                <View style={styles.Status}>
-                    <Text style={[styles.TextStyle, textStyle, { color: colors.MainRed,}]}>Ödenecek            :   {unpaidBills}/{TotalBills} </Text>
-                    <View style={{height:fontSize(12), width:(isNaN(unpaidPercent) ? 0 : unpaidPercent),backgroundColor : colors.MainBeige, borderRadius:fontSize(5) }}></View>
-                    <Text  >{unpaidPercent} %</Text>
-                </View> 
-                <View style={styles.Status}>
-                    <Text style={[styles.TextStyle, textStyle, { color: colors.MainGreen }]}>Tamamlandı        :   {paidBills}/{TotalBills} </Text>
-                    <View style={{height:fontSize(12), width:(isNaN(paidPercent) ? 0 : paidPercent),backgroundColor : colors.MainLightGreen, borderRadius:fontSize(5)}}></View>
-                    <Text >{paidPercent} %</Text>
-                </View> 
-            </View>
-            <View style={{paddingVertical:fontSize(30)}}>
-                <Text style={[styles.TextStyle, textStyle]}>Ödenen miktar                                  :   {Number(unpaidBillsFeeTotal.toFixed(2))} ₺</Text>
-                <Text style={[styles.TextStyle, textStyle]}>Ödenen gecikme miktarı                 :</Text>
-                <Text style={[styles.TextStyle, textStyle,{color: colors.MainBlue} ]}>Ödenen genel toplam                      :</Text>
-            </View>
-            </View>    
+  return (
+    <View>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginLeft: fontSize(15),
+        }}>
+        <FlatList
+          renderItem={({item, index}) => (
+            <MontsButton
+              {...item}
+              onPress={() => {
+                setIsPressed(index);
+                filterData(index);
+                console.log(index);
+              }}
+              containerStyle={index === isPressed && styles.ButtonActive}
+              textStyle={index === isPressed && styles.TextStyleActive}
+            />
+          )}
+          data={monts}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+      <View style={[styles.Container, containerStyle]}>
+        <View>
+          <Text style={[styles.TextStyle, textStyle]}>
+            Fatura sayısı : {TotalBills}
+          </Text>
+          <View style={styles.Status}>
+            <Text
+              style={[
+                styles.TextStyle,
+                textStyle,
+                {color: colors.MainDarkGray},
+              ]}>
+              Okunacak : {unreadBills}/{TotalBills}{' '}
+            </Text>
+            <View
+              style={{
+                height: fontSize(12),
+                width: isNaN(unreadPercent) ? 0 : unreadPercent,
+                backgroundColor: colors.MainDarkGray,
+                borderRadius: fontSize(5),
+              }}></View>
+            <Text>{unreadPercent} %</Text>
+          </View>
+          <View style={styles.Status}>
+            <Text
+              style={[styles.TextStyle, textStyle, {color: colors.MainRed}]}>
+              Ödenecek : {unpaidBills}/{TotalBills}{' '}
+            </Text>
+            <View
+              style={{
+                height: fontSize(12),
+                width: isNaN(unpaidPercent) ? 0 : unpaidPercent,
+                backgroundColor: colors.MainBeige,
+                borderRadius: fontSize(5),
+              }}></View>
+            <Text>{unpaidPercent} %</Text>
+          </View>
+          <View style={styles.Status}>
+            <Text
+              style={[styles.TextStyle, textStyle, {color: colors.MainGreen}]}>
+              Tamamlandı : {paidBills}/{TotalBills}{' '}
+            </Text>
+            <View
+              style={{
+                height: fontSize(12),
+                width: isNaN(paidPercent) ? 0 : paidPercent,
+                backgroundColor: colors.MainLightGreen,
+                borderRadius: fontSize(5),
+              }}></View>
+            <Text>{paidPercent} %</Text>
+          </View>
         </View>
-    );
+        <View style={{paddingVertical: fontSize(30)}}>
+          <Text style={[styles.TextStyle, textStyle]}>
+            Ödenen miktar : {Number(unpaidBillsFeeTotal.toFixed(2))} ₺
+          </Text>
+          <Text style={[styles.TextStyle, textStyle]}>
+            Ödenen gecikme miktarı :
+          </Text>
+          <Text style={[styles.TextStyle, textStyle, {color: colors.MainBlue}]}>
+            Ödenen genel toplam :
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
 };
-
- MontlyStatusCard.propTypes = {
-     containerStyle: ViewPropTypes.style,
-     textStyle: Text.propTypes.style,
-    
- };
-MontlyStatusCard.defaultProps = {
-    
+MontlyStatusCard.propTypes = {
+  containerStyle: ViewPropTypes.style,
+  textStyle: Text.propTypes.style,
 };
+MontlyStatusCard.defaultProps = {};
 
-export { MontlyStatusCard };
+export {MontlyStatusCard};

@@ -22,9 +22,6 @@ import styles from './styles';
 
 const UpdateHouseScreen = ({route}) => {
   let data = route.params.items;
-  console.log('UpdateHouseScreen');
-  console.log(data);
-
   let db;
   const [formikInitialValues, setFormikinitialValues] = useState({
     name: `${data.isimsoyisim}`,
@@ -42,14 +39,11 @@ const UpdateHouseScreen = ({route}) => {
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
       .then(dbRes => {
         db = dbRes;
-        console.log('Database opened:', dbRes);
       })
       .catch(e => console.log(e));
   }, []);
 
   const updateData = async values => {
-    console.log(values);
-
     if (data.id.length == 0) {
       Alert.alert('Warning!', 'Please write your data.');
     } else {

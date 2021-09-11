@@ -19,8 +19,6 @@ const BillsScreen = ({navigation}) => {
   let generalDate = new Date();
   let miliSeconds = generalDate.setHours(generalDate.getHours());
   let minDate = new Date(miliSeconds);
-  //console.log('moment(minDate)');
-  //console.log(moment(minDate).format('DD-MM-YYYY HH:mm'));
   let db;
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState([]);
@@ -34,7 +32,6 @@ const BillsScreen = ({navigation}) => {
       SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
         .then(dbRes => {
           db = dbRes;
-          console.log('Database opened:', dbRes);
         })
         .catch(e => console.log(e));
       setTimeout(() => {
@@ -54,7 +51,6 @@ const BillsScreen = ({navigation}) => {
           console.log('result', result);
           for (let index = 0; index < result.rows.length; index++) {
             temp.push(result.rows.item(index));
-            console.log(result.rows.item(index));
             setItems(temp);
           }
         },
@@ -119,43 +115,39 @@ const BillsScreen = ({navigation}) => {
   //     });
   //   });
   // };
- 
+
   const newSetData = async () => {
-     SQLite.enablePromise(true);
-     const db = await SQLite.openDatabase({
-       name: 'sayacdb.db',
-       createFromLocation: 1,
-     });
-     console.log(db);
-     db.transaction(tx => {
-       tx.executeSql('SELECT * FROM houses;', [], (tx, result) => {
-         for (let index = 0; index < result.rows.length; index++) {
-           tx.executeSql(
-             'INSERT INTO bills (faturadurumu, tutar, ay, odemetarihi, okundugutarihi, okunandeg, oncekisayacdeg, sayacokumatarihi, gecikmetutari, housesid) SELECT ?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT * FROM bills WHERE ay = ? AND housesid = ?)',
-             [
-               'Okunacak',
-               '',
-               `${moment(minDate).month() + 1}`,
-               '',
-               '',
-               '',
-               `${result.rows.item(index).ilksayacdeg}`,
-               `${moment(minDate).format('DD-MM-YYYY HH:mm')}`,
-               '',
-               `${result.rows.item(index).id}`,
-               `${moment(minDate).month() + 1}`,
-               `${result.rows.item(index).id}`,
-             ],
-             (tx, result) => {
-               console.log('tx', tx);
-               console.log('result', result);
-             },
-           );
-         }
-       });
-     });
+    SQLite.enablePromise(true);
+    const db = await SQLite.openDatabase({
+      name: 'sayacdb.db',
+      createFromLocation: 1,
+    });
+    db.transaction(tx => {
+      tx.executeSql('SELECT * FROM houses;', [], (tx, result) => {
+        for (let index = 0; index < result.rows.length; index++) {
+          tx.executeSql(
+            'INSERT INTO bills (faturadurumu, tutar, ay, odemetarihi, okundugutarihi, okunandeg, oncekisayacdeg, sayacokumatarihi, gecikmetutari, housesid) SELECT ?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT * FROM bills WHERE ay = ? AND housesid = ?)',
+            [
+              'Okunacak',
+              '',
+              `${moment(minDate).month() + 1}`,
+              '',
+              '',
+              '',
+              `${result.rows.item(index).ilksayacdeg}`,
+              `${miliSeconds}`,
+              '',
+              `${result.rows.item(index).id}`,
+              `${moment(minDate).month() + 1}`,
+              `${result.rows.item(index).id}`,
+            ],
+            (tx, result) => {},
+          );
+        }
+      });
+    });
   };
-  
+
   const searchFilter = text => {
     const searchingData = items.filter(item => {
       const filtered = `${item.isimsoyisim} ${item.aboneno}`;
@@ -216,16 +208,11 @@ const BillsScreen = ({navigation}) => {
           onChange={val => searchFilter(val)}
         />
       </View>
-      {console.log("***********************")}
-      {console.log(items)}
-      {console.log("***********************")}
-      
       <FlatList
-        renderItem={({item}) => <BillsCard {...bills} {...item}  />}
+        renderItem={({item}) => <BillsCard {...bills} {...item} />}
         data={filter && filter.length > 0 ? filter : items}
         keyExtractor={(item, index) => item.id}
       />
-      
     </View>
   );
 };

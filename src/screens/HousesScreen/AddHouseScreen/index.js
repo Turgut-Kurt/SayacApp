@@ -51,7 +51,6 @@ const AddHouseScreen = () => {
     SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
       .then(dbRes => {
         db = dbRes;
-        console.log('Database opened:', dbRes);
       })
       .catch(e => console.log(e));
   }, []);
@@ -71,8 +70,6 @@ const AddHouseScreen = () => {
           values.notes,
         ],
         (tx, result) => {
-          console.log('tx', tx);
-          console.log('result', result);
         },
       );
     });

@@ -13,19 +13,19 @@ const HousesScreen = ({navigation}) => {
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       SQLite.enablePromise(true);
       SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
         .then(dbRes => {
           db = dbRes;
-          console.log('Database opened:', dbRes);
         })
         .catch(e => console.log(e));
       setTimeout(() => {
         readData();
         setLoading(false);
-      }, 3000);
+      }, 500);
     });
     return unsubscribe;
   }, [navigation]);
@@ -40,10 +40,8 @@ const HousesScreen = ({navigation}) => {
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM houses', [], (tx, result) => {
         let temp = [];
-        console.log('result', result);
         for (let index = 0; index < result.rows.length; index++) {
           temp.push(result.rows.item(index));
-          console.log(result.rows.item(index));
           setItems(temp);
         }
       });
@@ -81,6 +79,7 @@ const HousesScreen = ({navigation}) => {
         renderItem={({item}) => (
           <HouseCard
             {...item}
+            navigation={navigation}
             onPress={() =>
               navigate(homeStack.house_detail, {
                 item: item,
