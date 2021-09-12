@@ -1,14 +1,15 @@
 import 'moment/locale/tr';
 
-import {BillsDetailCard, CustomButton, CustomModal, colors} from '~components';
+import { BillsDetailCard, CustomButton, CustomModal, colors, CustomButtonWithSvg, CustomCommonHeader } from '~components';
 import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {arrow, centerfocus, checkGray, home, meterRead, wallet} from '~assets';
-import {calcWidth, fontSize, goBack} from '~utils';
+import { arrow, centerfocus, checkGray, home, meterRead, wallet, delete_house } from '~assets';
+import { calcWidth, fontSize, goBack, push } from '~utils';
 
 import SQLite from 'react-native-sqlite-storage';
 import VectorImage from 'react-native-vector-image';
-import {calculateBill} from '~helpers';
+import { calculateBill } from '~helpers';
+import { billStack } from '~/config';
 import moment from 'moment';
 
 const BillDetailScreen = ({route, navigation}) => {
@@ -54,6 +55,24 @@ const BillDetailScreen = ({route, navigation}) => {
       );
       tx.executeSql('SELECT * FROM billsSettings;', [], (tx, result) => {
         setBills(result.rows.item(0));
+      });
+    });
+  };
+
+  const deleteData = async () => {
+    SQLite.enablePromise(true);
+    const db = await SQLite.openDatabase({
+      name: 'sayacdb.db',
+      createFromLocation: 1,
+    });
+    console.log(db);
+    db.transaction(tx => {
+      tx.executeSql('DELETE FROM bills WHERE id = ?', [data.id], (tx, results) => {
+        if (results.rowsAffected > 0) {
+          console.log('Veri silindi');
+        } else {
+          console.log('Veri silme gerçekleştirilemedi');
+        }
       });
     });
   };
@@ -155,13 +174,31 @@ const BillDetailScreen = ({route, navigation}) => {
     );
   };
   return (
-    <View>
-      <TouchableOpacity onPress={() => goBack()} style={{margin: 10}}>
-        <VectorImage
-          style={{width: 24, height: 24, marginHorizontal: 5}}
-          source={arrow}
+    <View style={{ backgroundColor: colors.MainWhite, flex: 1 }}>
+      <View>
+        <CustomCommonHeader
+          containerStyle={{ height: fontSize(70) }}
+          data={data.cards}
+          backButton={
+            <TouchableOpacity onPress={() => goBack()}>
+              <VectorImage source={arrow} />
+            </TouchableOpacity>
+          }
+          activeBottom={true}
+          rightButton={
+
+            <CustomButtonWithSvg
+              containerStyle={{ marginVertical: fontSize(30) }}
+              onPress={() => {
+                deleteData();
+                push(billStack.bills);
+              }}
+              svg={delete_house}
+              text={'Faturayı Sil'}
+            />
+          }
+
         />
-      </TouchableOpacity>
       <BillsDetailCard
         billsStatus={items.faturadurumu}
         data={items}
@@ -223,21 +260,10 @@ const BillDetailScreen = ({route, navigation}) => {
               marginVertical: fontSize(16),
             }}>
             <CustomButton
-              buttonStyle={{width: calcWidth(42)}}
+
               textName="Yazdır"
               onPress={() => changeModalVisible()}
-            />
-            <CustomButton
-              buttonColor={'white'}
-              textColor={colors.MainBlue}
-              buttonStyle={{
-                width: calcWidth(42),
-                borderWidth: 2,
-                borderColor: colors.MainBlue,
-              }}
-              textName="Yeniden Oku"
-              onPress={() => changeModalVisible()}
-            />
+                />
           </View>
         </View>
       ) : (
@@ -248,23 +274,13 @@ const BillDetailScreen = ({route, navigation}) => {
             marginVertical: fontSize(16),
           }}>
           <CustomButton
-            buttonStyle={{width: calcWidth(42)}}
+
             textName="Yazdır"
             onPress={() => changeModalVisible()}
           />
-          <CustomButton
-            buttonColor={'white'}
-            textColor={colors.MainBlue}
-            buttonStyle={{
-              width: calcWidth(42),
-              borderWidth: 2,
-              borderColor: colors.MainBlue,
-            }}
-            textName="Yeniden Oku"
-            onPress={() => changeModalVisible()}
-          />
+
         </View>
-      )}
+        )}</View>
     </View>
   );
 };
