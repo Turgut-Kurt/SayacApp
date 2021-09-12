@@ -5,7 +5,6 @@
 <div>
 <img width="350" alt="Giriş" src="https://user-images.githubusercontent.com/63108556/133001664-a04420d3-ef72-4e84-a80d-2010e2e753f2.png">
 
-<img width="350" alt="Giriş Yap" src="https://user-images.githubusercontent.com/63108556/133001663-2a94c8c5-3503-4520-857c-1e56166d38d7.png">
 <img width="350" alt="Anasayfa" src="https://user-images.githubusercontent.com/63108556/133001662-37be2e97-90e1-4034-aa91-ccb397460b98.png">
 
 <img width="350" alt="Hane ekle" src="https://user-images.githubusercontent.com/63108556/133001654-1838ad35-2d7a-47e7-ab2a-a5fb61ed1980.png">
