@@ -140,7 +140,7 @@ const BillsDetailCard = props => {
           styles.adress
         }>{`${data.mahalle} ${data.cadde} ${data.sokak}`}</Text>
       <Text style={styles.meter}>
-        Sayaç başlangıç değeri: {data.ilksayacdeg}
+        Sayaç başlangıç değeri: {data.oncekisayacdeg}
       </Text>
       <View style={styles.statusCard}>
         <StatusCard status={status} price={toplamTut} />

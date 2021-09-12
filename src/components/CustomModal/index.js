@@ -43,7 +43,11 @@ const CustomModal = props => {
               )}
               <Text style={styles.modalText}>{modalText}</Text>
               {inputNumber == 1 ? (
-                <TextInput onChangeText={setValue} style={styles.modalInput} />
+                <TextInput
+                  keyboardType='numeric'
+                  onChangeText={setValue} style={styles.modalInput}
+                />
+
               ) : null}
               {buttonNumber == 2 ? (
                 <View style={styles.modalButtons}>
