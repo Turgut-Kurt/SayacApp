@@ -162,18 +162,27 @@ const BillsScreen = ({navigation}) => {
     cards: [
       {
         id: 0,
-        status: 'Okunacak',
-        quantity: read,
+        status: 'Hepsi',
+        quantity: read + pay + ok,
+        onPress: () => filterStatus('Hepsi')
       },
       {
         id: 1,
-        status: 'Ödenecek',
-        quantity: pay,
+        status: 'Okunacak',
+        quantity: read,
+        onPress: () => filterStatus('Okunacak')
       },
       {
         id: 2,
+        status: 'Ödenecek',
+        quantity: pay,
+        onPress: () => filterStatus('Ödenecek')
+      },
+      {
+        id: 3,
         status: 'Tamamlandı',
         quantity: ok,
+        onPress: () => filterStatus('Tamamlandı')
       },
     ],
   };
