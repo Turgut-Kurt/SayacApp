@@ -13,6 +13,8 @@ const MontlyStatusCard = props => {
   let db;
   const [items, setItems] = useState([]);
   const [isPressed, setIsPressed] = useState();
+  let top = 0;
+  let gec = 0;
 
   const [monthlyStatusData, setMontlyStatusData] = useState([]);
   const monts = [
@@ -78,7 +80,7 @@ const MontlyStatusCard = props => {
       setTimeout(() => {
         setIsPressed(0);
         filterData(0);
-      }, 1000);
+      }, 2000);
     });
     return unsubscribe;
   }, [navigation]);
@@ -119,6 +121,15 @@ const MontlyStatusCard = props => {
     0,
   );
 
+  const hesapla = () => {
+    items.map(item => {
+      top = top + item.tutar;
+      gec = gec + item.gecikmetutari;
+    });
+    console.log('top, gec top, gec');
+    console.log(top, gec);
+  };
+
   // Unpaid BillsFeeTotal
 
   const unpaid = monthlyStatusData.filter(
@@ -143,6 +154,7 @@ const MontlyStatusCard = props => {
 
   return (
     <View>
+      {hesapla()}
       <View
         style={{
           flexDirection: 'row',
@@ -221,14 +233,14 @@ const MontlyStatusCard = props => {
         </View>
         <View style={{paddingVertical: fontSize(30)}}>
           <Text style={[styles.TextStyle, textStyle]}>
-            Ödenen miktar : {Number(unpaidBillsFeeTotal.toFixed(2))} ₺
+            Ödenen miktar : {Number(top - gec).toFixed(2)} ₺
           </Text>
-          {/* <Text style={[styles.TextStyle, textStyle]}>
-            Ödenen gecikme miktarı :
+          <Text style={[styles.TextStyle, textStyle]}>
+            Ödenen gecikme miktarı :{Number(gec).toFixed(2)}
           </Text>
           <Text style={[styles.TextStyle, textStyle, {color: colors.MainBlue}]}>
-            Ödenen genel toplam :
-          </Text> */}
+            Ödenen genel toplam : {Number(top).toFixed(2)}
+          </Text>
         </View>
       </View>
     </View>
