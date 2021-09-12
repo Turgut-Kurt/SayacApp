@@ -69,8 +69,7 @@ const AddHouseScreen = () => {
           values.subscriberno,
           values.notes,
         ],
-        (tx, result) => {
-        },
+        (tx, result) => {},
       );
     });
   };

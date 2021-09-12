@@ -8,7 +8,8 @@ import SQLite from 'react-native-sqlite-storage';
 import {fontSize} from '~/utils';
 import styles from './styles';
 
-const MontlyStatusCard = (props, {navigation}) => {
+const MontlyStatusCard = props => {
+  const {containerStyle, textStyle, navigation} = props;
   let db;
   const [items, setItems] = useState([]);
   const [isPressed, setIsPressed] = useState();
@@ -63,17 +64,24 @@ const MontlyStatusCard = (props, {navigation}) => {
   ];
 
   useEffect(() => {
-    SQLite.enablePromise(true);
-    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
-      .then(dbRes => {
-        db = dbRes;
-        console.log('Database opened:', dbRes);
-      })
-      .catch(e => console.log(e));
-    setTimeout(() => {
-      readData();
-    }, 500);
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      SQLite.enablePromise(true);
+      SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+        .then(dbRes => {
+          db = dbRes;
+          console.log('Database opened:', dbRes);
+        })
+        .catch(e => console.log(e));
+      setTimeout(() => {
+        readData();
+      }, 500);
+      setTimeout(() => {
+        setIsPressed(0);
+        filterData(0);
+      }, 1000);
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const readData = () => {
     db.transaction(tx => {
@@ -121,10 +129,7 @@ const MontlyStatusCard = (props, {navigation}) => {
 
   const unpaidPercent = Number(((unpaidBills / TotalBills) * 100).toFixed(2));
 
-  const unpaidBillsFeeTotal = monthlyStatusData.reduce(
-    (prev, cur) => prev + cur.tutar,
-    0,
-  );
+  const unpaidBillsFeeTotal = 100;
 
   // number of meter to be read
 
@@ -135,8 +140,6 @@ const MontlyStatusCard = (props, {navigation}) => {
   const unreadBills = Object.keys(unread).length;
 
   const unreadPercent = Number(((unreadBills / TotalBills) * 100).toFixed(2));
-
-  const {containerStyle, textStyle} = props;
 
   return (
     <View>
@@ -176,7 +179,7 @@ const MontlyStatusCard = (props, {navigation}) => {
                 textStyle,
                 {color: colors.MainDarkGray},
               ]}>
-              Okunacak : {unreadBills}/{TotalBills}{' '}
+              Okunacak : {unreadBills}/{TotalBills}
             </Text>
             <View
               style={{
@@ -190,7 +193,7 @@ const MontlyStatusCard = (props, {navigation}) => {
           <View style={styles.Status}>
             <Text
               style={[styles.TextStyle, textStyle, {color: colors.MainRed}]}>
-              Ödenecek : {unpaidBills}/{TotalBills}{' '}
+              Ödenecek : {unpaidBills}/{TotalBills}
             </Text>
             <View
               style={{
@@ -204,7 +207,7 @@ const MontlyStatusCard = (props, {navigation}) => {
           <View style={styles.Status}>
             <Text
               style={[styles.TextStyle, textStyle, {color: colors.MainGreen}]}>
-              Tamamlandı : {paidBills}/{TotalBills}{' '}
+              Tamamlandı : {paidBills}/{TotalBills}
             </Text>
             <View
               style={{
@@ -220,12 +223,12 @@ const MontlyStatusCard = (props, {navigation}) => {
           <Text style={[styles.TextStyle, textStyle]}>
             Ödenen miktar : {Number(unpaidBillsFeeTotal.toFixed(2))} ₺
           </Text>
-          <Text style={[styles.TextStyle, textStyle]}>
+          {/* <Text style={[styles.TextStyle, textStyle]}>
             Ödenen gecikme miktarı :
           </Text>
           <Text style={[styles.TextStyle, textStyle, {color: colors.MainBlue}]}>
             Ödenen genel toplam :
-          </Text>
+          </Text> */}
         </View>
       </View>
     </View>

@@ -1,12 +1,17 @@
-import { View } from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
-import { home_logo, home_filter} from '~/assets';
-import { fontSize } from '~/utils';
-import { MontlyStatusCard, MontsButton, CustomCommonHeader, CustomButtonWithSvg } from '~/components';
+import {home_logo, home_filter} from '~/assets';
+import {fontSize} from '~/utils';
+import {
+  MontlyStatusCard,
+  MontsButton,
+  CustomCommonHeader,
+  CustomButtonWithSvg,
+} from '~/components';
 
-const StatusScreen = () => {
+const StatusScreen = ({navigation}) => {
   return (
-    <View style={{ backgroundColor: '#ffffff', flex: 1 }}>
+    <View style={{backgroundColor: '#ffffff', flex: 1}}>
       <CustomCommonHeader
         svg={home_logo}
         activeBottom={false}
@@ -18,7 +23,7 @@ const StatusScreen = () => {
           />
         }
       />
-      <MontlyStatusCard />
+      <MontlyStatusCard navigation={navigation} />
     </View>
   );
 };
