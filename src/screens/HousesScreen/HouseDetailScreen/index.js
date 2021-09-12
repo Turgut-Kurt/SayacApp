@@ -119,45 +119,59 @@ const HouseDetailScreen = ({route, navigation}) => {
 
   const readDataBills = async () => {
     db.transaction(tx => {
-      tx.executeSql('SELECT sum(tutar) as tutar, sum(gecikmetutari) as gecikmefaizi from bills where faturadurumu="Ödenecek" and housesid=?', [item.id], (tx, result) => {
+      tx.executeSql('SELECT sum(tutar) as tutar, sum(gecikmetutari) as gecikmetutari from bills where faturadurumu="Ödenecek" and housesid=?', [item.id], (tx, result) => {
 
         console.log("**********------------------------------------------------**********")
         console.log(result.rows.item(0));
         setTotal(result.rows.item(0).tutar);
-        setDelay(result.rows.item(0).delay);
+        setDelay(result.rows.item(0).gecikmetutari);
 
       });
     });
   };
 
-  const searchFilter = text => {
-    const searchingData = bills.filter(item => {
-      const filtered = `${item.ay}`;
-      return filtered.indexOf(text.toLowerCase()) > -1;
-    });
-    setFilter(searchingData);
-  };
 
   const data = {
     cards: [
       {
         id: 0,
-        status: 'Okunacak',
-        quantity: read,
+        status: 'Hepsi',
+        quantity: read + pay + ok,
+        onPress: () => filterStatus('Hepsi')
       },
       {
         id: 1,
-        status: 'Ödenecek',
-        quantity: pay,
+        status: 'Okunacak',
+        quantity: read,
+        onPress: () => filterStatus('Okunacak')
       },
       {
         id: 2,
+        status: 'Ödenecek',
+        quantity: pay,
+        onPress: () => filterStatus('Ödenecek')
+      },
+      {
+        id: 3,
         status: 'Tamamlandı',
         quantity: ok,
+        onPress: () => filterStatus('Tamamlandı')
       },
     ],
   };
   
+  const filterStatus = (status) => {
+    if (status == "Hepsi") {
+      setFilter(bills)
+    } else {
+      setFilter(
+        bills.filter(function (item) {
+
+          return item.faturadurumu.includes(`${status}`);
+        })
+      );
+    }
+  };
 
   return (
     <View style={styles.Container}>
@@ -195,15 +209,10 @@ const HouseDetailScreen = ({route, navigation}) => {
         }
       />
       
-      {console.log('bills')}
-      {console.log(bills)}
-      <HouseDetail {...items} tutar={total > 0 ? total : total === 0 ? total : 0} gecikmetutari={delay > 0 ? delay === 0 : 0} />
-      
-      <SearchInput
-        containerStyle={{width: '90%'}}
-        placeholder={'Fatura Arayın'}
-        onChange={val => searchFilter(val)}
-      />
+
+      <HouseDetail {...items} tutar={total > 0 ? total : total === 0 ? total : 0} gecikmetutari={delay ? delay : 0} />
+
+
       <FlatList
         renderItem={({ item }) => <HouseBillDetail {...item} {...bills} value={item.tutar + item.gecikmetutari} />}
         data={filter && filter.length > 0 ? filter : bills}

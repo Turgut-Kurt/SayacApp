@@ -62,7 +62,6 @@ HouseDetail.propTypes = {
   subsNo: PropTypes.string,
   address: PropTypes.string,
   tutar: PropTypes.number,
-  gecikmetutari: PropTypes.number,
   totalPay: PropTypes.string,
 };
 
