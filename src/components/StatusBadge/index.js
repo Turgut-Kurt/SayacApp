@@ -15,7 +15,9 @@ const StatusBadge = props => {
         ? colors.MainLightGreen
         : status === 'Ödenecek'
         ? colors.MainBeige
-            : colors.MainLightWhite,
+            : status === 'Hepsi'
+              ? colors.MainLightWhite
+              : null
   };
 
   const textcolor = {
@@ -26,7 +28,9 @@ const StatusBadge = props => {
         ? colors.MainGreen
         : status === 'Ödenecek'
         ? colors.MainBrown
-            : colors.MainDarkGray,
+            : status === 'Hepsi'
+              ? colors.MainDarkGray
+              : null
   };
 
   return (
