@@ -25,6 +25,8 @@ const HouseDetailScreen = ({route, navigation}) => {
   const [read, setRead] = useState();
   const [pay, setPay] = useState();
   const [ok, setOk] = useState();
+  const [delay, setDelay] = useState();
+  const [total, setTotal] = useState();
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       SQLite.enablePromise(true);
@@ -35,7 +37,7 @@ const HouseDetailScreen = ({route, navigation}) => {
         .catch(e => console.log(e));
       setTimeout(() => {
         readData();
-        
+        readDataBills();
       }, 1000);
     });
     return unsubscribe;
@@ -115,6 +117,19 @@ const HouseDetailScreen = ({route, navigation}) => {
     });
   };
 
+  const readDataBills = async () => {
+    db.transaction(tx => {
+      tx.executeSql('SELECT sum(tutar) as tutar, sum(gecikmetutari) as gecikmefaizi from bills where faturadurumu="Ödenecek" and housesid=?', [item.id], (tx, result) => {
+
+        console.log("**********------------------------------------------------**********")
+        console.log(result.rows.item(0));
+        setTotal(result.rows.item(0).tutar);
+        setDelay(result.rows.item(0).delay);
+
+      });
+    });
+  };
+
   const searchFilter = text => {
     const searchingData = bills.filter(item => {
       const filtered = `${item.ay}`;
@@ -182,7 +197,7 @@ const HouseDetailScreen = ({route, navigation}) => {
       
       {console.log('bills')}
       {console.log(bills)}
-      <HouseDetail {...items} tutar={55} gecikmetutari={2} />
+      <HouseDetail {...items} tutar={total > 0 ? total : total === 0 ? total : 0} gecikmetutari={delay > 0 ? delay === 0 : 0} />
       
       <SearchInput
         containerStyle={{width: '90%'}}
@@ -190,7 +205,7 @@ const HouseDetailScreen = ({route, navigation}) => {
         onChange={val => searchFilter(val)}
       />
       <FlatList
-        renderItem={({item}) => <HouseBillDetail {...item} {...bills} />}
+        renderItem={({ item }) => <HouseBillDetail {...item} {...bills} value={item.tutar + item.gecikmetutari} />}
         data={filter && filter.length > 0 ? filter : bills}
         keyExtractor={(item, index) => item.id}
       />
