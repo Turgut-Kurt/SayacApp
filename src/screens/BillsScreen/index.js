@@ -151,6 +151,19 @@ const BillsScreen = ({navigation}) => {
     });
   };
 
+  const filterStatus = (status) => {
+    if (status == "Hepsi") {
+      setFilter(items)
+    } else {
+      setFilter(
+        items.filter(function (item) {
+
+          return item.faturadurumu.includes(`${status}`);
+        })
+      );
+    }
+  };
+
   const searchFilter = text => {
     const searchingData = items.filter(item => {
       const filtered = `${item.isimsoyisim} ${item.aboneno}`;
