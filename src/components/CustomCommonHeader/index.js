@@ -21,6 +21,7 @@ const CustomCommonHeader = props => {
     activeBottom,
     bottomViewStyle,
     data,
+
   } = props;
   const backgroundColor = {
     backgroundColor:
@@ -72,6 +73,7 @@ const CustomCommonHeader = props => {
               active={true}
               background={backgroundColor}
               textStyle={textStyle}
+              onPress={item.onPress}
             />
           ))}
         </View>

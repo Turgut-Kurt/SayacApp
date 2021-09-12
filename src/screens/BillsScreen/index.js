@@ -148,6 +148,19 @@ const BillsScreen = ({navigation}) => {
     });
   };
 
+  const filterStatus = (status) => {
+    if (status == "Hepsi") {
+      setFilter(items)
+    } else {
+      setFilter(
+        items.filter(function (item) {
+
+          return item.faturadurumu.includes(`${status}`);
+        })
+      );
+    }
+  };
+
   const searchFilter = text => {
     const searchingData = items.filter(item => {
       const filtered = `${item.isimsoyisim} ${item.aboneno}`;
@@ -159,18 +172,27 @@ const BillsScreen = ({navigation}) => {
     cards: [
       {
         id: 0,
-        status: 'Okunacak',
-        quantity: read,
+        status: 'Hepsi',
+        quantity: read + pay + ok,
+        onPress: () => filterStatus('Hepsi')
       },
       {
         id: 1,
-        status: 'Ödenecek',
-        quantity: pay,
+        status: 'Okunacak',
+        quantity: read,
+        onPress: () => filterStatus('Okunacak')
       },
       {
         id: 2,
+        status: 'Ödenecek',
+        quantity: pay,
+        onPress: () => filterStatus('Ödenecek')
+      },
+      {
+        id: 3,
         status: 'Tamamlandı',
         quantity: ok,
+        onPress: () => filterStatus('Tamamlandı')
       },
     ],
   };
@@ -201,6 +223,7 @@ const BillsScreen = ({navigation}) => {
             text={'Ağustos 2021'}
           />
         }
+
       />
       <View style={{marginHorizontal: 16}}>
         <SearchInput

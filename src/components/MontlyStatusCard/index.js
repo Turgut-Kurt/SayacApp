@@ -88,6 +88,7 @@ const MontlyStatusCard = (props, {navigation}) => {
   };
 
   const filterData = filter => {
+
     if (filter === 0) setMontlyStatusData(items);
     else {
       setMontlyStatusData(items.filter(({ay}) => ay === `${filter}`));
