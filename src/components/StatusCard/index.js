@@ -22,7 +22,7 @@ const StatusCard = props => {
           fontSize: fontSize(12),
           ...fonts.Semibold,
         }}>
-        {Number(price.toFixed(2))} ₺
+        {Number(price).toFixed(2)} ₺
       </Text>
     ) : null;
   };

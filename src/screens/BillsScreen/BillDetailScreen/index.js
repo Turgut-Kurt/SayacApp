@@ -165,6 +165,7 @@ const BillDetailScreen = ({route, navigation}) => {
       <BillsDetailCard
         billsStatus={items.faturadurumu}
         data={items}
+        id={data.id}
         bills={bills}
         status={items.faturadurumu}
         currentTime={currentTime}
