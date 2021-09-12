@@ -89,7 +89,7 @@ HouseBillDetail.propTypes = {
     ay: PropTypes.string,
     year: PropTypes.string,
     faturadurumu: PropTypes.string,
-    value: PropTypes.string,
+  value: PropTypes.number,
     svg2: PropTypes.number,
     svg3: PropTypes.number,
     valueText: ViewPropTypes.style,
