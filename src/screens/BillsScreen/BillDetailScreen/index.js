@@ -74,8 +74,23 @@ const BillDetailScreen = ({route, navigation}) => {
           console.log('Veri silme gerçekleştirilemedi');
         }
       });
+      tx.executeSql(
+        'UPDATE houses SET ilksayacdeg = ? WHERE id = ?',
+        [data.oncekisayacdeg, data.housesid],
+
+        () => {
+          Alert.alert('Success!', 'Your data has been updated.');
+        },
+        error => {
+          console.log(error);
+        },
+      );
     });
+
   };
+
+  console.log("****************************************")
+  console.log(data.oncekisayacdeg)
 
   const updateData = async () => {
     SQLite.enablePromise(true);
@@ -91,6 +106,17 @@ const BillDetailScreen = ({route, navigation}) => {
           tx.executeSql(
             'UPDATE bills SET faturadurumu = ?, okunandeg = ?, okundugutarihi = ?, tutar = ? WHERE id = ?',
             ['Ödenecek', value, `${miliSeconds}`, `${hesapla}`, data.id],
+
+            () => {
+              Alert.alert('Success!', 'Your data has been updated.');
+            },
+            error => {
+              console.log(error);
+            },
+          );
+          tx.executeSql(
+            'UPDATE houses SET ilksayacdeg = ? WHERE id = ?',
+            [value, data.housesid],
 
             () => {
               Alert.alert('Success!', 'Your data has been updated.');
