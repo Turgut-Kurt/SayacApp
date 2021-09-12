@@ -130,13 +130,6 @@ const HouseDetailScreen = ({route, navigation}) => {
     });
   };
 
-  const searchFilter = text => {
-    const searchingData = bills.filter(item => {
-      const filtered = `${item.ay}`;
-      return filtered.indexOf(text.toLowerCase()) > -1;
-    });
-    setFilter(searchingData);
-  };
 
   const data = {
     cards: [
@@ -216,16 +209,10 @@ const HouseDetailScreen = ({route, navigation}) => {
         }
       />
       
-      {console.log('bills')}
-      {console.log(bills)}
+
       <HouseDetail {...items} tutar={total > 0 ? total : total === 0 ? total : 0} gecikmetutari={delay ? delay : 0} />
-      {console.log(delay > 0 ? delay === 0 : 0)}
-      
-      <SearchInput
-        containerStyle={{width: '90%'}}
-        placeholder={'Fatura Arayın'}
-        onChange={val => searchFilter(val)}
-      />
+
+
       <FlatList
         renderItem={({ item }) => <HouseBillDetail {...item} {...bills} value={item.tutar + item.gecikmetutari} />}
         data={filter && filter.length > 0 ? filter : bills}
