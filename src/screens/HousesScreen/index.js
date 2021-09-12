@@ -49,21 +49,21 @@ const HousesScreen = ({navigation}) => {
   };
 
   return (
-    <View style={{backgroundColor: '#ffffff'}}>
+    <View style={{backgroundColor: '#ffffff', flex: 1}}>
       <Loader loading={loading} />
       <CustomCommonHeader
         svg={home_logo}
         activeBottom={false}
-        leftButton={
-          <CustomButtonWithSvg
-            containerStyle={{
-              marginRight: fontSize(10),
-            }}
-            onPress={() => navigate(homeStack.add_house)}
-            svg={home_filter}
-            text={'Filtrele(sankigereksiz)'}
-          />
-        }
+        // leftButton={
+        //   <CustomButtonWithSvg
+        //     containerStyle={{
+        //       marginRight: fontSize(10),
+        //     }}
+        //     onPress={() => navigate(homeStack.add_house)}
+        //     svg={home_filter}
+        //     text={'Filtrele(sankigereksiz)'}
+        //   />
+        // }
         rightButton={
           <CustomButtonWithSvg
             onPress={() => navigate(homeStack.add_house)}

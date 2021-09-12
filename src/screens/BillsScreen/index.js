@@ -34,6 +34,7 @@ const BillsScreen = ({navigation}) => {
           db = dbRes;
         })
         .catch(e => console.log(e));
+      newSetData();
       setTimeout(() => {
         readData();
       }, 1000);
@@ -151,15 +152,14 @@ const BillsScreen = ({navigation}) => {
     });
   };
 
-  const filterStatus = (status) => {
-    if (status == "Hepsi") {
-      setFilter(items)
+  const filterStatus = status => {
+    if (status == 'Hepsi') {
+      setFilter(items);
     } else {
       setFilter(
         items.filter(function (item) {
-
           return item.faturadurumu.includes(`${status}`);
-        })
+        }),
       );
     }
   };
@@ -177,25 +177,25 @@ const BillsScreen = ({navigation}) => {
         id: 0,
         status: 'Hepsi',
         quantity: read + pay + ok,
-        onPress: () => filterStatus('Hepsi')
+        onPress: () => filterStatus('Hepsi'),
       },
       {
         id: 1,
         status: 'Okunacak',
         quantity: read,
-        onPress: () => filterStatus('Okunacak')
+        onPress: () => filterStatus('Okunacak'),
       },
       {
         id: 2,
         status: 'Ödenecek',
         quantity: pay,
-        onPress: () => filterStatus('Ödenecek')
+        onPress: () => filterStatus('Ödenecek'),
       },
       {
         id: 3,
         status: 'Tamamlandı',
         quantity: ok,
-        onPress: () => filterStatus('Tamamlandı')
+        onPress: () => filterStatus('Tamamlandı'),
       },
     ],
   };
@@ -206,22 +206,22 @@ const BillsScreen = ({navigation}) => {
         svg={home_logo}
         data={data.cards}
         activeBottom={true}
-        leftButton={
-          <CustomButtonWithSvg
-            containerStyle={{
-              marginRight: fontSize(10),
-            }}
-            onPress={() => newSetData()}
-            svg={home_filter}
-            text={'Oluştur'}
-          />
-        }
+        // leftButton={
+        //   <CustomButtonWithSvg
+        //     containerStyle={{
+        //       marginRight: fontSize(10),
+        //     }}
+        //     onPress={() => newSetData()}
+        //     svg={home_filter}
+        //     text={'Oluştur'}
+        //   />
+        // }
         rightButton={
           <CustomButtonWithSvg
             containerStyle={{
               marginRight: fontSize(10),
             }}
-            onPress={() => navigate(homeStack.add_house)}
+            onPress={() => console.log('Filter Basıldı.')}
             svg={home_filter}
             text={'Ağustos 2021'}
           />
