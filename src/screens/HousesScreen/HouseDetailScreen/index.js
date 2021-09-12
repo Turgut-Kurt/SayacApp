@@ -129,13 +129,7 @@ const HouseDetailScreen = ({route, navigation}) => {
     }
   };
 
-  const searchFilter = text => {
-    const searchingData = bills.filter(item => {
-      const filtered = `${item.ay}`;
-      return filtered.indexOf(text.toLowerCase()) > -1;
-    });
-    setFilter(searchingData);
-  };
+
 
   const data = {
     cards: [
@@ -207,13 +201,9 @@ const HouseDetailScreen = ({route, navigation}) => {
       {console.log(bills)}
       <HouseDetail {...items} tutar={55} gecikmetutari={2} />
       
-      <SearchInput
-        containerStyle={{width: '90%'}}
-        placeholder={'Fatura Arayın'}
-        onChange={val => searchFilter(val)}
-      />
+
       <FlatList
-        renderItem={({item}) => <HouseBillDetail {...item} {...bills} />}
+        renderItem={({ item }) => <HouseBillDetail {...item} {...bills} />}
         data={filter && filter.length > 0 ? filter : bills}
         keyExtractor={(item, index) => item.id}
       />

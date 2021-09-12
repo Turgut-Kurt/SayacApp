@@ -49,7 +49,7 @@ const HousesScreen = ({navigation}) => {
   };
 
   return (
-    <View style={{backgroundColor: '#ffffff'}}>
+    <View style={{ backgroundColor: '#ffffff', flex: 1 }}>
       <Loader loading={loading} />
       <CustomCommonHeader
         svg={home_logo}

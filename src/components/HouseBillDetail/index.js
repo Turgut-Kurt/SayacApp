@@ -6,10 +6,12 @@ import React from 'react';
 import VectorImage from 'react-native-vector-image';
 import {colors} from '../config';
 import styles from './styles';
+import { navigate } from '~/utils';
+import { billStack, homeTabs } from '~/config';
 
 const HouseBillDetail = props => {
-  const { containerStyle, svg, ay, year, faturadurumu, value, svg2, svg3 } = props;
-  
+  const { containerStyle, svg, ay, year, faturadurumu, value, svg2, svg3, id } = props;
+  console.log("bills id" + id)
   const monthNames = [
     'Ocak',
     'Şubat',
@@ -64,7 +66,7 @@ const HouseBillDetail = props => {
 
   return (
     <View style={styles.Container}>
-      <TouchableOpacity style={[styles.Bill, containerStyle, {...background}]}>
+      <TouchableOpacity style={[styles.Bill, containerStyle, { ...background }]} onPress={() => navigate(homeTabs.bill_stack, { screen: billStack.bill_detail, params: { id } })}>
         <View style={styles.Time}>
           <VectorImage source={svg} style={styles.Svg} />
           <Text style={styles.TimeText}>{monthNames[ay - 1]}</Text>

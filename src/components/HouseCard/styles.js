@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
         padding: fontSize(13),
         paddingBottom:fontSize(7),
         elevation: 15,
-        backgroundColor:"white",
+        backgroundColor: "white",
+
     },
     AnContainer: {
         

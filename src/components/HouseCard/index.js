@@ -68,7 +68,7 @@ const HouseCard = props => {
     quantity: read,
   };
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} >
       <View style={[styles.Container, containerStyle]}>
         <View style={styles.NameContainer}>
           <View style={{flexDirection: 'row'}}>
