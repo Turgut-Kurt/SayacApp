@@ -31,7 +31,9 @@ const CustomCommonHeader = props => {
           ? colors.MainLightGreen
           : data.status === 'Ödenecek'
             ? colors.MainBeige
-            : null,
+            : data.status === 'Hepsi'
+              ? colors.MainBlue
+              : null,
   };
 
   const textStyle = {
@@ -42,7 +44,9 @@ const CustomCommonHeader = props => {
           ? colors.MainGreen
           : data.status === 'Ödenecek'
             ? colors.MainBrown
-            : null,
+            : data.status === 'Hepsi'
+              ? colors.MainBrown
+              : null,
   };
 
   return (

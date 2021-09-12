@@ -12,10 +12,12 @@ const StatusBadge = props => {
       status === 'Okunacak'
         ? colors.MainLightWhite
         : status === 'Tamamlandı'
-        ? colors.MainLightGreen
-        : status === 'Ödenecek'
-        ? colors.MainBeige
-        : null,
+          ? colors.MainLightGreen
+          : status === 'Ödenecek'
+            ? colors.MainBeige
+            : status === 'Hepsi'
+              ? colors.MainLightWhite
+              : null
   };
 
   const textcolor = {
@@ -23,10 +25,12 @@ const StatusBadge = props => {
       status === 'Okunacak'
         ? colors.MainLightBlue
         : status === 'Tamamlandı'
-        ? colors.MainGreen
-        : status === 'Ödenecek'
-        ? colors.MainBrown
-        : null,
+          ? colors.MainGreen
+          : status === 'Ödenecek'
+            ? colors.MainBrown
+            : status === 'Hepsi'
+              ? colors.MainDarkGray
+              : null
   };
 
   return (
