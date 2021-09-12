@@ -40,6 +40,9 @@ const BillsScreen = ({navigation}) => {
     });
     return unsubscribe;
   }, [navigation]);
+
+  console.log('items[0]');
+  console.log(items[0]);
   const readData = () => {
     db.transaction(tx => {
       tx.executeSql(

@@ -17,6 +17,7 @@ import {
 } from '~components';
 import React, {useEffect, useState} from 'react';
 import {arrow, centerfocus, checkGray, home, meterRead} from '~assets';
+import SQLite from 'react-native-sqlite-storage';
 
 import {PropTypes} from '~/components/config';
 import VectorImage from 'react-native-vector-image';
@@ -25,10 +26,9 @@ import moment from 'moment';
 import styles from './styles';
 
 const BillsDetailCard = props => {
-  let toplam;
-  let gecikme;
-  let generalDate = new Date();
-  let miliSeconds = generalDate.setHours(generalDate.getHours());
+  const [toplamTut, setToplamTut] = useState(0);
+  const [gecikmeTut, setGecikmeTut] = useState(0);
+
   const monthNames = [
     'Ocak',
     'Şubat',
@@ -44,6 +44,7 @@ const BillsDetailCard = props => {
     'Aralık',
   ];
   const {
+    id,
     data,
     an,
     name,
@@ -58,17 +59,69 @@ const BillsDetailCard = props => {
     meterValue,
     currentTime,
   } = props;
+  let toplam;
+  let gecikme;
+  let generalDate = new Date();
+  let miliSeconds = generalDate.setHours(generalDate.getHours());
   const calc = () => {
     let gunlukgecikme = bills.gecikmefaiziorani / 30;
     let ms = miliSeconds - data.okundugutarihi;
     let duration = moment.duration(ms, 'milliseconds');
     let days = duration.asDays();
+    console.log('data-tutar' + data.tutar);
     gecikme = days * gunlukgecikme * data.tutar;
-    toplam = gecikme + data.tutar;
+    toplam = gecikme * data.tutar;
+    setGecikmeTut(days * gunlukgecikme * data.tutar);
+    setToplamTut(days * gunlukgecikme * data.tutar + data.tutar);
   };
-  calc();
+
+  useEffect(() => {
+    SQLite.enablePromise(true);
+    SQLite.openDatabase({name: 'sayacdb.db', createFromLocation: 1})
+      .then(dbRes => {
+        db = dbRes;
+        console.log('Database opened:', dbRes);
+        calc();
+      })
+      .catch(e => console.log(e));
+    setTimeout(() => {
+      updateData();
+    }, 1000);
+  }, [props]);
+
+  const updateData = async () => {
+    SQLite.enablePromise(true);
+    const db = await SQLite.openDatabase({
+      name: 'sayacdb.db',
+      createFromLocation: 1,
+    });
+    if (billsStatus !== 'Ödenecek') {
+      console.log('Warning!', 'Please write your data.');
+    } else {
+      try {
+        db.transaction(tx => {
+          tx.executeSql(
+            'UPDATE bills SET  tutar = ?, gecikmetutari = ? WHERE id = ?',
+            [`${data.tutar}`, `${gecikme}`, id],
+
+            (tx, result) => {
+              console.log('result', result.rows.item(0));
+            },
+            error => {
+              console.log(error);
+            },
+          );
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
+      {console.log('toplam', 'gecikme')}
+      {console.log(toplam, gecikme)}
       <View style={styles.topDate}>
         <VectorImage style={styles.svg} source={centerfocus} />
         <Text style={styles.date}>{monthNames[data.ay - 1]} 2021</Text>
@@ -90,7 +143,7 @@ const BillsDetailCard = props => {
         Sayaç başlangıç değeri: {data.ilksayacdeg}
       </Text>
       <View style={styles.statusCard}>
-        <StatusCard status={status} price={data.tutar} />
+        <StatusCard status={status} price={toplamTut} />
       </View>
 
       <View style={styles.bottom}>
@@ -105,21 +158,21 @@ const BillsDetailCard = props => {
         <MeterReadInfoCard
           meterReadTime={data.okundugutarihi}
           meterValue={data.okunandeg}
-          amount={Number(toplam.toFixed(2))}
-          delayAmount={Number(gecikme.toFixed(2))}
+          amount={Number(toplamTut).toFixed(2)}
+          delayAmount={Number(gecikmeTut).toFixed(2)}
         />
       ) : billsStatus == 'Tamamlandı' ? (
         <View>
           <MeterReadInfoCard
             meterReadTime={data.okundugutarihi}
             meterValue={data.okunandeg}
-            delayAmount={Number(gecikme.toFixed(2))}
-            amount={Number(toplam.toFixed(2))}
+            delayAmount={Number(gecikmeTut).toFixed(2)}
+            amount={Number(toplamTut).toFixed(2)}
           />
           <MeterPaidInfoCard
             meterReadTime={moment(data.odemetarihi).format('LLL')}
             meterValue={data.okunandeg}
-            amount={Number(toplam.toFixed(2))}
+            amount={Number(toplamTut).toFixed(2)}
           />
         </View>
       ) : null}

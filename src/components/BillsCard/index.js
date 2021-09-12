@@ -1,7 +1,7 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { PropTypes, ViewPropTypes } from '~/components/config';
-import { centerfocus, checkcircle, toberead } from '~assets';
-import { colors, fonts, globalStyle, lineHeights, sizes } from '../config';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {PropTypes, ViewPropTypes} from '~/components/config';
+import {centerfocus, checkcircle, toberead} from '~assets';
+import {colors, fonts, globalStyle, lineHeights, sizes} from '../config';
 import {fontSize, navigate} from '~utils';
 
 import React from 'react';
@@ -36,6 +36,7 @@ const BillsCard = props => {
     faturadurumu,
     ay,
     tutar,
+    gecikmetutari,
   } = props;
   return (
     <TouchableOpacity
@@ -84,7 +85,7 @@ const BillsCard = props => {
           <VectorImage style={styles.svg1} source={checkcircle} />
         ) : faturadurumu === 'Ödenecek' ? (
           <Text style={{color: colors.MainBrown, fontSize: fontSize(16)}}>
-            {Number(tutar.toFixed(2))} ₺
+            {Number(tutar + gecikmetutari).toFixed(2)} ₺
           </Text>
         ) : null}
       </View>
@@ -92,21 +93,18 @@ const BillsCard = props => {
   );
 };
 
-
 BillsCard.propTypes = {
-    onPress: PropTypes.func,
-    ContainerStyle: ViewPropTypes.style,
-    svgStyle: Text.propTypes.style,
-    svg: PropTypes.number,
-    textStyle: Text.propTypes.style,
-    text: PropTypes.string,
+  onPress: PropTypes.func,
+  ContainerStyle: ViewPropTypes.style,
+  svgStyle: Text.propTypes.style,
+  svg: PropTypes.number,
+  textStyle: Text.propTypes.style,
+  text: PropTypes.string,
 };
 
 BillsCard.defaultProps = {
-    //onPress: () => console.log('BillsCard basıldı.'),
-    price: 45,
+  //onPress: () => console.log('BillsCard basıldı.'),
+  price: 45,
 };
 
-
-export { BillsCard };
-
+export {BillsCard};

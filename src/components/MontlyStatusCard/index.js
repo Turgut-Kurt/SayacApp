@@ -227,28 +227,6 @@ const MontlyStatusCard = (props, {navigation}) => {
             Ödenen genel toplam :
           </Text>
         </View>
-        <View>
-          <Text style={[styles.TextStyle, textStyle]}>
-            Kalan miktar : {Number(unpaidBillsFeeTotal.toFixed(2))} ₺
-          </Text>
-          <Text style={[styles.TextStyle, textStyle]}>
-            Kalan gecikme miktarı :
-          </Text>
-          <Text style={[styles.TextStyle, textStyle, {color: colors.MainBlue}]}>
-            Kalan genel toplam :
-          </Text>
-        </View>
-      </View>
-      <View>
-        <Text style={[styles.TextStyle, textStyle]}>
-          Kalan miktar : {unpaidBillsFeeTotal} ₺
-        </Text>
-        <Text style={[styles.TextStyle, textStyle]}>
-          Kalan gecikme miktarı :
-        </Text>
-        <Text style={[styles.TextStyle, textStyle, {color: colors.MainBlue}]}>
-          Kalan genel toplam :
-        </Text>
       </View>
     </View>
   );
